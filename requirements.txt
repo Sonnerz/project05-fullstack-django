@@ -1,0 +1,4 @@
+autopep8==1.4.2
+Django==1.11
+pycodestyle==2.4.0
+pytz==2018.7
