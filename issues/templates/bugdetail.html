@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 col-sm-9">
+        {% if bug.image %}
+        <img class="img-blogpost" src="/media/{{ bug.image }}">
+        {% endif %}
+        <h3>{{ bug.title }}</h3>
+        <div class="row">
+            <div class="col-xs-9">
+                <p>{{ bug.id }}</p>
+                <p>{{ bug.details }}</p>
+                <p><span class="boldtext">Published on:</span> {{ bug.published_date }} </p>
+                <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
+                <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
+                <a href="{% url 'get_all_bugs' %}" class="btn btn-default">Back To Bugs</a>
+                <a href="{% url 'edit_bug' bug.id %}" class="btn btn-default">Edit bug</a>
+                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
+                <p><span class="boldtext">User Logged in:</span> {{ user.username }}</p>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
