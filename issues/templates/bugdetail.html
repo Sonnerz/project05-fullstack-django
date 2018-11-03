@@ -10,7 +10,7 @@
             <div class="col-xs-9">
                 <p>{{ bug.id }}</p>
                 <p>{{ bug.details }}</p>
-                <p><span class="boldtext">Published on:</span> {{ bug.published_date }} </p>
+                <p><span class="boldtext">Published on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
                 <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
                 <a href="{% url 'get_all_bugs' %}" class="btn btn-default">Back To Bugs</a>
