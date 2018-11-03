@@ -13,14 +13,14 @@
                 <p><span class="boldtext">Published on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
                 <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
+                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
                 <a href="{% url 'get_all_bugs' %}" class="btn btn-primary">Back To Bugs</a>
                 {% if user.username == bug.author.username %}
                 <a href="{% url 'edit_bug' bug.id %}" class="btn btn-secondary">Edit bug</a>
-                {% else %}
-                "WOOHOO"
                 {% endif %}
-                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
-                <p><span class="boldtext">User Logged in:</span> {{ user.username }}</p>
+                {% if user.username != bug.author.username %}
+                <a href="{% url 'vote_bug' bug.id %}" class="btn btn-secondary">Vote up</a>
+                {% endif %}
                 <hr>
             </div>
         </div>

@@ -21,3 +21,20 @@ class Bug(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class Feature(models.Model):
+    """
+    A single Feature
+    """
+    title = models.CharField(max_length=100)
+    details = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    published_date = models.DateTimeField(
+        blank=True, null=True, default=timezone.now)
+    votes = models.IntegerField(default=0)
+    tag = models.CharField(max_length=30, blank=True, null=True)
+    author = models.ForeignKey(User, default=None)
+
+    def __unicode__(self):
+        return self.title
