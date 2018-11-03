@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
 {% block content %}
+{% if request.path == '/issues/new/' %}
 <h1>New bug</h1>
+{% else %}
+<h1>Edit bug</h1>
+{% endif %}
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | as_bootstrap }}
     <button type="submit" class="btn btn-info">Save</button>
+    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
 </form>
 {% endblock %}

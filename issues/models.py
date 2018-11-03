@@ -17,8 +17,7 @@ class Bug(models.Model):
     votes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, default=None)
 
     def __unicode__(self):
         return self.title

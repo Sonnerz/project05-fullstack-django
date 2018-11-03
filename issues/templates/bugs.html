@@ -8,7 +8,7 @@
             <div class="col-xs-9">
                 <p>{{ bug.id }}</p>
                 <p>{{ bug.details|truncatewords:30 }}</p>
-                <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-default">Read more</a></p>
+                <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Read more</a></p>
                 <p><span class="boldtext">Published on:</span> {{ bug.published_date }} </p>
                 <p><span class="boldtext">Votes:</span> {{bug.votes}}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>

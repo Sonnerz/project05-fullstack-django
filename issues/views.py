@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug
 from .forms import BugForm
@@ -6,6 +7,7 @@ from .forms import BugForm
 # Create your views here.
 
 
+@login_required
 def get_all_bugs(request):
     """
     Create a view taht will return a list
@@ -17,6 +19,7 @@ def get_all_bugs(request):
     return render(request, "bugs.html", {'bugs': bugs})
 
 
+@login_required
 def bug_detail(request, pk):
     """
     Create a view that returns a single
@@ -33,6 +36,7 @@ def bug_detail(request, pk):
     return render(request, "bugdetail.html", {'bug': bug})
 
 
+@login_required
 def create_or_edit_bug(request, pk=None):
     """
     Create a view that allows us to create
@@ -41,12 +45,15 @@ def create_or_edit_bug(request, pk=None):
     """
 
     bug = get_object_or_404(Bug, pk=pk) if pk else None
-    print("Bug EDIT", bug)
-    print("Bug EDIT", pk)
     if request.method == "POST":
+        print(request)
+        if "cancel" in request.POST:
+            return redirect(get_all_bugs)
         form = BugForm(request.POST, request.FILES, instance=bug)
         if form.is_valid():
-            bug = form.save()
+            bug = form.save(commit=False)
+            bug.author = request.user
+            bug.save()
             return redirect(bug_detail, bug.pk)
     else:
         form = BugForm(instance=bug)
