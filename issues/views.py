@@ -29,8 +29,12 @@ def bug_detail(request, pk):
     """
 
     bug = get_object_or_404(Bug, pk=pk)
+
+    bugcomments = BugComment.objects.filter(
+        bug_id=pk, published_date__lte=timezone.now()).order_by('-published_date')
+
     print("Bug Detail PK", pk)
-    return render(request, "bugdetail.html", {'bug': bug})
+    return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments})
 
 
 @login_required
@@ -44,7 +48,7 @@ def bug_comment(request, pk):
     if request.method == "POST":
         print(request)
         if "cancel" in request.POST:
-            return redirect(get_all_bugs)
+            return redirect(bug_detail, pk=pk)
         form = BugCommentForm(request.POST)
         if form.is_valid():
             bugcomment = form.save(commit=False)

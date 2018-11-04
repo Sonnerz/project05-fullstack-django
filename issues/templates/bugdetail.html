@@ -8,8 +8,8 @@
         <h3>{{ bug.title }}</h3>
         <div class="row">
             <div class="col-xs-9">
-                <p>{{ bug.id }}</p>
-                <p>{{ bug.details }}</p>
+                <p>Bug ID: {{ bug.id }}</p>
+                <p>BUG DETAILS: {{ bug.details }}</p>
                 <p><span class="boldtext">Published on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
                 <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
@@ -27,5 +27,22 @@
         </div>
     </div>
 </div>
-
+<div class="row">
+    <div class="col-md-10 col-sm-9">
+        {% for bugcomment in bugcomments %}
+        <div class="row">
+            <div class="col-xs-9">
+                <p>bugcomment id: {{ bugcomment.id }}</p>
+                <p>comment: {{ bugcomment.comment }}</p>
+                <p>created_date: {{ bugcomment.created_date }}</p>
+                <p>published_date: {{ bugcomment.published_date }}</p>
+                <p>author_id: {{ bugcomment.author_id }}</p>
+                <p>author_id: {{ bugcomment.author }}</p>
+                <p>bug_id: {{ bugcomment.bug_id }}</p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
