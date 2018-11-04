@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load bootstrap_tags %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 col-sm-9">
+        <h3>{{ bug.title }}</h3>
+        <div class="row">
+            <div class="col-xs-9">
+                <p>{{ bug.id }}</p>
+                <p>{{ bug.details }}</p>
+                <p><span class="boldtext">Published on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
+                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
+                <a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Back To Bug</a>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ comment_form | as_bootstrap }}
+    <button type="submit" class="btn btn-info">Save</button>
+    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
+</form>
+{% endblock %}

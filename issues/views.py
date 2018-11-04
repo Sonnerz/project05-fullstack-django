@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Bug, Feature
-from .forms import BugForm, FeatureForm
+from .models import Bug, Feature, BugComment
+from .forms import BugForm, FeatureForm, BugCommentForm
 
 # Create your views here.
 
@@ -31,6 +31,30 @@ def bug_detail(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
     print("Bug Detail PK", pk)
     return render(request, "bugdetail.html", {'bug': bug})
+
+
+@login_required
+def bug_comment(request, pk):
+    """
+    Comment
+    """
+    bug = get_object_or_404(Bug, pk=pk)
+    print("Bug Comment PK", pk)
+
+    if request.method == "POST":
+        print(request)
+        if "cancel" in request.POST:
+            return redirect(get_all_bugs)
+        form = BugCommentForm(request.POST)
+        if form.is_valid():
+            bugcomment = form.save(commit=False)
+            bugcomment.author = request.user
+            bugcomment.bug = bug
+            bugcomment.save()
+            return redirect(bug_detail, bug.pk)
+    else:
+        form = BugCommentForm()
+    return render(request, "bugcommentform.html", {'bug': bug, 'comment_form': form})
 
 
 @login_required

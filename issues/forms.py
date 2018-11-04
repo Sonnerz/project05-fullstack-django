@@ -1,5 +1,5 @@
 from django import forms
-from .models import Bug, Feature
+from .models import Bug, Feature, BugComment
 
 
 class BugForm(forms.ModelForm):
@@ -12,3 +12,9 @@ class FeatureForm(forms.ModelForm):
     class Meta:
         model = Feature
         fields = ('title', 'details', 'tag', 'published_date')
+
+
+class BugCommentForm(forms.ModelForm):
+    class Meta:
+        model = BugComment
+        fields = ('comment', 'published_date')

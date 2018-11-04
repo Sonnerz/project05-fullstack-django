@@ -38,3 +38,19 @@ class Feature(models.Model):
 
     def __unicode__(self):
         return self.title
+
+
+class BugComment(models.Model):
+    """
+    A single Bug Comment
+    """
+    comment = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    published_date = models.DateTimeField(
+        blank=True, null=True, default=timezone.now)
+    author = models.ForeignKey(
+        User, default=None, related_name="author_of_comment")
+    bug = models.ForeignKey(Bug, default=None, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.title

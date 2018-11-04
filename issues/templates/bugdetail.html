@@ -21,9 +21,11 @@
                 {% if user.username != bug.author.username %}
                 <a href="{% url 'vote_bug' bug.id %}" class="btn btn-secondary">Vote up</a>
                 {% endif %}
+                <a href="{% url 'bug_comment' bug.id %}" class="btn btn-secondary">Comment</a>
                 <hr>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

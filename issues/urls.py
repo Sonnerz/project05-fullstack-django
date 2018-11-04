@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from issues.views import get_all_bugs, bug_detail, create_or_edit_bug, vote_bug,\
-    get_all_features, feature_detail, create_or_edit_feature, vote_feature
+    get_all_features, feature_detail, create_or_edit_feature, vote_feature,\
+    bug_comment
 
 urlpatterns = [
     url(r'^$', get_all_bugs, name='get_all_bugs'),
@@ -15,5 +16,5 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/features/$', feature_detail, name='feature_detail'),
     url(r'^newfeature/$', create_or_edit_feature, name='new_feature'),
     url(r'^(?P<pk>\d+)/votefeature/$', vote_feature, name='vote_feature'),
-
+    url(r'^(?P<pk>\d+)/bugcomment/$', bug_comment, name='bug_comment'),
 ]
