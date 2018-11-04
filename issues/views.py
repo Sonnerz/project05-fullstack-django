@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Feature, BugComment
 from .forms import BugForm, FeatureForm, BugCommentForm
+from uuid import uuid4
 
 # Create your views here.
 
@@ -31,7 +32,7 @@ def bug_detail(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
 
     bugcomments = BugComment.objects.filter(
-        bug_id=pk, published_date__lte=timezone.now()).order_by('-published_date')
+        bug_id=pk, created_date__lte=timezone.now()).order_by('-created_date')
 
     print("Bug Detail PK", pk)
     return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments})
@@ -61,6 +62,10 @@ def bug_comment(request, pk):
     return render(request, "bugcommentform.html", {'bug': bug, 'comment_form': form})
 
 
+def create_ref():
+    return str("Bug-")+str(uuid4())[:5]
+
+
 @login_required
 def create_or_edit_bug(request, pk=None):
     """
@@ -78,6 +83,7 @@ def create_or_edit_bug(request, pk=None):
         if form.is_valid():
             bug = form.save(commit=False)
             bug.author = request.user
+            bug.ref = create_ref()
             bug.save()
             return redirect(bug_detail, bug.pk)
     else:

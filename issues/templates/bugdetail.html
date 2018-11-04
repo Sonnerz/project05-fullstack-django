@@ -14,6 +14,7 @@
                 <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
                 <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
+                <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
                 <a href="{% url 'get_all_bugs' %}" class="btn btn-primary">Back To Bugs</a>
                 {% if user.username == bug.author.username %}
                 <a href="{% url 'edit_bug' bug.id %}" class="btn btn-secondary">Edit bug</a>
@@ -35,10 +36,10 @@
                 <p>bugcomment id: {{ bugcomment.id }}</p>
                 <p>comment: {{ bugcomment.comment }}</p>
                 <p>created_date: {{ bugcomment.created_date }}</p>
-                <p>published_date: {{ bugcomment.published_date }}</p>
                 <p>author_id: {{ bugcomment.author_id }}</p>
-                <p>author_id: {{ bugcomment.author }}</p>
+                <p>author name: {{ bugcomment.author }}</p>
                 <p>bug_id: {{ bugcomment.bug_id }}</p>
+                <p>Reference: {{ bug.ref }}</p>
             </div>
         </div>
         <hr>

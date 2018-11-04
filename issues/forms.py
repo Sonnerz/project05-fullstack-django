@@ -17,4 +17,4 @@ class FeatureForm(forms.ModelForm):
 class BugCommentForm(forms.ModelForm):
     class Meta:
         model = BugComment
-        fields = ('comment', 'published_date')
+        fields = ('comment',)
