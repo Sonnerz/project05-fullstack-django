@@ -20,11 +20,13 @@ from .settings import MEDIA_ROOT
 from accounts.views import index
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
+from search import urls as urls_search
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^issues/', include(urls_issues)),
+    url(r'^search/', include(urls_search)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]
