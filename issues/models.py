@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+STATUS_CHOICES = (
+    ('Open', 'Open',),
+    ('Under Review', 'Under Review',),
+    ('Testing', 'Testing',),
+    ('Closed', 'Closed',),
+)
+
 
 class Bug(models.Model):
     """
@@ -14,13 +21,16 @@ class Bug(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
+    resolved_date = models.DateTimeField(
+        blank=True, null=True, default=timezone.now)
     votes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
     author = models.ForeignKey(User, default=None)
     ref = models.CharField(editable=False, max_length=10)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
@@ -34,8 +44,8 @@ class BugComment(models.Model):
         User, default=None, related_name="author_of_comment")
     bug = models.ForeignKey(Bug, default=None, on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return self.title
+    def __str__(self):
+        return self.bug.title
 
 
 class Feature(models.Model):
@@ -51,5 +61,5 @@ class Feature(models.Model):
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User, default=None)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title

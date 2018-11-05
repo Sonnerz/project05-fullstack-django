@@ -10,11 +10,13 @@
             <div class="col-xs-9">
                 <p>Bug ID: {{ bug.id }}</p>
                 <p>BUG DETAILS: {{ bug.details }}</p>
-                <p><span class="boldtext">Published on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
+                <p><span class="boldtext">published_date on:</span> {{ bug.published_date|date:"d-m-Y" }} </p>
                 <p><span class="boldtext">Votes:</span> {{ bug.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
                 <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
                 <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
+                <p><span class="boldtext">Current Status:</span> {{ bug.status }}</p>
+                <p><span class="boldtext">Resloved date:</span> {{ bug.resolved_date|date:"d-m-Y" }}</p>
                 <a href="{% url 'get_all_bugs' %}" class="btn btn-primary">Back To Bugs</a>
                 {% if user.username == bug.author.username %}
                 <a href="{% url 'edit_bug' bug.id %}" class="btn btn-secondary">Edit bug</a>

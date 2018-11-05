@@ -10,17 +10,17 @@
                 <p>{{ bug.id }}</p>
                 <p>{{ bug.details|truncatewords:30 }}</p>
                 <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">Published on:</span> {{ bug.published_date }} </p>
+                <p><span class="boldtext">published_date on:</span> {{ bug.published_date }} </p>
                 <p><span class="boldtext">Votes:</span> {{bug.votes}}</p>
                 <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
                 <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
                 <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
+                <p><span class="boldtext">Status:</span> {{ bug.status }}</p>
             </div>
         </div>
     </div>
     <hr>
 </div>
-
 
 {% endfor %}
 {% endblock %}
