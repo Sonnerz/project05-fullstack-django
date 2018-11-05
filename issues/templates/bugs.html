@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
+{% block page_title %}Bugz page{% endblock %}
+
+{% block page_heading %}All Bugz{% endblock %}
 {% block content %}
 {% for bug in bugs %}
 
-<div class="row">
+<div class="row mt-5">
     <div class="col-md-10 col-sm-9">
         <h3>{{ bug.title }}</h3>
         <div class="row">

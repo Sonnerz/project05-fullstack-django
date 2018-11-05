@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block page_title %}Search Results page{% endblock %}
+
+{% block page_heading %}Results{% endblock %}
+{% block content %}
+
+{% for bug in bugs %}
+
+<div class="row mt-5">
+    <div class="col-md-10 col-sm-9">
+        <h3>{{ bug.title }}</h3>
+        <div class="row">
+            <div class="col-xs-9">
+                <p>{{ bug.id }}</p>
+                <p>{{ bug.details|truncatewords:30 }}</p>
+                <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Read more</a></p>
+                <p><span class="boldtext">published_date on:</span> {{ bug.published_date }} </p>
+                <p><span class="boldtext">Votes:</span> {{bug.votes}}</p>
+                <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
+                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
+                <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
+                <p><span class="boldtext">Status:</span> {{ bug.status }}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+{% endfor %}
+
+{% for feature in features %}
+
+<div class="row mt-5">
+    <div class="col-md-10 col-sm-9">
+        <h3>{{ feature.title }}</h3>
+        <div class="row">
+            <div class="col-xs-9">
+                <p>{{ feature.id }}</p>
+                <p>{{ feature.details|truncatewords:30 }}</p>
+                <p><a href="{% url 'feature_detail' feature.id %}" class="btn btn-primary">Read more</a></p>
+                <p><span class="boldtext">Published on:</span> {{ feature.published_date }} </p>
+                <p><span class="boldtext">Votes:</span> {{feature.votes}}</p>
+                <p><span class="boldtext">Tag:</span> {{ feature.tag }}</p>
+                <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
+                <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
+                <p><span class="boldtext">cost_per_hour:</span> {{ feature.cost_per_hour }}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+{% endfor %}
+
+{% endblock %}

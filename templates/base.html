@@ -51,7 +51,7 @@
         {% for message in messages %} {{ message }} {% endfor %}
     </div>
     {% endif %}
-    <div class="display">
+    <div class="searchforms mt-5">
         <form action="{% url 'search' %}" method="get">
             <input type="text" name="q">
             <button type="submit">Search</button>
