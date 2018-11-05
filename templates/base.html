@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+    {% block head_js %}
+    {% endblock head_js %}
 </head>
 
 <body>
@@ -57,6 +59,14 @@
         <form action="{% url 'search_ref' %}" method="get">
             <input type="text" name="q">
             <button type="submit">Search by Reference number</button>
+        </form>
+        <form action="{% url 'feat_search' %}" method="get">
+            <input type="text" name="q">
+            <button type="submit">Search Features</button>
+        </form>
+        <form action="{% url 'feat_search_ref' %}" method="get">
+            <input type="text" name="q">
+            <button type="submit">Search Features by Reference number</button>
         </form>
     </div>
     <div class="container">

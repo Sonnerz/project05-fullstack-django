@@ -14,6 +14,9 @@
                 <p><span class="boldtext">Votes:</span> {{ feature.votes }}</p>
                 <p><span class="boldtext">Tag:</span> {{ feature.tag }}</p>
                 <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
+                <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
+                <p><span class="boldtext">Cost per hour:</span> {{ feature.cost_per_hour }}</p>
+
                 <a href="{% url 'get_all_features' %}" class="btn btn-primary">Back To features</a>
                 {% if user.username == feature.author.username %}
                 <a href="{% url 'edit_feature' feature.id %}" class="btn btn-secondary">Edit feature</a>

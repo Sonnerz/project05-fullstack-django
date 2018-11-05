@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 STATUS_CHOICES = (
-    ('Open', 'Open',),
-    ('Under Review', 'Under Review',),
-    ('Testing', 'Testing',),
-    ('Closed', 'Closed',),
+    ('Open', 'Open'),
+    ('Under Review', 'Under Review'),
+    ('Testing', 'Testing'),
+    ('Closed', 'Closed'),
 )
 
 
@@ -28,7 +28,8 @@ class Bug(models.Model):
     image = models.ImageField(upload_to="img", blank=True, null=True)
     author = models.ForeignKey(User, default=None)
     ref = models.CharField(editable=False, max_length=10)
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
+    status = models.CharField(
+        max_length=15, choices=STATUS_CHOICES, default='Open')
 
     def __str__(self):
         return self.title
@@ -60,6 +61,9 @@ class Feature(models.Model):
     votes = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User, default=None)
+    ref = models.CharField(editable=False, max_length=10)
+    cost_per_hour = models.DecimalField(
+        max_digits=6, decimal_places=2, default=50.00)
 
     def __str__(self):
         return self.title

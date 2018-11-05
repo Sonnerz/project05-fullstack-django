@@ -12,7 +12,7 @@ class BugForm(forms.ModelForm):
 class FeatureForm(forms.ModelForm):
     class Meta:
         model = Feature
-        fields = ('title', 'details', 'tag', 'published_date')
+        fields = ('title', 'details', 'tag', 'published_date', 'cost_per_hour')
 
 
 class BugCommentForm(forms.ModelForm):

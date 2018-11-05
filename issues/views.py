@@ -131,25 +131,52 @@ def feature_detail(request, pk):
     return render(request, "featuredetail.html", {'feature': feature})
 
 
+def create_feature_ref():
+    return str("Feat-")+str(uuid4())[:5]
+
+
 @login_required
-def create_or_edit_feature(request, pk=None):
+def new_feature(request):
     """
     Create a view that allows us to create
-    or edit a feature depending if the feature ID
+    or edit a bug depending if the Bug ID
+    is null or not
+    """
+
+    if request.method == "POST":
+        if "cancel" in request.POST:
+            return redirect(get_all_features)
+        form = FeatureForm(request.POST)
+        if form.is_valid():
+            feature = form.save(commit=False)
+            feature.author = request.user
+            feature.ref = create_feature_ref()
+            feature.save()
+            return redirect(get_all_features)
+    else:
+        form = FeatureForm()
+    return render(request, 'featureform.html', {'form': form})
+
+
+@login_required
+def edit_feature(request, pk=None):
+    """
+    Create a view that allows us to create
+    or edit a bug depending if the Bug ID
     is null or not
     """
 
     feature = get_object_or_404(Feature, pk=pk) if pk else None
     if request.method == "POST":
-        print(request)
         if "cancel" in request.POST:
             return redirect(get_all_features)
         form = FeatureForm(request.POST, request.FILES, instance=feature)
         if form.is_valid():
             feature = form.save(commit=False)
             feature.author = request.user
+            feature.ref = create_feature_ref()
             feature.save()
-            return redirect(feature_detail, feature.pk)
+            return redirect(feature_detail, feature .pk)
     else:
         form = FeatureForm(instance=feature)
     return render(request, 'featureform.html', {'form': form})
