@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
+{% block page_title %}cart {% endblock %}
 
+{% block page_heading %} cart{% endblock %}
 {% block content %}
 <div class="row row-flex">
     {% for item in cart_items %}
@@ -9,7 +11,7 @@
     <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
         <div class="caption">
             <h3>{{item.feature.title}}</h3>
-            <p class="produ-description">{{ item.feature.details }}</p>
+            <p class="feature-description">{{ item.feature.details }}</p>
             <p>{{ item.feature.cost_per_hour}}</p>
             <p>
                 <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">

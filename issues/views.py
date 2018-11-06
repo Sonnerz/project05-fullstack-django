@@ -4,6 +4,7 @@ from django.utils import timezone
 from .models import Bug, Feature, BugComment
 from .forms import BugForm, FeatureForm, BugCommentForm
 from uuid import uuid4
+from cart.views import add_to_cart
 
 # Create your views here.
 
@@ -148,14 +149,20 @@ def new_feature(request):
             return redirect(get_all_features)
         form = FeatureForm(request.POST)
         if form.is_valid():
+            quantity = 1
             feature = form.save(commit=False)
             feature.author = request.user
             feature.ref = create_feature_ref()
             feature.save()
+            # add to cart
+            # get this feature id based on ref just created
+            this_feature = Feature.objects.filter(ref=feature.ref)
+            for item in this_feature:
+                add_to_cart(request, item.id)
             return redirect(get_all_features)
     else:
         form = FeatureForm()
-    return render(request, 'featureform.html', {'form': form})
+    return render(request, 'featureform_new.html', {'form': form})
 
 
 @login_required
@@ -179,7 +186,7 @@ def edit_feature(request, pk=None):
             return redirect(feature_detail, feature .pk)
     else:
         form = FeatureForm(instance=feature)
-    return render(request, 'featureform.html', {'form': form})
+    return render(request, 'featureform_edit.html', {'form': form})
 
 
 @login_required

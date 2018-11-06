@@ -49,7 +49,7 @@ def checkout(request):
             if customer.paid:
                 messages.error(request, "you have successffully paid")
                 request.session['cart'] = {}
-                return redirect(reverse('products'))
+                return redirect(reverse('get_all_features'))
             else:
                 messages.error(request, "unagle to take payemet")
         else:

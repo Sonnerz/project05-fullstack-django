@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
+{% block page_title %}Bugz Form page{% endblock %}
+
+{% block page_heading %}Bugz Form{% endblock %}
+
 {% block content %}
 {% if request.path == '/issues/new/' %}
 <h1>New bug</h1>

@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 {% load bootstrap_tags %}
+{% block page_title %}feature form page{% endblock %}
+
+{% block page_heading %}feature From{% endblock %}
 {% block content %}
-{% if request.path == '/issues/newfeature/' %}
-<h1>New feature</h1>
-{% else %}
-<h1>Edit feature</h1>
-{% endif %}
+<h1>Edit feature!</h1>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | as_bootstrap }}

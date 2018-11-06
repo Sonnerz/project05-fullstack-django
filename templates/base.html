@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
-    {% block head_js %}
-    {% endblock head_js %}
 </head>
 
 <body>
@@ -38,6 +36,12 @@
                 <a class="nav-item nav-link" href="{% url 'get_all_features' %}">All Features</a>
                 <a class="nav-item nav-link" href="{% url 'new_feature' %}">New Feature</a>
                 <span class="nav-item nav-link">Logged in: {{ user.username }}</span>
+                <a class="nav-item nav-link" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    Cart
+                    {% if feature_count > 0 %}
+                    <label class="badge badge-warning">{{ feature_count }}</label>
+                    {% endif %}
+                </a>
                 {% else %}
                 <a class="nav-item nav-link" href="{% url 'login' %}">Log in</a>
                 <a class="nav-item nav-link" href="{% url 'registration' %}">Register</a>
@@ -51,7 +55,7 @@
         {% for message in messages %} {{ message }} {% endfor %}
     </div>
     {% endif %}
-    <div class="searchforms mt-5">
+    <div class="container searchforms mt-5">
         <form action="{% url 'search' %}" method="get">
             <input type="text" name="q">
             <button type="submit">Search</button>
@@ -59,14 +63,6 @@
         <form action="{% url 'search_ref' %}" method="get">
             <input type="text" name="q">
             <button type="submit">Search by Reference number</button>
-        </form>
-        <form action="{% url 'feat_search' %}" method="get">
-            <input type="text" name="q">
-            <button type="submit">Search Features</button>
-        </form>
-        <form action="{% url 'feat_search_ref' %}" method="get">
-            <input type="text" name="q">
-            <button type="submit">Search Features by Reference number</button>
         </form>
     </div>
     <div class="container">
@@ -80,4 +76,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
         crossorigin="anonymous"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    {% block head_js %}
+    {% endblock head_js %}
 </body>
