@@ -19,7 +19,7 @@
                 <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
                 <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
                 <p><span class="boldtext">Cost per hour:</span> {{ feature.cost_per_hour }}</p>
-
+                <p><span class="boldtext">Status:</span> {{ feature.status }}</p>
                 <a href="{% url 'get_all_features' %}" class="btn btn-primary">Back To features</a>
                 {% if user.username == feature.author.username %}
                 <a href="{% url 'edit_feature' feature.id %}" class="btn btn-secondary">Edit feature</a>
@@ -32,4 +32,13 @@
         </div>
     </div>
 </div>
+
+<div>{{ feature_orders }}</div>
+{% for item in feature_orders %}
+<div>feature_id: {{ item.feature_id}}</div>
+<div>order_id: {{ item.order_id }}</div>
+<div>quantity: {{ item.quantity }} hours @ 50.00 per hour = {{ item.quantity }} * 50</div>
+
+<div>total paid: {% widthratio item.quantity 1 50 %}</div>
+{% endfor %}
 {% endblock %}

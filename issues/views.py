@@ -5,6 +5,7 @@ from .models import Bug, Feature, BugComment
 from .forms import BugForm, FeatureForm, BugCommentForm
 from uuid import uuid4
 from cart.views import add_to_cart
+from checkout.models import OrderLineItem
 
 # Create your views here.
 
@@ -115,6 +116,7 @@ def get_all_features(request):
     """
     features = Feature.objects.filter(published_date__lte=timezone.now
                                       ()).order_by('-published_date')
+
     return render(request, "features.html", {'features': features})
 
 
@@ -129,7 +131,9 @@ def feature_detail(request, pk):
 
     feature = get_object_or_404(Feature, pk=pk)
     print("feature Detail PK", pk)
-    return render(request, "featuredetail.html", {'feature': feature})
+    feature_orders = OrderLineItem.objects.filter(
+        feature_id=pk).order_by('-id')
+    return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders})
 
 
 def create_feature_ref():
