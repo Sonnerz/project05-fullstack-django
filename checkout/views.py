@@ -48,6 +48,14 @@ def checkout(request):
 
             if customer.paid:
                 messages.error(request, "you have successffully paid")
+                # Change Feature status to 'Target not Reached' or 'Open' before session cleared
+                for id, quantity in cart.items():
+                    feature = get_object_or_404(Feature, pk=id)
+                    if quantity >= 10:
+                        feature.status = "Open"
+                    else:
+                        feature.status = "Target not Reached"
+                    feature.save()
                 request.session['cart'] = {}
                 return redirect(reverse('get_all_features'))
             else:

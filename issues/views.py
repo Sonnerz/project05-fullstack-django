@@ -149,17 +149,17 @@ def new_feature(request):
             return redirect(get_all_features)
         form = FeatureForm(request.POST)
         if form.is_valid():
-            quantity = 1
+            # New Feature saved with status: 'Pending Payment'
             feature = form.save(commit=False)
             feature.author = request.user
             feature.ref = create_feature_ref()
             feature.save()
             # add to cart
-            # get this feature id based on ref just created
+            # get this Feature id based on ref just created
             this_feature = Feature.objects.filter(ref=feature.ref)
             for item in this_feature:
                 add_to_cart(request, item.id)
-            return redirect(get_all_features)
+            return redirect(feature_detail, feature.pk)
     else:
         form = FeatureForm()
     return render(request, 'featureform_new.html', {'form': form})
@@ -183,7 +183,7 @@ def edit_feature(request, pk=None):
             feature.author = request.user
             feature.ref = create_feature_ref()
             feature.save()
-            return redirect(feature_detail, feature .pk)
+            return redirect(feature_detail, feature.pk)
     else:
         form = FeatureForm(instance=feature)
     return render(request, 'featureform_edit.html', {'form': form})

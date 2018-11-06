@@ -4,7 +4,7 @@
 {% block page_heading %}all features {% endblock %}
 {% block content %}
 {% for feature in features %}
-
+{% if feature.status != 'Pending Payment'%}
 <div class="row">
     <div class="col-md-10 col-sm-9">
         <h3>{{ feature.title }}</h3>
@@ -19,12 +19,13 @@
                 <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
                 <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
                 <p><span class="boldtext">cost_per_hour:</span> {{ feature.cost_per_hour }}</p>
+                <p><span class="boldtext">Status:</span> {{ feature.status }}</p>
             </div>
         </div>
     </div>
     <hr>
 </div>
-
+{% endif %}
 
 {% endfor %}
 {% endblock %}

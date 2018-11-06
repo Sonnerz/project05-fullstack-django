@@ -7,8 +7,19 @@ from django.contrib.auth.models import User
 STATUS_CHOICES = (
     ('Open', 'Open'),
     ('Under Review', 'Under Review'),
+    ('Under Development', 'Under Development'),
     ('Testing', 'Testing'),
     ('Closed', 'Closed'),
+)
+
+FEATURE_STATUS_CHOICES = (
+    ('Pending Payment', 'Pending Payment'),
+    ('Target not Reached', 'Target not Reached'),
+    ('Open', 'Open'),
+    ('Under Review', 'Under Review'),
+    ('Under Development', 'Under Development'),
+    ('Testing', 'Testing'),
+    ('Deployed', 'Deployed'),
 )
 
 
@@ -64,6 +75,8 @@ class Feature(models.Model):
     ref = models.CharField(editable=False, max_length=10)
     cost_per_hour = models.DecimalField(
         max_digits=6, decimal_places=2, default=50.00)
+    status = models.CharField(
+        max_length=20, choices=FEATURE_STATUS_CHOICES, default='Pending Payment')
 
     def __str__(self):
         return self.title
