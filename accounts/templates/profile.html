@@ -5,7 +5,48 @@
 {% block page_heading %}{{user}}'s PRofile page{% endblock %}
 
 {% block content %}
+<p>User email: {{ user.email }}</p>
+<p>User firstname: {{ user.first_name }}</p>
+<p>User lastname: {{ user.last_name }}</p>
+<p>User username: {{ user.username }}</p>
 
- <p>{{profile.email}}</p>
+{% for orders in user_orders %}
+<table cellpadding=10px>
+    <tr>
+        <th>id</th>
+        <th>full_name</th>
+        <th>date</th>
+    </tr>
+    <tr>
+        <td>
+            <p><a href="{% url 'get_order_details' orders.id %}" class="btn btn-primary">{{ orders.id }}</a></p>
+        </td>
+        <td>{{ orders.full_name}}</td>
+        <td>{{ orders.date}}</td>
+    </tr>
+</table>
+{% endfor %}
 
-{% endblock %}    
+<hr>
+<hr>
+
+{% for orders in user_order_details %}
+<table cellpadding=10px>
+    <tr>
+        <th>id</th>
+        <th>Feature Ref</th>
+        <th>status</th>
+        <th>feature_id</th>
+        <th>quantity</th>
+    </tr>
+    <tr>
+        <td>{{ orders.id }}</td>
+        <td>{{ orders.feature.ref }}</td>
+        <td>{{ orders.feature.status }}</td>
+        <td>{{ orders.feature_id}}{{ orders.feature.title}}{{ orders.feature.details}}</td>
+        <td>{{ orders.quantity}}</td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock %}

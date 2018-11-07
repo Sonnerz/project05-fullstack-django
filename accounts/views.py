@@ -3,9 +3,11 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm
-
+from checkout.models import OrderLineItem, Order
 
 # Create your views here.
+
+
 def index(request):
     """Return index.html file"""
     return render(request, 'index.html')
@@ -68,4 +70,20 @@ def registration(request):
 def user_profile(request):
     """prfole page"""
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {"profile": user})
+    # orders
+    user_orders = Order.objects.filter(
+        buyer_id=user.id).order_by('-id')
+
+    user_order_details = []
+    for orders in user_orders:
+        user_order_details.append = (OrderLineItem.objects.filter(
+            order_id=orders.id))
+    return render(request, 'profile.html', {'profile': user,
+                                            'user_orders': user_orders,
+                                            'user_order_details': user_order_details})
+
+
+def get_order_details(request, pk):
+    user_order_details = (OrderLineItem.objects.filter(
+        order_id=pk))
+    return render(request, 'orders.html', {'user_order_details': user_order_details})

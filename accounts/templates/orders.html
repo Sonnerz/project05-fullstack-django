@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block page_title %}{{user}}'s Orders page{% endblock %}
+
+{% block page_heading %}{{user}}'s orders page{% endblock %}
+
+{% block content %}
+
+{% for orders in user_order_details %}
+<table cellpadding=10px>
+    <tr>
+        <th>id</th>
+        <th>Feature Ref</th>
+        <th>status</th>
+        <th>feature_id</th>
+        <th>quantity</th>
+    </tr>
+    <tr>
+        <td>{{ orders.id }}</td>
+        <td>{{ orders.feature.ref }}</td>
+        <td>{{ orders.feature.status }}</td>
+        <td>{{ orders.feature_id}}{{ orders.feature.title}}{{ orders.feature.details}}</td>
+        <td>{{ orders.quantity}}</td>
+    </tr>
+</table>
+{% endfor %}
+
+{% endblock %}
