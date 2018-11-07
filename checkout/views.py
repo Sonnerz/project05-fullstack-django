@@ -33,6 +33,7 @@ def checkout(request):
                     order=order,
                     feature=feature,
                     quantity=quantity
+
                 )
                 order_line_item.save()
 
@@ -48,13 +49,18 @@ def checkout(request):
 
             if customer.paid:
                 messages.error(request, "you have successffully paid")
-                # Change Feature status to 'Target not Reached' or 'Open' before session cleared
+                # Change Feature status to 'Target not Reached' or 'Under Review' before session cleared
                 for id, quantity in cart.items():
                     feature = get_object_or_404(Feature, pk=id)
-                    if quantity >= 10:
-                        feature.status = "Open"
-                    else:
-                        feature.status = "Target not Reached"
+                    feature_orders = OrderLineItem.objects.filter(
+                        feature_id=feature.id)
+                    total_hrs_bought = 0
+                    for orders in feature_orders:
+                        total_hrs_bought += orders.quantity
+                        if total_hrs_bought >= 10:
+                            feature.status = "Under Review"
+                        else:
+                            feature.status = "Target not Reached"
                     feature.save()
                 request.session['cart'] = {}
                 return redirect(reverse('get_all_features'))

@@ -15,8 +15,8 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/vote/$', vote_bug, name='vote_bug'),
 
     url(r'^all_features$', get_all_features, name='get_all_features'),
-    url(r'^(?P<pk>\d+)/editfeature/$', edit_feature, name='edit_feature'),
     url(r'^(?P<pk>\d+)/features/$', feature_detail, name='feature_detail'),
+    url(r'^(?P<pk>\d+)/editfeature/$', edit_feature, name='edit_feature'),
     url(r'^newfeature/$', new_feature, name='new_feature'),
     url(r'^(?P<pk>\d+)/votefeature/$', vote_feature, name='vote_feature'),
 

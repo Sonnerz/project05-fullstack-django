@@ -32,7 +32,9 @@ def bug_detail(request, pk):
     """
 
     bug = get_object_or_404(Bug, pk=pk)
-
+    bug.views += 1
+    bug.save()
+    print("bug.views", bug.views)
     bugcomments = BugComment.objects.filter(
         bug_id=pk, created_date__lte=timezone.now()).order_by('-created_date')
 
@@ -49,7 +51,6 @@ def bug_comment(request, pk):
     print("Bug Comment PK", pk)
 
     if request.method == "POST":
-        print(request)
         if "cancel" in request.POST:
             return redirect(bug_detail, pk=pk)
         form = BugCommentForm(request.POST)
@@ -78,7 +79,6 @@ def create_or_edit_bug(request, pk=None):
 
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == "POST":
-        print(request)
         if "cancel" in request.POST:
             return redirect(get_all_bugs)
         form = BugForm(request.POST, request.FILES, instance=bug)
@@ -130,10 +130,27 @@ def feature_detail(request, pk):
     """
 
     feature = get_object_or_404(Feature, pk=pk)
+    feature.views += 1
+    feature.save()
     print("feature Detail PK", pk)
+    # Get all orders for this Feature from the OrderLineItem table
     feature_orders = OrderLineItem.objects.filter(
         feature_id=pk).order_by('-id')
-    return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders})
+    # Get the total money raised for this Feature
+    total_hrs_bought = 0
+    for orders in feature_orders:
+        total_hrs_bought += orders.quantity
+    print("total_hrs_bought", total_hrs_bought)
+    # Get total money raised for this Feature
+    total_money_raised = total_hrs_bought * 50
+    print('total_money_raised', total_money_raised)
+    total_money_needed = 500 - total_money_raised
+    print('total_money_needed', total_money_needed)
+    totals = {'total_hrs_bought': total_hrs_bought,
+              'total_money_raised': total_money_raised,
+              'total_money_needed': total_money_needed, }
+    return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders,
+                                                  'totals': totals})
 
 
 def create_feature_ref():
@@ -163,7 +180,7 @@ def new_feature(request):
             this_feature = Feature.objects.filter(ref=feature.ref)
             for item in this_feature:
                 add_to_cart(request, item.id)
-            return redirect(feature_detail, feature.pk)
+            return redirect(get_all_features)
     else:
         form = FeatureForm()
     return render(request, 'featureform_new.html', {'form': form})
@@ -184,13 +201,11 @@ def edit_feature(request, pk=None):
         form = FeatureForm(request.POST, request.FILES, instance=feature)
         if form.is_valid():
             feature = form.save(commit=False)
-            feature.author = request.user
-            feature.ref = create_feature_ref()
             feature.save()
             return redirect(feature_detail, feature.pk)
     else:
         form = FeatureForm(instance=feature)
-    return render(request, 'featureform_edit.html', {'form': form})
+    return render(request, 'featureform.html', {'form': form})
 
 
 @login_required

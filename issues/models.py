@@ -14,8 +14,8 @@ STATUS_CHOICES = (
 
 FEATURE_STATUS_CHOICES = (
     ('Pending Payment', 'Pending Payment'),
-    ('Target not Reached', 'Target not Reached'),
     ('Open', 'Open'),
+    ('Target not Reached', 'Target not Reached'),
     ('Under Review', 'Under Review'),
     ('Under Development', 'Under Development'),
     ('Testing', 'Testing'),
@@ -35,6 +35,7 @@ class Bug(models.Model):
     resolved_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
     votes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     image = models.ImageField(upload_to="img", blank=True, null=True)
     author = models.ForeignKey(User, default=None)
@@ -70,6 +71,7 @@ class Feature(models.Model):
     published_date = models.DateTimeField(
         blank=True, null=True, default=timezone.now)
     votes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     tag = models.CharField(max_length=30, blank=True, null=True)
     author = models.ForeignKey(User, default=None)
     ref = models.CharField(editable=False, max_length=10)

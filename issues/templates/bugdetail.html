@@ -19,6 +19,7 @@
                 <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
                 <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
                 <p><span class="boldtext">Current Status:</span> {{ bug.status }}</p>
+                <p><span class="boldtext">Views:</span> {{ bug.views }}</p>
                 <p><span class="boldtext">Resloved date:</span> {{ bug.resolved_date|date:"d-m-Y" }}</p>
                 <a href="{% url 'get_all_bugs' %}" class="btn btn-primary">Back To Bugs</a>
                 {% if user.username == bug.author.username %}

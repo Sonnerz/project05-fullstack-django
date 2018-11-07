@@ -20,14 +20,27 @@
                 <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
                 <p><span class="boldtext">Cost per hour:</span> {{ feature.cost_per_hour }}</p>
                 <p><span class="boldtext">Status:</span> {{ feature.status }}</p>
-                <a href="{% url 'get_all_features' %}" class="btn btn-primary">Back To features</a>
-                {% if user.username == feature.author.username %}
-                <a href="{% url 'edit_feature' feature.id %}" class="btn btn-secondary">Edit feature</a>
-                {% endif %}
-                {% if user.username != feature.author.username %}
-                <a href="{% url 'vote_feature' feature.id %}" class="btn btn-secondary">Vote up</a>
-                {% endif %}
+                <p><span class="boldtext">Views:</span> {{ feature.views }}</p>
                 <hr>
+                <p><span class="boldtext">total hrs bought:</span> {{ totals.total_hrs_bought }}</p>
+                <p><span class="boldtext">total money raised:</span> {{ totals.total_money_raised }}</p>
+                {% if totals.total_money_raised < 500 %} <p><span class="boldtext">total money needed:</span>
+                    {{ totals.total_money_needed }}</p>
+                    {% endif %}
+                    <p>
+                        <a href="{% url 'get_all_features' %}" class="btn btn-primary">Back To features</a>
+
+                        {% if user.username == feature.author.username %}
+                        <a href="{% url 'edit_feature' feature.id %}" class="btn btn-secondary">Edit feature</a>
+                        {% endif %}
+
+                        {% if user.username == feature.author.username %}
+                        <button type="button" class="btn btn-primary donate_feature_button">Donate more</button>
+                        {% else %}
+                        <button type="button" class="btn btn-primary donate_feature_button">Donate</button>
+                        {% endif %}
+                    </p>
+                    <hr>
             </div>
         </div>
     </div>
@@ -40,5 +53,18 @@
 <div>quantity: {{ item.quantity }} hours @ 50.00 per hour = {{ item.quantity }} * 50</div>
 
 <div>total paid: {% widthratio item.quantity 1 50 %}</div>
+<hr>
 {% endfor %}
+
+
+<div id="donate_feature_form" class="hide-first">
+    <h2>Donate form</h2>
+    <form method="post" action="{% url 'add_to_cart' feature.id %}">
+        minimum of 1 hour
+        {% csrf_token %}
+        <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity" value="1">
+        <button class="btn btn-success" type="submit">Donate</button>
+        <button type="button" class="btn btn-primary donate_feature_cancel">Cancel</button>
+    </form>
+</div>
 {% endblock %}
