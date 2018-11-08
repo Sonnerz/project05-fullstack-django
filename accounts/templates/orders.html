@@ -6,23 +6,27 @@
 
 {% block content %}
 
-{% for orders in user_order_details %}
+
 <table cellpadding=10px>
     <tr>
         <th>id</th>
         <th>Feature Ref</th>
         <th>status</th>
+        <th>title</th>
         <th>feature_id</th>
         <th>quantity</th>
     </tr>
+    {% for orders in user_order_details %}
     <tr>
         <td>{{ orders.id }}</td>
         <td>{{ orders.feature.ref }}</td>
         <td>{{ orders.feature.status }}</td>
+        <td><a href="{% url 'feature_detail' orders.feature_id %}" class="btn btn-primary">{{orders.feature.title }}</a></td>
         <td>{{ orders.feature_id}}{{ orders.feature.title}}{{ orders.feature.details}}</td>
         <td>{{ orders.quantity}}</td>
     </tr>
+    {% endfor %}
 </table>
-{% endfor %}
+
 
 {% endblock %}
