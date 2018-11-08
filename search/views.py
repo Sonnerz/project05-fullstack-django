@@ -24,11 +24,13 @@ def do_search(request):
     lookup_fields = Q(title__icontains=request.GET['q'])
     bugs = Bug.objects.filter(lookup_fields).distinct()
     features = Feature.objects.filter(lookup_fields).distinct()
-    return render(request, "results.html", {"bugs": bugs, "features": features})
+    searchparam = request.GET['q']
+    return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
 
 
 def do_search_ref(request):
     lookup_fields = Q(ref__icontains=request.GET['q'])
     bugs = Bug.objects.filter(lookup_fields).distinct()
     features = Feature.objects.filter(lookup_fields).distinct()
-    return render(request, "results.html", {"bugs": bugs, "features": features})
+    searchparam = request.GET['q']
+    return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
