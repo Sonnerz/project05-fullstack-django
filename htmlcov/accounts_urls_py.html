@@ -78,11 +78,12 @@
 <p id="n9" class="pln"><a href="#n9">9</a></p>
 <p id="n10" class="pln"><a href="#n10">10</a></p>
 <p id="n11" class="pln"><a href="#n11">11</a></p>
+<p id="n12" class="pln"><a href="#n12">12</a></p>
 
             </td>
             <td class="text">
 <p id="t1" class="stm run hide_run"><span class="key">from</span> <span class="nam">django</span><span class="op">.</span><span class="nam">conf</span><span class="op">.</span><span class="nam">urls</span> <span class="key">import</span> <span class="nam">url</span><span class="op">,</span> <span class="nam">include</span><span class="strut">&nbsp;</span></p>
-<p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="nam">accounts</span><span class="op">.</span><span class="nam">views</span> <span class="key">import</span> <span class="nam">index</span><span class="op">,</span> <span class="nam">logout</span><span class="op">,</span> <span class="nam">login</span><span class="op">,</span> <span class="nam">registration</span><span class="op">,</span> <span class="nam">user_profile</span><span class="strut">&nbsp;</span></p>
+<p id="t2" class="stm run hide_run"><span class="key">from</span> <span class="nam">accounts</span><span class="op">.</span><span class="nam">views</span> <span class="key">import</span> <span class="nam">index</span><span class="op">,</span> <span class="nam">logout</span><span class="op">,</span> <span class="nam">login</span><span class="op">,</span> <span class="nam">registration</span><span class="op">,</span> <span class="nam">user_profile</span><span class="op">,</span> <span class="nam">get_order_details</span><span class="strut">&nbsp;</span></p>
 <p id="t3" class="stm run hide_run"><span class="key">from</span> <span class="nam">accounts</span> <span class="key">import</span> <span class="nam">url_reset</span><span class="strut">&nbsp;</span></p>
 <p id="t4" class="pln"><span class="strut">&nbsp;</span></p>
 <p id="t5" class="stm run hide_run"><span class="nam">urlpatterns</span> <span class="op">=</span> <span class="op">[</span><span class="strut">&nbsp;</span></p>
@@ -90,8 +91,9 @@
 <p id="t7" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^login/$'</span><span class="op">,</span> <span class="nam">login</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">"login"</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t8" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^register/$'</span><span class="op">,</span> <span class="nam">registration</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">"registration"</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
 <p id="t9" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^profile/$'</span><span class="op">,</span> <span class="nam">user_profile</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">"user_profile"</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
-<p id="t10" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^password-reset/'</span><span class="op">,</span> <span class="nam">include</span><span class="op">(</span><span class="nam">url_reset</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
-<p id="t11" class="pln"><span class="op">]</span><span class="strut">&nbsp;</span></p>
+<p id="t10" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^(?P&lt;pk>\d+)/orders/$'</span><span class="op">,</span> <span class="nam">get_order_details</span><span class="op">,</span> <span class="nam">name</span><span class="op">=</span><span class="str">'get_order_details'</span><span class="op">)</span><span class="op">,</span><span class="strut">&nbsp;</span></p>
+<p id="t11" class="pln">    <span class="nam">url</span><span class="op">(</span><span class="str">r'^password-reset/'</span><span class="op">,</span> <span class="nam">include</span><span class="op">(</span><span class="nam">url_reset</span><span class="op">)</span><span class="op">)</span><span class="strut">&nbsp;</span></p>
+<p id="t12" class="pln"><span class="op">]</span><span class="strut">&nbsp;</span></p>
 
             </td>
         </tr>
@@ -102,7 +104,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v4.5.1</a>,
-            created at 2018-11-02 20:56
+            created at 2018-11-08 18:08
         </p>
     </div>
 </div>
