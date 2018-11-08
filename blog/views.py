@@ -8,6 +8,9 @@ from .forms import BlogPostForm
 
 
 def donor_check(user):
+    """
+    User needs to be logged in and a donor to use Blog
+    """
     if user.is_authenticated and user.profile.is_donor == 1:
         return 1
 
