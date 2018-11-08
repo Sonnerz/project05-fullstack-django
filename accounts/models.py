@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Donor(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(User)
     is_donor = models.BooleanField(default=False)
     
 User.profile = property(lambda u: Donor.objects.get_or_create(user=u)[0])

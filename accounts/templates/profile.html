@@ -12,6 +12,7 @@
 <p>User is donor: {% if user.profile.is_donor == False %}No{% else %}Yes{% endif %}</p>
 
 
+{% if user_orders %}
 
 <table cellpadding=10px>
     <tr>
@@ -29,8 +30,9 @@
     </tr>
     {% endfor %}
 </table>
-
-
+{% else %}
+<p>you have no orders</p>
+{% endif %}
 <hr>
 <hr>
 

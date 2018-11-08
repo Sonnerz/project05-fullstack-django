@@ -52,8 +52,9 @@ def checkout(request):
             if customer.paid:
                 messages.error(request, "you have successffully paid")
                 # set user to donor
-                is_user_a_donor = get_object_or_404(Donor, request.user)
-                print(is_user_a_donor)
+                is_user_a_donor = get_object_or_404(
+                    Donor, user_id=request.user)
+                print(is_user_a_donor.is_donor)
                 # Change Feature status to 'Target not Reached' or 'Under Review' before session cleared
                 for id, quantity in cart.items():
                     feature = get_object_or_404(Feature, pk=id)

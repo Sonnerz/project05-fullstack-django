@@ -58,7 +58,7 @@ def registration(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, "you are regsitered")
-                return redirect(reverse('index'))
+                return redirect(reverse('user_profile'))
             else:
                 messages.error(request, "not registered")
     else:
