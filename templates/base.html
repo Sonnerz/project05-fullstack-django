@@ -31,6 +31,9 @@
             <div class="navbar-nav">
                 {% if user.is_authenticated %}
                 <a class="nav-item nav-link" href="{% url 'user_profile' %}">Profile</a>
+                {% if user.profile.is_donor %}
+                <a class="nav-item nav-link" href="{% url 'get_posts' %}">Blog</a>
+                {% endif %}
                 <a class="nav-item nav-link" href="{% url 'logout' %}">Log out</a>
                 <a class="nav-item nav-link" href="{% url 'get_all_bugs' %}">All Bugs</a>
                 <a class="nav-item nav-link" href="{% url 'new_bug' %}">New Bug</a>
@@ -68,7 +71,7 @@
         </form>
     </div>
     {% endif %}
-    <div class="container">
+    <div class="container mt-5">
         {% block content %} {% endblock %}
     </div>
     <!-- Latest compiled and minified JavaScript -->

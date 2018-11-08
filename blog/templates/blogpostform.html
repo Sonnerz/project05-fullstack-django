@@ -1,10 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% block page_title %}Blog page{% endblock %}
+
+{% block page_heading %}blog posts{% endblock %}
 {% load bootstrap_tags %}
 {% block content %}
-    <h1>New post</h1>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form | as_bootstrap }}
-        <button type="submit" class="btn btn-info">Save</button>
-    </form>
+
+
+{% if request.path == "/blog/new/" %}
+<h1>New post</h1>
+{% else %}
+
+<h1>Edit post</h1>
+{% endif %}
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form | as_bootstrap }}
+    <button type="submit" class="btn btn-info">Save</button>
+    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
+</form>
 {% endblock %}

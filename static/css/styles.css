@@ -1,3 +1,7 @@
 .hide-first {
     display: none;
 }
+
+.boldtext {
+    font-weight: 900;
+}

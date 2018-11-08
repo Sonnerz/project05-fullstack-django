@@ -54,7 +54,9 @@ def checkout(request):
                 # set user to donor
                 is_user_a_donor = get_object_or_404(
                     Donor, user_id=request.user)
-                print(is_user_a_donor.is_donor)
+                if is_user_a_donor.is_donor == False:
+                    is_user_a_donor.is_donor = True
+                    is_user_a_donor.save()
                 # Change Feature status to 'Target not Reached' or 'Under Review' before session cleared
                 for id, quantity in cart.items():
                     feature = get_object_or_404(Feature, pk=id)
