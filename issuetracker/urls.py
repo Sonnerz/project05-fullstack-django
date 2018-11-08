@@ -23,6 +23,7 @@ from issues import urls as urls_issues
 from search import urls as urls_search
 from cart import urls as urls_cart
 from checkout import urls as urls_checkout
+from blog import urls as urls_blog
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -32,5 +33,6 @@ urlpatterns = [
     url(r'^search/', include(urls_search)),
     url(r'^cart/', include(urls_cart)),
     url(r'^checkout/', include(urls_checkout)),
+    url(r'^blog/', include(urls_blog)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]

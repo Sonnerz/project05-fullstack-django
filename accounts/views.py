@@ -67,35 +67,20 @@ def registration(request):
                   {"registration_form": registration_form})
 
 
-def get_order_lineitems(id):
-    user_order_details = (OrderLineItem.objects.filter(
-        order_id=id))
-    return user_order_details
-
-
+@login_required
 def user_profile(request):
     """prfole page"""
     user = User.objects.get(email=request.user.email)
+
     # orders
     user_orders = Order.objects.filter(
         buyer_id=user.id).order_by('-id')
 
-    for orders in user_orders:
-        user_order_details = get_order_lineitems(orders.id)
-        # user_order_details = (OrderLineItem.objects.filter(
-        #     order_id=orders.id))
-        print(user_order_details)
-
-    for o in user_orders:
-        user_order_items = (OrderLineItem.objects.filter(
-            order_id=o.id))
-
     return render(request, 'profile.html', {'profile': user,
-                                            'user_orders': user_orders,
-                                            'user_order_details': user_order_details,
-                                            'user_order_items': user_order_items})
+                                            'user_orders': user_orders})
 
 
+@login_required
 def get_order_details(request, pk):
     user_order_details = (OrderLineItem.objects.filter(
         order_id=pk))

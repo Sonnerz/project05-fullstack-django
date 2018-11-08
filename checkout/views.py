@@ -6,6 +6,7 @@ from .models import OrderLineItem
 from django.conf import settings
 from django.utils import timezone
 from issues.models import Feature
+from accounts.models import Donor
 import stripe
 
 # Create your views here.
@@ -50,12 +51,18 @@ def checkout(request):
 
             if customer.paid:
                 messages.error(request, "you have successffully paid")
+                # set user to donor
+                is_user_a_donor = get_object_or_404(Donor, request.user)
+                print(is_user_a_donor)
                 # Change Feature status to 'Target not Reached' or 'Under Review' before session cleared
                 for id, quantity in cart.items():
                     feature = get_object_or_404(Feature, pk=id)
+                    # get this features past orders
                     feature_orders = OrderLineItem.objects.filter(
                         feature_id=feature.id)
+                    # set total_hrs_bought to 0
                     total_hrs_bought = 0
+                    # if feature has past orders, total the hours
                     for orders in feature_orders:
                         total_hrs_bought += orders.quantity
                         if total_hrs_bought >= 10:

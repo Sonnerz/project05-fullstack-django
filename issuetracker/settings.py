@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_forms_bootstrap',
     'accounts',
+    'blog',
     'issues',
     'checkout',
     'cart',
@@ -122,6 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend']
+
+# Extended User Model with custom field
+AUTH_PROFILE_MODULE = "accounts.Donor"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

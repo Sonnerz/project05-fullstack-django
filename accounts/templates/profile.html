@@ -9,14 +9,17 @@
 <p>User firstname: {{ user.first_name }}</p>
 <p>User lastname: {{ user.last_name }}</p>
 <p>User username: {{ user.username }}</p>
+<p>User is donor: {% if user.profile.is_donor == False %}No{% else %}Yes{% endif %}</p>
 
-{% for orders in user_orders %}
+
+
 <table cellpadding=10px>
     <tr>
         <th>id</th>
         <th>full_name</th>
         <th>date</th>
     </tr>
+    {% for orders in user_orders %}
     <tr>
         <td>
             <p><a href="{% url 'get_order_details' orders.id %}" class="btn btn-primary">{{ orders.id }}</a></p>
@@ -24,8 +27,9 @@
         <td>{{ orders.full_name}}</td>
         <td>{{ orders.date}}</td>
     </tr>
+    {% endfor %}
 </table>
-{% endfor %}
+
 
 <hr>
 <hr>
