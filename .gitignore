@@ -1,8 +1,12 @@
 *.sqlite3
+__pycache__
 *.pyc
 .vscode
-__pycache__
 venv
 *.code-workspace
 env.py
 venv_Lib_site-packages_*
+*.png
+*.jpg
+static/
+media/
