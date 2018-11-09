@@ -3,10 +3,12 @@
 
 {% block page_heading %}Bugz Detail{% endblock %}
 {% block content %}
+{{ MEDIA_URL }}<br>
+{{ bug.image }}
 <div class="row">
     <div class="col-md-10 col-sm-9">
         {% if bug.image %}
-        <img class="img-blogpost" src="url('{{ MEDIA_URL }}{{ bug.image }}')">
+        <img class="img-blogpost" src="{{ MEDIA_URL }}{{ bug.image }}">
         {% endif %}
         <h3>{{ bug.title }}</h3>
         <div class="row">
