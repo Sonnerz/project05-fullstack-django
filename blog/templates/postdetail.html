@@ -5,9 +5,6 @@
 {% block content %}
 <div class="row">
     <div class="col-md-2 col-sm-3 text-center">
-        <a class="story-img" href="#">
-            <img src="/media/img/profile.jpg" class="img-circle">
-        </a>
         <p><span class="boldtext">Author:</span> {{ post.author }}</p>
         <p><span class="boldtext">User is donor:</span>
             {% if user.profile.is_donor == False %}No{% else %}Yes{% endif %}
@@ -15,7 +12,7 @@
     </div>
     <div class="col-md-10 col-sm-9">
         {% if post.image %}
-        <img class="img-blogpost" src="/media/{{ post.image }}">
+        <img class="img-blogpost" src="url('{{ MEDIA_URL }}{{ post.image }}')">
         {% endif %}
         <h3>{{ post.title }}</h3>
         <div class="row">
