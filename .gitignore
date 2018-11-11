@@ -5,7 +5,6 @@ __pycache__
 venv
 *.code-workspace
 env.py
-venv_Lib_site-packages_*
 *.png
 *.jpg
 static/
