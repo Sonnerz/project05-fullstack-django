@@ -9,3 +9,4 @@ env.py
 *.jpg
 static/
 media/
+htmlcov/
