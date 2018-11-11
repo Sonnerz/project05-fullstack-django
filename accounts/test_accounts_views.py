@@ -1,7 +1,6 @@
 from django.test import TestCase
 from .views import *
 from django.contrib.auth.models import User
-from .models import Donor
 from django.contrib.messages import get_messages
 from django.test.client import Client
 from django.urls import resolve
