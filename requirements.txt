@@ -5,6 +5,7 @@ boto3==1.9.41
 botocore==1.12.41
 certifi==2018.10.15
 chardet==3.0.4
+codecov==2.0.15
 colorama==0.4.0
 coverage==4.5.1
 decorator==4.3.0
