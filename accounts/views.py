@@ -18,7 +18,7 @@ def logout(request):
     """log out user"""
     auth.logout(request)
     messages.success(request, "You have been logged out")
-    return redirect(reverse('acc_index'))
+    return redirect(reverse('index'))
 
 
 def login(request):
@@ -33,7 +33,7 @@ def login(request):
                                      password=request.POST['password'])
         if user:
             auth.login(user=user, request=request)
-            messages.success(request, "your're logged in")
+            messages.success(request,  "You are logged in")
             return redirect(reverse('acc_index'))
         else:
             login_form.add_error(None, "UN or PW is wrong")

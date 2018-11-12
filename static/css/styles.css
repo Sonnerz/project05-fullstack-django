@@ -1,7 +1,119 @@
+body,
+html {
+    height: 100%;
+}
+
 .hide-first {
     display: none;
 }
 
 .boldtext {
     font-weight: 900;
+}
+
+.move-right {
+    margin-left: 100px;
+}
+
+.nav-link {
+    white-space: nowrap;
+}
+
+.active-link {
+    font-weight: 900;
+}
+
+/*  MASTHEAD */
+
+.masthead {
+    padding-top: 5rem;
+    padding-bottom: calc(10rem - 56px);
+    background-position: center center;
+    background-size: cover;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.1)), color-stop(75%, rgba(22, 22, 22, 0.5)), to(#161616)), url("/static/img/bg-masthead.jpg");
+    background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 40%, #161616 100%), url("/static/img/bg-masthead.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.masthead h1 {
+    font-family: 'Varela Round';
+    font-size: 2.5rem;
+    white-space: nowrap;
+    line-height: 2.5rem;
+    letter-spacing: 0.8rem;
+    background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    /* -webkit-text-fill-color: transparent; */
+    -webkit-background-clip: text;
+}
+
+.masthead h2 {
+    font-size: 1rem;
+}
+
+.masthead img {
+    max-width: 100%;
+}
+
+.messages-wrapper {
+    z-index: 1020;
+    background: transparent;
+    min-width: 30%;
+    position: fixed;
+    width: 100%;
+}
+
+.messages {
+    width: 25%;
+    position: fixed;
+    left: 75%;
+    top: 48px;
+    border: 1px solid transparent;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 0rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+    box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* Bugs & Features */
+
+.links-col {
+    background-color: #4E5D6C;
+}
+
+.list-group-item {
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .masthead h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+    .links-col {
+        background-color: #4E5D6C;
+        height: 100vh;
+    }
+    .list-group-item {
+        padding: 0.75rem 1.25rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .masthead {
+        height: 100vh;
+        min-height: 650px;
+        padding: 0;
+        padding-top: 5rem;
+    }
+    .masthead h1 {
+        font-size: 4.5rem;
+        line-height: 6.5rem;
+        letter-spacing: 0.8rem;
+    }
+    .masthead h2 {
+        font-size: 1.25rem;
+    }
 }

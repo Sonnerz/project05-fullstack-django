@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <!-- links-->
             {% if user.is_authenticated %}
-            <div class="navbar-nav ml-auto mr-auto">
+            <div class="navbar-nav mr-auto move-right">
                 <span class="nav-item nav-link">Logged in: {{ user.username }}</span>
                 <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}">Profile</a></li>
                 {% if user.profile.is_donor %}
@@ -74,8 +74,35 @@
         {% endfor %}
     </div>
     {% endif %}
-    <!-- Block for single col pages -->
-    <div class="mt-5">{% block content %}{% endblock %}</div>
+    <!-- Block for two column pages -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12 col-md-2 links-col">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link nowrap" href="{% url 'get_all_bugs' %}">All Bugs</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link nowrap" href="{% url 'new_bug' %}">New Bug</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link nowrap" href="{% url 'get_all_features' %}">All Features</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="nav-link nowrap" href="{% url 'new_feature' %}">New Feature</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-10 content-col">
+                <h3 class="mt-5">{% block page_heading %}{% endblock %}
+                    <small class="text-muted">{% block page_heading_sub %}{% endblock %}</small>
+                </h3>
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="

@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base_pages.html' %}
 
-{% block page_title %}{{user}}'s PRofile page{% endblock %}
+{% block page_title %}{{user}}'s Profile page{% endblock %}
 
-{% block page_heading %}{{user}}'s PRofile page{% endblock %}
+{% block page_heading %}{{user}}'s orders{% endblock %}
+{% block page_heading_sub %} review{% endblock %}
 
 {% block content %}
+
+{{user}}'s page
 <p>User email: {{ user.email }}</p>
 <p>User firstname: {{ user.first_name }}</p>
 <p>User lastname: {{ user.last_name }}</p>
