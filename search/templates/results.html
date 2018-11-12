@@ -4,6 +4,16 @@
 {% block page_heading %}Results{% endblock %}
 {% block content %}
 
+<div class="container searchforms mt-5">
+    <div class="container searchforms mt-5">
+
+        <form action="{% url 'search_ref' %}" method="get">
+            <input type="text" name="q">
+            <button type="submit">Search by Reference number</button>
+        </form>
+    </div>
+</div>
+
 {{q}}
 {{bugs}}
 

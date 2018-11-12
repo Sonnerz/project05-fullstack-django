@@ -21,7 +21,8 @@ from issues.models import Bug, Feature
 
 
 def do_search(request):
-    lookup_fields = Q(title__icontains=request.GET['q'])
+    lookup_fields = Q(title__icontains=request.GET['q']) | Q(
+        ref__icontains=request.GET['q'])
     bugs = Bug.objects.filter(lookup_fields).distinct()
     features = Feature.objects.filter(lookup_fields).distinct()
     searchparam = request.GET['q']
