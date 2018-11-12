@@ -1,32 +1,41 @@
-{% extends 'base.html' %}
+{% extends 'base_pages.html' %}
 
-{% block page_title %}{{user}}'s Orders page{% endblock %}
+{% block page_title %}{{user}}'s Orders Details{% endblock %}
 
-{% block page_heading %}{{user}}'s orders page{% endblock %}
+{% block page_heading %}{{user}}'s Order Details{% endblock %}
+{% block page_heading_sub %}Order overview and order details{% endblock %}
 
 {% block content %}
 
-
-<table cellpadding=10px>
-    <tr>
-        <th>id</th>
-        <th>Feature Ref</th>
-        <th>status</th>
-        <th>title</th>
-        <th>feature_id</th>
-        <th>quantity</th>
-    </tr>
+<div class="container">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">Order id: {{ order_id }}</div>
+    </div>
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row mb-4 text-center">
+        <div class="col-3 col-md-2 col-lg-1 my-auto">Item id</div>
+        <div class="col-3 col-md-3 d-none d-lg-block my-auto">Feature Ref</div>
+        <div class="col-3 col-md-3 d-none d-lg-block my-auto">Status</div>
+        <div class="col-4 col-md-5 col-lg-2 my-auto"># of hours</div>
+        <div class="col-5 col-md-5 col-lg-2 my-auto">View Feature</div>
+    </div>
+    <div class="row mb-4 border-bottom border-success"></div>
     {% for orders in user_order_details %}
-    <tr>
-        <td>{{ orders.id }}</td>
-        <td>{{ orders.feature.ref }}</td>
-        <td>{{ orders.feature.status }}</td>
-        <td><a href="{% url 'feature_detail' orders.feature_id %}" class="btn btn-primary">{{orders.feature.title }}</a></td>
-        <td>{{ orders.feature_id}}{{ orders.feature.title}}{{ orders.feature.details}}</td>
-        <td>{{ orders.quantity}}</td>
-    </tr>
+    <div class="row mb-4 text-center">
+        <div class="col-3 col-md-2 col-lg-1 my-auto">{{ orders.id }}</div>
+        <div class="col-3 col-md-3 d-none d-lg-block my-auto "><a href="{% url 'feature_detail' orders.feature_id %}">{{orders.feature.ref}}</a></div>
+        <div class="col-3 col-md-3 d-none d-lg-block my-auto ">{{ orders.feature.status }}</div>
+        <div class="col-4 col-md-5 col-lg-2 my-auto">{{ orders.quantity}}</div>
+        <div class="col-5 col-md-5 col-lg-2 my-auto"><a href="{% url 'feature_detail' orders.feature_id %}" class="btn btn-primary">{{orders.feature.title}}</a></div>
+    </div>
     {% endfor %}
-</table>
-
-
+</div>
+<div class="container">
+    <div class="row mt-5 border-top border-secondary">
+        <div class="col-12 text-right mt-2">
+            <a href="/accounts/profile/" class="btn btn-success">Back to Orders</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

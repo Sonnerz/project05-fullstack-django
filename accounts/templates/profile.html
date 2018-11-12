@@ -1,42 +1,57 @@
 {% extends 'base_pages.html' %}
 
 {% block page_title %}{{user}}'s Profile page{% endblock %}
-
-{% block page_heading %}{{user}}'s orders{% endblock %}
-{% block page_heading_sub %} review{% endblock %}
+{% block page_heading %}{{user}}'s Orders{% endblock %}
+{% block page_heading_sub %}Account overview and order review{% endblock %}
 
 {% block content %}
+<div class="container">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-5 col-md-2 my-auto">Username:</div>
+        <div class="col-7 col-md-10 my-auto">{{ user.username }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-2 my-auto">Email:</div>
+        <div class="col-7 col-md-10 my-auto">{{ user.email }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-2 my-auto">Full name:</div>
+        <div class="col-7 col-md-10 my-auto">{{ user.first_name }} {{user.last_name}}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-2 my-auto">Is {{user}} a donor:</div>
+        <div class="col-7 col-md-10 my-auto">{% if user.profile.is_donor == False%}No{% else %}Yes{% endif %}</div>
+    </div>
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+</div>
 
-{{user}}'s page
-<p>User email: {{ user.email }}</p>
-<p>User firstname: {{ user.first_name }}</p>
-<p>User lastname: {{ user.last_name }}</p>
-<p>User username: {{ user.username }}</p>
-<p>User is donor: {% if user.profile.is_donor == False %}No{% else %}Yes{% endif %}</p>
 
 
 {% if user_orders %}
-
-<table cellpadding=10px>
-    <tr>
-        <th>id</th>
-        <th>full_name</th>
-        <th>date</th>
-    </tr>
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-6 col-md-3 col-lg-2 text-center">Order id</div>
+        <div class="col-2 col-md-3 d-none d-lg-block">Full name</div>
+        <div class="col-2 col-md-3 d-none d-lg-block">Order Date</div>
+        <div class="col-6 col-md-3 col-lg-4">View Order Details</div>
+    </div>
+    <div class="row mb-4 border-bottom border-success"></div>
     {% for orders in user_orders %}
-    <tr>
-        <td>
-            <p><a href="{% url 'get_order_details' orders.id %}" class="btn btn-primary">{{ orders.id }}</a></p>
-        </td>
-        <td>{{ orders.full_name}}</td>
-        <td>{{ orders.date}}</td>
-    </tr>
+    <div class="row mb-4">
+        <div class="col-6 col-md-3 col-lg-2 my-auto text-center">{{ orders.id }}</div>
+        <div class="col-2 col-md-3 d-none d-lg-block my-auto ">{{ orders.full_name}}</div>
+        <div class="col-2 col-md-3 d-none d-lg-block my-auto ">{{ orders.date}}</div>
+        <div class="col-6 col-md-6 col-lg-4 my-auto"><a href="{% url 'get_order_details' orders.id %}" class="btn btn-primary">View
+                order</a></div>
+    </div>
     {% endfor %}
-</table>
-{% else %}
-<p>you have no orders</p>
-{% endif %}
-<hr>
-<hr>
-
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">{{user}} you have made no purchases yet.</div>
+        </div>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}

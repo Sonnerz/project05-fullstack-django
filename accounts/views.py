@@ -84,4 +84,4 @@ def user_profile(request):
 def get_order_details(request, pk):
     user_order_details = (OrderLineItem.objects.filter(
         order_id=pk))
-    return render(request, 'orders.html', {'user_order_details': user_order_details})
+    return render(request, 'orders.html', {'user_order_details': user_order_details, 'order_id': pk})

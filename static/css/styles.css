@@ -23,6 +23,11 @@ html {
     font-weight: 900;
 }
 
+.issues-button {
+    width: 100%;
+    white-space: normal;
+}
+
 /*  MASTHEAD */
 
 .masthead {
