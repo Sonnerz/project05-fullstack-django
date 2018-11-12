@@ -13,73 +13,72 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-2">Reference:</div>
-        <div class="col-10">{{ feature.ref }}</div>
+        <div class="col-5 col-md-3 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Details</div>
-        <div class="col-10">{{ feature.details }}</div>
+        <div class="col-5 col-md-3 my-auto">Details</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.details }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Published on:</div>
-        <div class="col-10">{{ feature.published_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 my-auto">Published on:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Author:</div>
-        <div class="col-10">{{ feature.author }}</div>
+        <div class="col-5 col-md-3 my-auto">Author:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.author }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Tag:</div>
-        <div class="col-10">{{ feature.tag }}</div>
+        <div class="col-5 col-md-3 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.tag }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Status:</div>
-        <div class="col-10">{{ feature.status }}</div>
+        <div class="col-5 col-md-3 my-auto">Status:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.status }}</div>
     </div>
     <div class="row mb-4 mt-4 border-bottom border-info"></div>
     <div class="row">
-        <div class="col-2">Votes:</div>
-        <div class="col-10">{{ totals.number_of_times_ordered }}</div>
+        <div class="col-5 col-md-3 my-auto">Votes:</div>
+        <div class="col-7 col-md-9 my-auto">{{ totals.number_of_times_ordered }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Cost per hour:</div>
-        <div class="col-10">{{ feature.cost_per_hour }}</div>
+        <div class="col-5 col-md-3 my-auto">Cost per hour:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.cost_per_hour }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Views:</div>
-        <div class="col-10">{{ feature.views }}</div>
+        <div class="col-5 col-md-3 my-auto">Views:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.views }}</div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-2">Total number of hours bought:</div>
-        <div class="col-10 align-bottom">{{ totals.total_hrs_bought }}</div>
+        <div class="col-5 col-md-3 my-auto">Total number of hours bought:</div>
+        <div class="col-7 col-md-9 my-auto align-bottom">{{ totals.total_hrs_bought }}</div>
     </div>
     <div class="row">
-        <div class="col-2">Total money raised:</div>
-        <div class="col-10">{{ totals.total_money_raised }}</div>
+        <div class="col-5 col-md-3 my-auto">Total money raised:</div>
+        <div class="col-7 col-md-9 my-auto">{{ totals.total_money_raised }}</div>
     </div>
     <div class="row">
-        {% if totals.total_money_raised < 500 %} <div class="col-2">Total money needed:</div>
-    <div class="col-10">{{ totals.total_money_needed }}</div>
+        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 my-auto">Total money needed:</div>
+    <div class="col-7 col-md-9 my-auto">{{ totals.total_money_needed }}</div>
     {% endif %}
 </div>
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
-<div class="row text-center">
-    <div class="col-4"><a href="{% url 'get_all_features' %}" class="btn btn-success">Back To features</a></div>
+<div class="row text-center mb-4">
+    <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success">Back to features</a></div>
     {% if user.username == feature.author.username %}
-    <div class="col-4">
-        <a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a>
-    </div>
+    <div class="col-6 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a></div>
     {% endif %}
-    <div class="col-4">{% if user.username == feature.author.username %}
+    <div class="col-6 col-md-4 pt-2">{% if user.username == feature.author.username %}
         <button type="button" class="btn btn-info donate_feature_button">Donate more</button>
         {% else %}
         <button type="button" class="btn btn-info donate_feature_button">Donate</button>
-        {% endif %}</div>
+        {% endif %}
+    </div>
 </div>
 </div>
 
-<div id="donate_feature_form" class="hide-first mt-5">
+<div id="donate_feature_form" class="hide-first mt-5 mb-5">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -87,7 +86,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-md-12">
                 <form method="post" action="{% url 'add_to_cart' feature.id %}" class="text-right">
                     Minimum of 1 hour
                     {% csrf_token %}

@@ -1,10 +1,13 @@
-{% extends 'base.html' %}
-{% block page_title %}features page{% endblock %}
+{% extends 'base_pages.html' %}
+{% block page_title %}All Features{% endblock %}
 
-{% block page_heading %}all features {% endblock %}
+{% block page_heading %}All Features {% endblock %}
+{% block page_heading_sub %}View all the features requested{% endblock %}
+
 {% block content %}
 {% for feature in features %}
 {% if feature.status != 'Pending Payment'%}
+
 <div class="row">
     <div class="col-md-10 col-sm-9">
         <h3>{{ feature.title }}</h3>
@@ -26,7 +29,8 @@
     </div>
     <hr>
 </div>
-{% endif %}
 
+{% endif %}
 {% endfor %}
+
 {% endblock %}
