@@ -1,72 +1,104 @@
 {% extends 'base_pages.html' %}
-{% block page_title %}feature dtail page{% endblock %}
+{% block page_title %}Feature Details{% endblock %}
 
-{% block page_heading %}Feature Detail{% endblock %}
-{% block page_heading_sub %}Order overview and order details{% endblock %}
+{% block page_heading %}Feature Details{% endblock %}
+{% block page_heading_sub %}All the details about this Feature{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-10 col-sm-9">
-        {% if feature.image %}
-        <img class="img-blogpost" src="url('{{ MEDIA_URL }}{{ feature.image }}')">
-        {% endif %}
-        <h3>{{ feature.title }}</h3>
+<div class="container">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ feature.title }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2">Reference:</div>
+        <div class="col-10">{{ feature.ref }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Details</div>
+        <div class="col-10">{{ feature.details }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Published on:</div>
+        <div class="col-10">{{ feature.published_date|date:"d-m-Y" }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Author:</div>
+        <div class="col-10">{{ feature.author }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Tag:</div>
+        <div class="col-10">{{ feature.tag }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Status:</div>
+        <div class="col-10">{{ feature.status }}</div>
+    </div>
+    <div class="row mb-4 mt-4 border-bottom border-info"></div>
+    <div class="row">
+        <div class="col-2">Votes:</div>
+        <div class="col-10">{{ totals.number_of_times_ordered }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Cost per hour:</div>
+        <div class="col-10">{{ feature.cost_per_hour }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Views:</div>
+        <div class="col-10">{{ feature.views }}</div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-2">Total number of hours bought:</div>
+        <div class="col-10 align-bottom">{{ totals.total_hrs_bought }}</div>
+    </div>
+    <div class="row">
+        <div class="col-2">Total money raised:</div>
+        <div class="col-10">{{ totals.total_money_raised }}</div>
+    </div>
+    <div class="row">
+        {% if totals.total_money_raised < 500 %} <div class="col-2">Total money needed:</div>
+    <div class="col-10">{{ totals.total_money_needed }}</div>
+    {% endif %}
+</div>
+<div class="row mb-4 mt-4 border-bottom border-success"></div>
+<div class="row text-center">
+    <div class="col-4"><a href="{% url 'get_all_features' %}" class="btn btn-success">Back To features</a></div>
+    {% if user.username == feature.author.username %}
+    <div class="col-4">
+        <a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a>
+    </div>
+    {% endif %}
+    <div class="col-4">{% if user.username == feature.author.username %}
+        <button type="button" class="btn btn-info donate_feature_button">Donate more</button>
+        {% else %}
+        <button type="button" class="btn btn-info donate_feature_button">Donate</button>
+        {% endif %}</div>
+</div>
+</div>
+
+<div id="donate_feature_form" class="hide-first mt-5">
+    <div class="container">
         <div class="row">
-            <div class="col-xs-9">
-                <p>{{ feature.id }}</p>
-                <p>{{ feature.details }}</p>
-                <p><span class="boldtext">Published on:</span> {{ feature.published_date|date:"d-m-Y" }} </p>
-                <p><span class="boldtext">Votes:</span> {{ feature.votes }}</p>
-                <p><span class="boldtext">Tag:</span> {{ feature.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
-                <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
-                <p><span class="boldtext">Cost per hour:</span> {{ feature.cost_per_hour }}</p>
-                <p><span class="boldtext">Status:</span> {{ feature.status }}</p>
-                <p><span class="boldtext">Views:</span> {{ feature.views }}</p>
-                <hr>
-                <p><span class="boldtext">total hrs bought:</span> {{ totals.total_hrs_bought }}</p>
-                <p><span class="boldtext">total money raised:</span> {{ totals.total_money_raised }}</p>
-                {% if totals.total_money_raised < 500 %} <p><span class="boldtext">total money needed:</span>
-                    {{ totals.total_money_needed }}</p>
-                    {% endif %}
-                    <p>
-                        <a href="{% url 'get_all_features' %}" class="btn btn-primary">Back To features</a>
-
-                        {% if user.username == feature.author.username %}
-                        <a href="{% url 'edit_feature' feature.id %}" class="btn btn-secondary">Edit feature</a>
-                        {% endif %}
-
-                        {% if user.username == feature.author.username %}
-                        <button type="button" class="btn btn-primary donate_feature_button">Donate more</button>
-                        {% else %}
-                        <button type="button" class="btn btn-primary donate_feature_button">Donate</button>
-                        {% endif %}
-                    </p>
-                    <hr>
+            <div class="col-12">
+                <h3>Donate towards development of this feature</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <form method="post" action="{% url 'add_to_cart' feature.id %}" class="text-right">
+                    Minimum of 1 hour
+                    {% csrf_token %}
+                    <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
+                        value="1">
+                    <button class="btn btn-info mt-1" type="submit">Donate</button>
+                    <button type="button" class="btn btn-success donate_feature_cancel mt-1">Cancel</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
-
-<div>{{ feature_orders }}</div>
-{% for item in feature_orders %}
-<div>feature_id: {{ item.feature_id}}</div>
-<div>order_id: {{ item.order_id }}</div>
-<div>quantity: {{ item.quantity }} hours @ 50.00 per hour = {{ item.quantity }} * 50</div>
-
-<div>total paid: {% widthratio item.quantity 1 50 %}</div>
-<hr>
-{% endfor %}
-
-
-<div id="donate_feature_form" class="hide-first">
-    <h2>Donate form</h2>
-    <form method="post" action="{% url 'add_to_cart' feature.id %}">
-        minimum of 1 hour
-        {% csrf_token %}
-        <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity" value="1">
-        <button class="btn btn-success" type="submit">Donate</button>
-        <button type="button" class="btn btn-primary donate_feature_cancel">Cancel</button>
-    </form>
 </div>
 {% endblock %}

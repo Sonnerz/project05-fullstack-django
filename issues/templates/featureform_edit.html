@@ -1,15 +1,21 @@
-{% extends "base.html" %}
+{% extends 'base_pages.html' %}
 {% load bootstrap_tags %}
-{% block page_title %}feature form page{% endblock %}
+{% block page_title %}Edit Feature{% endblock %}
 
-{% block page_heading %}feature From{% endblock %}
+{% block page_heading %}Edit Feature{% endblock %}
+{% block page_heading_sub %}Edit the feature details{% endblock %}
+
 {% block content %}
-<h1>Edit feature!</h1>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form | as_bootstrap }}
-    <button type="submit" class="btn btn-info">Save</button>
-    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
-</form>
-
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | as_bootstrap }}
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

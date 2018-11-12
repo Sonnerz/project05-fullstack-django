@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark pl-5">
         <!-- if logged in go to logged in home page -->
         {% if user.is_authenticated %}
         <a class="navbar-brand" href="{% url 'acc_index' %}">
@@ -94,9 +94,9 @@
                 </ul>
             </div>
             <div class="col-12 col-md-10 content-col">
-                <h3 class="mt-3">{% block page_heading %}{% endblock %}
+                <h2 class="mt-3">{% block page_heading %}{% endblock %}
                     <small class="text-muted">{% block page_heading_sub %}{% endblock %}</small>
-                </h3>
+                </h2>
                 {% block content %}{% endblock %}
             </div>
         </div>
