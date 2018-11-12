@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test.client import Client
 from django.urls import resolve
+from .forms import MakePaymentForm, OrderForm
 
 # Create your tests here.
 
@@ -39,3 +40,14 @@ class TestViews(TestCase):
         paymentform = response.context.get('payment_form')
         self.assertIsInstance(paymentform, MakePaymentForm)
         self.assertIsInstance(orderform, OrderForm)
+
+    def test_valid_order_create(self):
+        self.c.login(username='test', password='test')
+        data = {'full_name': 'name', 'phone_number': 'number',
+                'country': 'ireland', 'postcode': '123',
+                'town_or_city': 'Dublin', 'street_address1': 'street1',
+                'street_address2': 'street2', 'county': 'dublin'}
+        data['date'] = timezone.now()
+        data['buyer'] = self.user.id
+        response = self.c.post(reverse('checkout'), data)
+        self.assertEqual(response.status_code, 200)

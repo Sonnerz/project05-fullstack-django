@@ -8,9 +8,9 @@ from django.http import HttpResponse
 # Create your views here.
 
 
-def index(request):
-    """Return index.html file"""
-    return render(request, 'index.html')
+def acc_index(request):
+    """Return acc_index.html file"""
+    return render(request, 'acc_index.html')
 
 
 @login_required
@@ -18,13 +18,13 @@ def logout(request):
     """log out user"""
     auth.logout(request)
     messages.success(request, "You have been logged out")
-    return redirect(reverse('index'))
+    return redirect(reverse('acc_index'))
 
 
 def login(request):
     """log in user return login page"""
     if request.user.is_authenticated:
-        return redirect(reverse('index'))
+        return redirect(reverse('acc_index'))
     if request.method == "POST":
         login_form = UserLoginForm(request.POST)
 
@@ -34,7 +34,7 @@ def login(request):
         if user:
             auth.login(user=user, request=request)
             messages.success(request, "your're logged in")
-            return redirect(reverse('index'))
+            return redirect(reverse('acc_index'))
         else:
             login_form.add_error(None, "UN or PW is wrong")
     else:
@@ -45,7 +45,7 @@ def login(request):
 def registration(request):
     """Render the registration page"""
     if request.user.is_authenticated:
-        return redirect(reverse('index'))
+        return redirect(reverse('acc_index'))
 
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)

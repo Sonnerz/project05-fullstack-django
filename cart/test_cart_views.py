@@ -28,6 +28,7 @@ class TestViews(TestCase):
         # 200 because we are logged in
         self.assertEqual(response.status_code, 200)
 
+
     # # ADD TO CART
     # def test_add_cart_page(self):
     #     bug = Bug.objects.create(bug=bug)

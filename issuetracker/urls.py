@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.static import serve
 from .settings import MEDIA_ROOT
-from accounts.views import index
+from pages.views import index
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
 from search import urls as urls_search
