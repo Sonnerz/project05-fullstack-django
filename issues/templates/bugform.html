@@ -1,8 +1,9 @@
-{% extends "base.html" %}
+{% extends 'base_pages.html' %}
 {% load bootstrap_tags %}
-{% block page_title %}Bugz Form page{% endblock %}
+{% block page_title %}Submit Bug{% endblock %}
 
-{% block page_heading %}Bugz Form{% endblock %}
+{% block page_heading %}Bug{% endblock %}
+{% block page_heading_sub %}Bug for investigation{% endblock %}
 
 {% block content %}
 {% if request.path == '/issues/new/' %}
@@ -13,7 +14,9 @@
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | as_bootstrap }}
-    <button type="submit" class="btn btn-info">Save</button>
-    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
+    <div class="text-center mb-2">
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+    </div>
 </form>
 {% endblock %}

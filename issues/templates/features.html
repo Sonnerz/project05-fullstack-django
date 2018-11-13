@@ -8,26 +8,50 @@
 {% for feature in features %}
 {% if feature.status != 'Pending Payment'%}
 
-<div class="row">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ feature.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ feature.id }}</p>
-                <p>{{ feature.details|truncatewords:30 }}</p>
-                <p><a href="{% url 'feature_detail' feature.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">Published on:</span> {{ feature.published_date }} </p>
-                <p><span class="boldtext">Votes:</span> {{feature.votes}}</p>
-                <p><span class="boldtext">Tag:</span> {{ feature.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
-                <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
-                <p><span class="boldtext">cost_per_hour:</span> {{ feature.cost_per_hour }}</p>
-                <p><span class="boldtext">Status:</span> {{ feature.status }}</p>
-                <p><span class="boldtext">Views:</span> {{ feature.views }}</p>
-            </div>
+<div class="container">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ feature.title|truncatewords:5 }}</h3>
         </div>
     </div>
-    <hr>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.ref }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Details</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.details|truncatewords:30 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Published on:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Author:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.author }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Status:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.status }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.tag }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Cost per hour:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.cost_per_hour }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Views:</div>
+        <div class="col-7 col-md-9 my-auto">{{ feature.views }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto"></div>
+        <div class="col-7 col-md-9 my-auto"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">Read
+                more</a></div>
+    </div>
 </div>
 
 {% endif %}

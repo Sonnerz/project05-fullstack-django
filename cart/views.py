@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def view_cart(request):
     """ a view that rdners the car contents page """
-
     return render(request, "cart.html")
 
 

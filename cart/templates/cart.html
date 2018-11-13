@@ -1,46 +1,72 @@
-{% extends 'base.html' %}
+{% extends 'base_pages.html' %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
-{% block page_title %}cart {% endblock %}
+{% block page_title %}Cart{% endblock %}
 
-{% block page_heading %} cart{% endblock %}
+{% block page_heading %}{{user}}'s Cart{% endblock %}
+{% block page_heading_sub %}View items in your cart{% endblock %}
+
 {% block content %}
-<div class="row row-flex">
+
+
+<div class="container">
+
     {% for item in cart_items %}
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>{{item.feature.title|truncatewords:5}}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Details:</div>
+        <div class="col-7 col-md-9 my-auto">{{ item.feature.details|truncatewords:30 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Cost per hour:</div>
+        <div class="col-7 col-md-9 my-auto"><i class="fas fa-euro-sign"></i>{{ item.feature.cost_per_hour}}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Number of hours added:</div>
+        <div class="col-7 col-md-9 my-auto">{{ item.quantity }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Sub Total:</div>
+        <div class="col-7 col-md-9 my-auto"><i class="fas fa-euro-sign"></i>
+            {% widthratio item.quantity 1 item.feature.cost_per_hour %}</div>
 
-    <div class="col-xs-10 col-xs-offset-1 col-sm-offset-0 col-sm-6 col-md-4 display panel panel-default">
-        <div class="caption">
-            <h3>{{item.feature.title}}</h3>
-            <p class="feature-description">{{ item.feature.details }}</p>
-            <p>{{ item.feature.cost_per_hour}}</p>
-            <p>
-                <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="exampleInputAmount" class="sr-only">New Qty</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                Qty
-                            </div>
-                            <input name="quantity" type="number" min="0" max="999" class="form-control">
-                            <div class="input-group-addon">{{ item.quantity }}</div>
-                        </div>
+    </div>
+    <div class="row mb-1 mt-3">
+        <div class="col-12 my-auto">Adjust the hours?</div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form class="form-inline" method="post" action="{% url 'adjust_cart' item.id %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon pr-3">Hours</div>
+                        <input name="quantity" type="number" min="0" max="999" class="form-control" id="quantity">
+                        <div class="input-group-addon pl-4 pr-4">{{ item.quantity }}</div>
                     </div>
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-edit" aria-hidden="true">
-                        </span></button>
-                </form>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="far fa-edit"></i>Update</button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
 
-            </p>
+
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-3 col-md-3 my-auto"><strong>Total:</strong></div>
+        <div class="col-9 col-md-9 my-auto"><i class="fas fa-euro-sign"></i>
+            {{ total}}</div>
+        <div class="col-12 text-center mt-3 mb-3">
+            <a href="{% url 'checkout' %}" class="btn btn-success" role="button">
+                <i class="far fa-check-circle pr-2"></i>Checkout</a>
         </div>
     </div>
 </div>
-{% endfor %}
-
-<div class="row">
-    <p>Total</p>
-    <p><span class="glyphicon glyphicon-euro" aria-hidden="true"></span>{{ total }}</p>
-    <a href="{% url 'checkout' %}" class="btn btn-success" role="button"><span class="glyphicon glyphicon-ok-sign"
-            aria-hidden="true"></span>Checkout</a>
-</div>
-
 {% endblock %}

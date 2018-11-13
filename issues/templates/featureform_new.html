@@ -1,17 +1,20 @@
-{% extends "base.html" %}
+{% extends 'base_pages.html' %}
 {% load bootstrap_tags %}
-{% block page_title %}feature form page{% endblock %}
+{% block page_title %}New Feature Request{% endblock %}
 
-{% block page_heading %}feature From{% endblock %}
+{% block page_heading %}New Feature Request{% endblock %}
+{% block page_heading_sub %}Request a new feature to be developed{% endblock %}
+
 {% block content %}
-<h1>New feature</h1>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form | as_bootstrap }}
-    minimum of 1 hour
-    <input name="quantity" type="number" min="1" max="999" class="form-control" placeholder="Quantity" value="1">
-    <button type="submit" class="btn btn-info">Save and add to Cart</button>
-    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
+    Minimum of 1 hour
+    <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity" value="1">
+    <div class="text-center">
+        <button type="submit" class="btn btn-success mt-1">Save and add to Cart</button>
+        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel mt-1">Cancel</button>
+    </div>
 </form>
 
 {% endblock %}

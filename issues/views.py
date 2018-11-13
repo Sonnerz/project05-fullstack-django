@@ -224,3 +224,14 @@ def vote_feature(request, pk):
     feature.save()
 
     return render(request, "featuredetail.html", {'feature': feature})
+
+
+@login_required
+def bug_comment_report(request, pk):
+    """
+    Create a view taht will return a list
+    of Bugs that were published prior to 'now'
+    and render them to the bugs.html template
+    """
+
+    return render(request, "bugs.html", {'bugs': bugs})

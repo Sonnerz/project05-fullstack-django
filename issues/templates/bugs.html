@@ -1,29 +1,61 @@
-{% extends 'base.html' %}
-{% block page_title %}Bugz page{% endblock %}
+{% extends 'base_pages.html' %}
+{% block page_title %}All Bugs{% endblock %}
 
-{% block page_heading %}All Bugz{% endblock %}
+{% block page_heading %}All Bugs{% endblock %}
+{% block page_heading_sub %}View all the bugs submitted{% endblock %}
+
 {% block content %}
 {% for bug in bugs %}
 
-<div class="row mt-5">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ bug.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ bug.id }}</p>
-                <p>{{ bug.details|truncatewords:30 }}</p>
-                <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">published_date on:</span> {{ bug.published_date }} </p>
-                <p><span class="boldtext">Votes:</span> {{bug.votes}}</p>
-                <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
-                <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
-                <p><span class="boldtext">Status:</span> {{ bug.status }}</p>
-                <p><span class="boldtext">Views:</span> {{ bug.views }}</p>
-            </div>
+<div class="container">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>{{ bug.title|truncatewords:5 }}</h3>
         </div>
     </div>
-    <hr>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.ref }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3">Details:</div>
+        <div class="col-7 col-md-9">{{ bug.details|truncatewords:30 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Published on:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Author:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Status:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.status }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.tag }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Votes:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.votes }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Views:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.views }}</div>
+    </div>
+    {% if bug.status == 'Closed' %}
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto">Resolved date:</div>
+        <div class="col-7 col-md-9 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-5 col-md-3 my-auto"></div>
+        <div class="col-7 col-md-9 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">Read more</a></div>
+    </div>
 </div>
 
 {% endfor %}

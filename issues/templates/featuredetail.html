@@ -67,9 +67,9 @@
 <div class="row text-center mb-4">
     <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success">Back to features</a></div>
     {% if user.username == feature.author.username %}
-    <div class="col-6 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a></div>
+    <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a></div>
     {% endif %}
-    <div class="col-6 col-md-4 pt-2">{% if user.username == feature.author.username %}
+    <div class="col-12 col-md-4 pt-2">{% if user.username == feature.author.username %}
         <button type="button" class="btn btn-info donate_feature_button">Donate more</button>
         {% else %}
         <button type="button" class="btn btn-info donate_feature_button">Donate</button>
