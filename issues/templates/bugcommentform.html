@@ -5,37 +5,40 @@
 {% block page_heading_sub %}Add a comment about this bug{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row mb-4 mt-4 border-bottom border-success"></div>
-    <div class="row">
-        <div class="col-12">
-            <h3>{{ bug.title }}</h3>
+<div id="issueform">
+    <div class="container">
+        <div class="row mb-4 mt-4 border-bottom border-success"></div>
+        <div class="row">
+            <div class="col-12">
+                <h3>{{ bug.title }}</h3>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 align-top">Details:</div>
-        <div class="col-7 col-md-9">{{ bug.details }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 my-auto">Published date:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 my-auto">Author:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-success">Back to Bug</a></div>
-    </div>
-
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ comment_form | as_bootstrap }}
-        <div class="text-center mb-2">
-            <button type="submit" class="btn btn-success">Save</button>
-            <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+        <div class="row">
+            <div class="col-5 col-md-3 align-top">Details:</div>
+            <div class="col-7 col-md-9">{{ bug.details }}</div>
         </div>
-    </form>
+        <div class="row">
+            <div class="col-5 col-md-3 my-auto">Published date:</div>
+            <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
+        </div>
+        <div class="row">
+            <div class="col-5 col-md-3 my-auto">Author:</div>
+            <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-success">Back to
+                    Bug</a></div>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ comment_form | as_bootstrap }}
+            <div class="text-center mb-2">
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

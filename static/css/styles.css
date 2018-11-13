@@ -15,12 +15,18 @@ html {
     margin-left: 100px;
 }
 
+.navbar {
+    border-bottom: 1px solid #546a7b;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 .nav-link {
     white-space: nowrap;
 }
 
 .active-link {
-    font-weight: 900;
+    font-weight: 700;
 }
 
 .issues-button {
@@ -30,6 +36,16 @@ html {
 
 .links-col {
     background-color: #4E5D6C;
+    border-right: 1px solid #333;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 11px rgba(0, 0, 0, 0.15);
+}
+
+.links-col-blog {
+    background-color: #999;
+    border-right: 1px solid #666;
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 11px rgba(0, 0, 0, 0.15);
 }
 
 .comment-box {
@@ -39,6 +55,10 @@ html {
 
 .comment-box p {
     margin-bottom: 0;
+}
+
+#issueform .container {
+    margin-left: 0;
 }
 
 /*  MASTHEAD */
@@ -120,7 +140,7 @@ html {
         height: 100%;
     }
     .list-group-item {
-        padding: 0.75rem 1.25rem;
+        margin: 0.75rem;
     }
 }
 

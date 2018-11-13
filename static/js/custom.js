@@ -29,7 +29,7 @@ $(document).ready(function () {
         $("#profile-nav-link").addClass("active-link text-success");
     }
     else if (current_path == "/blog/") {
-        $("#blog-nav-link").addClass("active-link text-success");
+        $("#blog-nav-link").addClass("active-link text-warning");
     }
 
     // #endregion

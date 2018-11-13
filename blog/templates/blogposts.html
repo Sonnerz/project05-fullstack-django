@@ -1,40 +1,35 @@
-{% extends 'base.html' %}
-{% block page_title %}Blog page{% endblock %}
+{% extends 'base_pages_blog.html' %}
+{% block page_title %}Blog{% endblock %}
 
-{% block page_heading %}All posts{% endblock %}
+{% block page_heading %}Blog{% endblock %}
+{% block page_heading_sub %}A place to converse about all things Photography related{% endblock %}
 {% block content %}
-<p>
-    <a href="{% url 'new_post' %}">Create New Post</a>
-</p>
 {% for post in posts %}
-
-<div class="row mt-5">
-    <div class="col-md-2 col-sm-3 text-center">
-        <a class="story-img" href="#">
-            <img src="/media/img/profile.jpg" class="img-circle">
-        </a>
-        <p><span class="boldtext">Author:</span> {{ post.author }}</p>
-        <p><span class="boldtext">User is donor:</span>
-            {% if user.profile.is_donor == False %}
-            No
-            {% else %}
-            Yes
-            {% endif %}
-        </p>
-    </div>
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ post.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ post.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
-                <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
-                <p><span class="boldtext">Views:</span> {{post.views}}</p>
-                <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-3 col-md-2 text-center">
+            <a class="story-img" href="#">
+                <img src="/media/img/profile.jpg" class="img-circle">
+            </a>
+            <p><span class="boldtext">Author:</span> {{ post.author }}</p>
+            <p><span class="boldtext">User is donor:</span>
+                {% if user.profile.is_donor == False %}
+                No
+                {% else %}
+                Yes
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-9 col-md-10">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content|truncatewords:30 }}</p>
+            <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
+            <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
+            <p><span class="boldtext">Views:</span> {{post.views}}</p>
+            <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
         </div>
     </div>
-    <hr>
 </div>
+<hr>
 {% endfor %}
 {% endblock %}
