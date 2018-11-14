@@ -14,8 +14,9 @@
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
                     <div class="text-center mb-2">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+                        <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+                        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
+                                class="fas fa-arrow-left"></i> Cancel</button>
                     </div>
                 </form>
             </div>

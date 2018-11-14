@@ -1,0 +1,44 @@
+{% extends 'base_pages_blog.html' %}
+
+{% block page_title %}Blog Search Results{% endblock %}
+
+{% block page_heading %}Blog Search Results{% endblock %}
+{% block page_heading_sub %}Results for "{{b}}"{% endblock %}
+{% block content %}
+
+
+{% if not posts %}
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <p>There were no results found for <strong>"{{b}}"</strong></p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% for post in posts %}
+
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>Post: {{ post.title }}</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-2 col-lg-2 align-top">Details:</div>
+        <div class="col-7 col-md-10 col-lg-10">{{ post.content|truncatewords:10 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-2 col-lg-2 my-auto"></div>
+        <div class="col-7 col-md-10 col-lg-10 my-auto"><a href="{% url 'post_detail' post.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> View this post</a></div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

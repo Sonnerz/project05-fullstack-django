@@ -19,8 +19,10 @@
         </div>
         <div class="col-9 col-md-10">
             <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
-            <p> {{ post.published_date|date:"D d M Y" }} </p>
+            <p> {{ post.published_date|date:"D d M, Y" }} </p>
             <p>{{ post.content|truncatewords:30 }}</p>
+            <div><a href="{% url 'post_detail' post.id %}" class="btn btn-info"><i class="fas fa-book-reader"></i>
+                    Read this post</a></div>
         </div>
     </div>
 </div>

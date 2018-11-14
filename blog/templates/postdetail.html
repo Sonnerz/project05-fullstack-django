@@ -9,15 +9,15 @@
     <div class="row mb-4 mt-4 border-bottom border-warning"></div>
     <div class="row">
         {% if post.image %}
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-3">
             <img class="img-blogpost" src="{{ MEDIA_URL }}{{ post.image }}">
         </div>
         {% endif %}
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-9">
             <h3>{{ post.title }}</h3>
             <div class="row">
                 <div class="col-12">
-                    <span class="boldtext font-italic">Published: </span>{{ post.published_date|date:"d M, Y" }}
+                    <span class="boldtext font-italic">Published: </span>{{ post.published_date|date:"D d M, Y" }}
                 </div>
             </div>
             <div class="row">
@@ -37,13 +37,47 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{% url 'get_posts' %}" class="btn btn-primary">Back to Blog</a>
+                    <a href="{% url 'post_comment' post.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
+                        Comment</a>
+                    <a href="{% url 'get_posts' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to
+                        Blog</a>
                     {% if user.username == post.author.username %}
-                    <a href="{% url 'edit_post' post.id %}" class="btn btn-primary">Edit Post</a>
+                    <a href="{% url 'edit_post' post.id %}" class="btn btn-primary"><i class="far fa-edit"></i>Edit
+                        Post</a>
                     {% endif %}
                 </div>
             </div>
             <hr>
+        </div>
+    </div>
+    <div class="row mb-4 mt-4 border-bottom border-warning"></div>
+</div>
+
+<div id="issueform">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-12">
+                {% for postcomment in postcomments %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="post-comment-box">
+                            <span class="boldtext">Posted by:</span> <span class="text-success">{{ postcomment.author}}</span>
+                            on
+                            <span class="text-success"> {{postcomment.created_date }}</span><br>
+                            {% if postcomment.is_reported %}
+                            <span class="text-danger font-italic boldtext"> ** This comment has been reported **</span>
+                            {% endif %}
+                            <p>{{ postcomment.comment }}</p>
+                            {% if postcomment.is_reported != True %}
+                            <p class="text-right report-badge"><a href="{% url 'blogpost_comment_report' postcomment.id %}"
+                                    class="badge badge-danger">Report</a></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+            </div>
         </div>
     </div>
 </div>

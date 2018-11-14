@@ -19,8 +19,9 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-primary cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Save</button>
+                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-primary cancel"><i
+                            class="fas fa-arrow-left"></i> Cancel</button>
                 </form>
             </div>
         </div>

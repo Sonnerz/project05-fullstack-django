@@ -8,8 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block page_title %}{% endblock %}</title>
     <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/superhero/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-u4BOm6DXWNW9DDMz3uKYKOOtsYm6pt8m8DxK2sVQ9RJVnWP8mjOIct/zzXkwobmN" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/superhero/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
@@ -53,8 +52,10 @@
             <!-- search -->
             <div class="navbar-nav ml-auto">
                 <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
+                        minlength="4">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i>
+                        Search</button>
                 </form>
             </div>
             {% else %}
@@ -81,16 +82,21 @@
             <div class="col-12 col-md-3 col-lg-2 links-col">
                 <ul class="list-group mt-5 mb-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{% url 'get_all_bugs' %}" class="btn btn-primary issues-button">All Bugs</a>
+                        <a href="{% url 'get_all_bugs' %}" class="btn btn-primary issues-button"><i class="fas fa-bug"></i>
+                            View all Bugs</a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{% url 'new_bug' %}" class="btn btn-primary issues-button">New Bugs</a>
+                        <a href="{% url 'new_bug' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
+                            Submit a Bug</a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{% url 'get_all_features' %}" class="btn btn-primary issues-button">All Features</a>
+                        <a href="{% url 'get_all_features' %}" class="btn btn-primary issues-button"><i class="far fa-eye"></i></i>
+                            View all Features</a>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button">New Features</a>
+                        <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
+                            Request a
+                            Feature</a>
                     </li>
                 </ul>
             </div>

@@ -7,12 +7,12 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-12">
             <h3>{{ bug.title }}</h3>
         </div>
     </div>
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-12">
             {% if bug.image %}
             <img class="img-blogpost" src="{{ MEDIA_URL }}{{ bug.image }}">
@@ -24,7 +24,7 @@
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
+        <div class="col-5 col-md-3 col-lg-2">Details:</div>
         <div class="col-7 col-md-9 col-lg-10">{{ bug.details }}</div>
     </div>
     <div class="row">
@@ -60,9 +60,11 @@
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
 
     <div class="row text-center mb-4">
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary">Back To Bugs</a></div>
+        <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i>
+                Back to Bugs</a></div>
         {% if user.username == bug.author.username %}
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info">Edit bug</a></div>
+        <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+                Edit bug</a></div>
         {% endif %}
         {% if user.username != bug.author.username %}
         {% if bug.status != 'Closed' %}
@@ -70,11 +72,12 @@
             <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
         </div>
         {% endif %}{% endif %}
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info">Comment</a></div>
+        <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
+                Comment</a></div>
     </div>
 </div>
 <div id="issueform">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-12">
                 {% for bugcomment in bugcomments %}
@@ -82,9 +85,14 @@
                     <div class="col-12">
                         <div class="comment-box">
                             Posted by: <span class="text-success">{{ bugcomment.author }}</span> on
-                            <span class="text-success"> {{bugcomment.created_date }}</span>
+                            <span class="text-success"> {{bugcomment.created_date }}</span><br>
+                            {% if bugcomment.is_reported %}
+                            <span class="text-danger font-italic boldtext"> ** This comment has been reported **</span>
+                            {% endif %}
                             <p>{{ bugcomment.comment }}</p>
-                            <p class="text-right"><a href="{% url 'bug_comment_report' bug.id %}" class="badge badge-danger">Report</a></p>
+                            {% if bugcomment.is_reported != True %}
+                            <p class="text-right"><a href="{% url 'bug_comment_report' bugcomment.id %}" class="badge badge-danger">Report</a></p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

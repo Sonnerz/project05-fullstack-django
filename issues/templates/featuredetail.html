@@ -17,8 +17,8 @@
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Details</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.details }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Details</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.details }}</div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
@@ -51,8 +51,8 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Total number of hours bought:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto align-bottom">{{ totals.total_hrs_bought }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Total number of hours bought:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ totals.total_hrs_bought }}</div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Total money raised:</div>
@@ -65,14 +65,21 @@
 </div>
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
 <div class="row text-center mb-4">
-    <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success">Back to features</a></div>
+    {% if from_orders == True %}
+    <div class="col-12 col-md-4 pt-2"><a href="{{ refering_order }}" class=" btn btn-info"><i class="fas fa-arrow-left"></i>
+            Back to Order Details</a></div>
+    {% else %}
+    <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success"><i class="fas fa-arrow-left"></i>
+            Back to features</a></div>
+    {% endif %}
     {% if user.username == feature.author.username %}
-    <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info">Edit feature</a></div>
+    <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+            Edit feature</a></div>
     {% endif %}
     <div class="col-12 col-md-4 pt-2">{% if user.username == feature.author.username %}
-        <button type="button" class="btn btn-info donate_feature_button">Donate more</button>
+        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate more</button>
         {% else %}
-        <button type="button" class="btn btn-info donate_feature_button">Donate</button>
+        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate</button>
         {% endif %}
     </div>
 </div>
@@ -95,8 +102,9 @@
                         {% csrf_token %}
                         <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
                             value="1">
-                        <button class="btn btn-info mt-1" type="submit">Donate</button>
-                        <button type="button" class="btn btn-success donate_feature_cancel mt-1">Cancel</button>
+                        <button class="btn btn-info mt-1" type="submit"><i class="fas fa-plus"></i> Add to cart</button>
+                        <button type="button" class="btn btn-success donate_feature_cancel mt-1"><i class="fas fa-arrow-left"></i>
+                            Cancel</button>
                     </form>
                 </div>
             </div>

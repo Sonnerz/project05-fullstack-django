@@ -52,12 +52,21 @@ html {
     margin-top: 35px;
 }
 
-.comment-box {
-    background-color: #4E5D6C;
-    padding: 5px;
+.comment-box,
+.post-comment-box {
+    padding: 10px;
 }
 
-.comment-box p {
+.comment-box {
+    background-color: #4E5D6C;
+}
+
+.post-comment-box {
+    background-color: rgb(236, 236, 236);
+}
+
+.comment-box p,
+.post-comment-box p {
     margin-bottom: 0;
 }
 
@@ -145,7 +154,8 @@ html {
         font-size: 4rem;
         line-height: 4rem;
     }
-    .links-col {
+    .links-col,
+    .links-col-blog {
         height: 100vh;
     }
     .list-group-item {
@@ -168,7 +178,8 @@ html {
     .masthead h2 {
         font-size: 1.25rem;
     }
-    .links-col {
+    .links-col,
+    .links-col-blog {
         height: 100vh;
     }
 }

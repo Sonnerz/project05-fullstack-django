@@ -1,5 +1,50 @@
 {% extends 'base_pages.html' %}
 
-{% block page_title %}Account home page{% endblock %}
+{% block page_title %}Most Recent Bugs and Features{% endblock %}
+{% block page_heading %}Recent Bugs and Features{% endblock %}
+{% block page_heading_sub %}List of the most Recent Bugs and Features{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+<div class="row mb-4 mt-4 border-bottom border-success"></div>
+<div id="issueform">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-6 col-md-3 my-auto">
+                <h4>Title</h4>
+            </div>
+            <div class="col-3 col-md-3 d-none d-lg-block my-auto">
+                <h4>Reference Number</h4>
+            </div>
+            <div class="col-6 col-md-6 d-none d-lg-block my-auto"></div>
+        </div>
+    </div>
+</div>
+{% for bug in bugs %}
+<div id="issueform">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-6 col-md-3">{{ bug.title|truncatewords:10 }}</div>
+            <div class="col-3 col-md-3 d-none d-lg-block">{{ bug.ref }}</div>
+
+            <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'bug_detail' bug.id %}"
+                    class="mt-2">View bug details</a></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for feature in features %}
+<div id="issueform">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-6 col-md-3">{{ feature.title|truncatewords:10 }}</div>
+            <div class="col-3 col-md-3 d-none d-lg-block">{{ feature.ref }}</div>
+
+            <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'feature_detail' feature.id %}"
+                    class="mt-2">View feature details</a></div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

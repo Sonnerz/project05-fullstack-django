@@ -21,22 +21,18 @@
             <div class="col-5 col-md-3 my-auto">Published date:</div>
             <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-5 col-md-3 my-auto">Author:</div>
             <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-success">Back to
-                    Bug</a></div>
         </div>
 
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ comment_form | as_bootstrap }}
             <div class="text-center mb-2">
-                <button type="submit" class="btn btn-success">Save</button>
-                <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel">Cancel</button>
+                <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+                <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
+                        class="fas fa-arrow-left"></i> Cancel</button>
             </div>
         </form>
     </div>

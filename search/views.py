@@ -39,9 +39,7 @@ def do_search_ref(request):
 
 
 def do_search_blog(request):
-    lookup_fields = Q(title__icontains=request.GET['q'])
+    lookup_fields = Q(title__icontains=request.GET['b'])
     posts = Post.objects.filter(lookup_fields).distinct()
-    bugs = Bug.objects.filter(lookup_fields).distinct()
-    features = Feature.objects.filter(lookup_fields).distinct()
-    searchparam = request.GET['q']
-    return render(request, "results.html", {"bugs": bugs, "features": features, "posts": posts, "q": searchparam})
+    searchparam = request.GET['b']
+    return render(request, "results_blog.html", {"posts": posts, "b": searchparam})

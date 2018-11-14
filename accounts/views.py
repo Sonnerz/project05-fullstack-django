@@ -5,12 +5,22 @@ from django.contrib.auth.models import User
 from accounts.forms import UserLoginForm, UserRegistrationForm
 from checkout.models import OrderLineItem, Order
 from django.http import HttpResponse
+from issues.models import Bug, Feature
+from issues.views import bug_detail
+from django.utils import timezone
 # Create your views here.
 
 
 def acc_index(request):
     """Return acc_index.html file"""
-    return render(request, 'acc_index.html')
+    user = User.objects.get(email=request.user.email)
+
+    bugs = Bug.objects.filter(published_date__lte=timezone.now
+                              ()).order_by('-published_date')[:5]
+
+    features = Feature.objects.filter(published_date__lte=timezone.now
+                                      ()).order_by('-published_date')[:5]
+    return render(request, 'acc_index.html', {"bugs": bugs, 'features': features})
 
 
 @login_required

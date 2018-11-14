@@ -31,7 +31,7 @@
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.author }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Status:</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
     </div>
     <div class="row">
@@ -54,7 +54,8 @@
     {% endif %}
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">Read
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> Read
                 more</a></div>
     </div>
 </div>

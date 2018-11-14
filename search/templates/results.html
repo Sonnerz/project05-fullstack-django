@@ -1,103 +1,88 @@
-{% extends 'base.html' %}
-{% block page_title %}Search Results page{% endblock %}
+{% extends 'base_pages.html' %}
 
-{% block page_heading %}Results{% endblock %}
+{% block page_title %}Search Results{% endblock %}
+
+{% block page_heading %}Search Results{% endblock %}
+{% block page_heading_sub %}Results for "{{q}}"{% endblock %}
 {% block content %}
 
-<div class="container searchforms mt-5">
-    <div class="container searchforms mt-5">
-
-        <form action="{% url 'search_ref' %}" method="get">
-            <input type="text" name="q">
-            <button type="submit">Search by Reference number</button>
-        </form>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <form action="{% url 'search_ref' %}" method="get" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search by Ref" aria-label="Search" name="q">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fas fa-search"></i> Search
+                    by Reference number</button>
+            </form>
+        </div>
     </div>
 </div>
 
-{{q}}
-{{bugs}}
-
-{% if not bugs and not features and not posts %}
-<div class="row mt-5">
-    <div class="col-md-10 col-sm-9">
-        <div class="row">
-            <div class="col-xs-9">
-                <p>There were no results found for <strong>{{q}}</strong></p>
-            </div>
+{% if not bugs and not features %}
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <p>There were no results found for <strong>"{{q}}"</strong></p>
         </div>
     </div>
-    <hr>
 </div>
 {% endif %}
 
 
 {% for bug in bugs %}
-<div class="row mt-5">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ bug.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ bug.id }}</p>
-                <p>{{ bug.details|truncatewords:30 }}</p>
-                <p><a href="{% url 'bug_detail' bug.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">published_date on:</span> {{ bug.published_date }} </p>
-                <p><span class="boldtext">Votes:</span> {{bug.votes}}</p>
-                <p><span class="boldtext">Tag:</span> {{ bug.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ bug.author }}</p>
-                <p><span class="boldtext">Reference:</span> {{ bug.ref }}</p>
-                <p><span class="boldtext">Status:</span> {{ bug.status }}</p>
-            </div>
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>Bug: {{ bug.title }}</h3>
         </div>
     </div>
-    <hr>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ bug.details|truncatewords:10 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> Read more</a></div>
+    </div>
 </div>
+
 {% endfor %}
 
 
 
 {% for feature in features %}
-<div class="row mt-5">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ feature.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ feature.id }}</p>
-                <p>{{ feature.details|truncatewords:30 }}</p>
-                <p><a href="{% url 'feature_detail' feature.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">Published on:</span> {{ feature.published_date }} </p>
-                <p><span class="boldtext">Votes:</span> {{feature.votes}}</p>
-                <p><span class="boldtext">Tag:</span> {{ feature.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ feature.author }}</p>
-                <p><span class="boldtext">Reference:</span> {{ feature.ref }}</p>
-                <p><span class="boldtext">cost_per_hour:</span> {{ feature.cost_per_hour }}</p>
-            </div>
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-12">
+            <h3>Feature: {{ feature.title }}</h3>
         </div>
     </div>
-    <hr>
-</div>
-{% endfor %}
-
-{% for post in posts %}
-<div class="row mt-5">
-    <div class="col-md-10 col-sm-9">
-        <h3>{{ post.title }}</h3>
-        <div class="row">
-            <div class="col-xs-9">
-                <p>{{ post.id }}</p>
-                <p>{{ post.content|truncatewords:30 }}</p>
-                <p><a href="{% url 'feature_detail' feature.id %}" class="btn btn-primary">Read more</a></p>
-                <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
-                <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
-                <p><span class="boldtext">Author:</span> {{ post.author }}</p>
-            </div>
-        </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
     </div>
-    <hr>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.details|truncatewords:10 }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> Read more</a></div>
+    </div>
 </div>
 {% endfor %}
-
-
-
-
 
 {% endblock %}

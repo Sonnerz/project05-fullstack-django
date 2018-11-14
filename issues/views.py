@@ -128,11 +128,17 @@ def feature_detail(request, pk):
     render it to the featuredetail.html template
     or return a 404 error if bug is not found
     """
+    # Check if referer is orders page
+    # Show back to orders button
+    from_orders = False
+    refering_order = ""
+    if "orders" in request.META.get('HTTP_REFERER'):
+        from_orders = True
+        refering_order = request.META.get('HTTP_REFERER')
 
     feature = get_object_or_404(Feature, pk=pk)
     feature.views += 1
     feature.save()
-    print("feature Detail PK", pk)
     # Get all orders for this Feature from the OrderLineItem table
     feature_orders = OrderLineItem.objects.filter(
         feature_id=pk).order_by('-id')
@@ -142,19 +148,15 @@ def feature_detail(request, pk):
     for orders in feature_orders:
         number_of_times_ordered += 1
         total_hrs_bought += orders.quantity
-    print("number_of_times_ordered", number_of_times_ordered)
-    print("total_hrs_bought", total_hrs_bought)
     # Get total money raised for this Feature
     total_money_raised = total_hrs_bought * 50
-    print('total_money_raised', total_money_raised)
     total_money_needed = 500 - total_money_raised
-    print('total_money_needed', total_money_needed)
     totals = {'total_hrs_bought': total_hrs_bought,
               'total_money_raised': total_money_raised,
               'total_money_needed': total_money_needed,
               'number_of_times_ordered': number_of_times_ordered, }
     return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders,
-                                                  'totals': totals})
+                                                  'totals': totals, 'from_orders': from_orders, 'refering_order': refering_order})
 
 
 def create_feature_ref():
@@ -233,5 +235,10 @@ def bug_comment_report(request, pk):
     of Bugs that were published prior to 'now'
     and render them to the bugs.html template
     """
+    bugcomment = get_object_or_404(BugComment, pk=pk)
+    print(bugcomment.comment)
+    print(bugcomment.is_reported)
 
-    return render(request, "bugs.html", {'bugs': bugs})
+    bugcomment.is_reported = True
+    bugcomment.save()
+    return redirect(bug_detail, bugcomment.bug.id)

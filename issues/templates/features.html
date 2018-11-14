@@ -20,8 +20,8 @@
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Details</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.details|truncatewords:30 }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Details</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.details|truncatewords:30 }}</div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
@@ -49,7 +49,8 @@
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">Read
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> Read
                 more</a></div>
     </div>
 </div>
