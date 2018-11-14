@@ -15,46 +15,47 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.ref }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3">Details:</div>
-        <div class="col-7 col-md-9">{{ bug.details|truncatewords:30 }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Details:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ bug.details|truncatewords:30 }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Published on:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Author:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.author }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Status:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.status }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Status:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.tag }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.tag }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.votes }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.votes }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Views:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.views }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.views }}</div>
     </div>
     {% if bug.status == 'Closed' %}
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Resolved date:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Resolved date:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
     </div>
     {% endif %}
     <div class="row">
-        <div class="col-5 col-md-3 my-auto"></div>
-        <div class="col-7 col-md-9 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">Read more</a></div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">Read
+                more</a></div>
     </div>
 </div>
 

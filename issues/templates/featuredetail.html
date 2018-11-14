@@ -13,54 +13,54 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.ref }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Details</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.details }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Details</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.details }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Published on:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Author:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.author }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.author }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.tag }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.tag }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Status:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.status }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Status:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.status }}</div>
     </div>
     <div class="row mb-4 mt-4 border-bottom border-info"></div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 my-auto">{{ totals.number_of_times_ordered }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.number_of_times_ordered }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Cost per hour:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.cost_per_hour }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Cost per hour:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><i class="fas fa-euro-sign"></i>{{ feature.cost_per_hour }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Views:</div>
-        <div class="col-7 col-md-9 my-auto">{{ feature.views }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.views }}</div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Total number of hours bought:</div>
-        <div class="col-7 col-md-9 my-auto align-bottom">{{ totals.total_hrs_bought }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Total number of hours bought:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto align-bottom">{{ totals.total_hrs_bought }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Total money raised:</div>
-        <div class="col-7 col-md-9 my-auto">{{ totals.total_money_raised }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Total money raised:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_raised }}</div>
     </div>
     <div class="row">
-        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 my-auto">Total money needed:</div>
-    <div class="col-7 col-md-9 my-auto">{{ totals.total_money_needed }}</div>
+        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 col-lg-2 my-auto">Total money needed:</div>
+    <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_needed }}</div>
     {% endif %}
 </div>
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
@@ -78,26 +78,30 @@
 </div>
 </div>
 
+
 <div id="donate_feature_form" class="hide-first mt-5 mb-5">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <h3>Donate towards development of this feature</h3>
+    <div id="issueform">
+        <div class="container">
+            <div class="row mb-4 mt-4 border-bottom border-success"></div>
+            <div class="row">
+                <div class="col-12">
+                    <h3>Donate towards development of this feature</h3>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-12">
-                <form method="post" action="{% url 'add_to_cart' feature.id %}" class="text-right">
-                    Minimum of 1 hour
-                    {% csrf_token %}
-                    <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
-                        value="1">
-                    <button class="btn btn-info mt-1" type="submit">Donate</button>
-                    <button type="button" class="btn btn-success donate_feature_cancel mt-1">Cancel</button>
-                </form>
+            <div class="row">
+                <div class="col-6 col-md-6">
+                    <form method="post" action="{% url 'add_to_cart' feature.id %}" class="text-right">
+                        Minimum of 1 hour
+                        {% csrf_token %}
+                        <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
+                            value="1">
+                        <button class="btn btn-info mt-1" type="submit">Donate</button>
+                        <button type="button" class="btn btn-success donate_feature_cancel mt-1">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 {% endblock %}

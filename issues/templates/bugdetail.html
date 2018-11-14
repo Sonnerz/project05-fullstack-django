@@ -20,41 +20,41 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.ref }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 align-top">Details:</div>
-        <div class="col-7 col-md-9">{{ bug.details }}</div>
+        <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ bug.details }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Published date:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Published date:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Author:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.author }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Current Status:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.status }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Views:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.views }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.views }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.votes }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.votes }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.tag }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.tag }}</div>
     </div>
     {% if bug.status == 'Closed' %}
     <div class="row">
-        <div class="col-5 col-md-3 my-auto">Resolved date:</div>
-        <div class="col-7 col-md-9 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Resolved date:</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
     </div>
     {% endif %}
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
@@ -73,25 +73,26 @@
         <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info">Comment</a></div>
     </div>
 </div>
-<div class="container">
-    <div class="row mb-4">
-        <div class="col-12">
-            {% for bugcomment in bugcomments %}
-            <div class="row">
-                <div class="col-12">
-                    <div class="comment-box">
-                        Posted by: <span class="text-success">{{ bugcomment.author }}</span> on
-                        <span class="text-success"> {{bugcomment.created_date }}</span>
-                        <p>{{ bugcomment.comment }}</p>
-                        <p class="text-right"><a href="{% url 'bug_comment_report' bug.id %}" class="badge badge-danger">Report</a></p>
+<div id="issueform">
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                {% for bugcomment in bugcomments %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="comment-box">
+                            Posted by: <span class="text-success">{{ bugcomment.author }}</span> on
+                            <span class="text-success"> {{bugcomment.created_date }}</span>
+                            <p>{{ bugcomment.comment }}</p>
+                            <p class="text-right"><a href="{% url 'bug_comment_report' bug.id %}" class="badge badge-danger">Report</a></p>
+                        </div>
                     </div>
                 </div>
+                <hr>
+                {% endfor %}
             </div>
-            <hr>
-            {% endfor %}
         </div>
     </div>
 </div>
-
 
 {% endblock %}

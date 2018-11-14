@@ -76,8 +76,8 @@
     </div>
     {% endif %}
     <!-- Block for two column pages -->
-    <div class="container-fluid pt-5 h-100">
-        <div class="row h-100">
+    <div class="container-fluid pt-5">
+        <div class="row">
             <div class="col-12 col-md-3 col-lg-2 links-col">
                 <ul class="list-group mt-5 mb-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -95,9 +95,9 @@
                 </ul>
             </div>
             <div class="col-12 col-md-9 col-lg-10 content-col">
-                <h2 class="mt-3">{% block page_heading %}{% endblock %}<br>
+                <h1>{% block page_heading %}{% endblock %}<br>
                     <small class="text-muted">{% block page_heading_sub %}{% endblock %}</small>
-                </h2>
+                </h1>
                 {% block content %}{% endblock %}
             </div>
         </div>

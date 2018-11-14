@@ -1,21 +1,29 @@
-{% extends 'base.html' %}
-{% block page_title %}Blog page{% endblock %}
-
-{% block page_heading %}blog posts{% endblock %}
+{% extends 'base_pages_blog.html' %}
 {% load bootstrap_tags %}
+
+{% block page_title %}Blog post form{% endblock %}
+
 {% block content %}
 
-
 {% if request.path == "/blog/new/" %}
-<h1>New post</h1>
+<h2>New post<br>
+    <small class="text-muted">Create new blog post</small></h2>
 {% else %}
-
-<h1>Edit post</h1>
+<h2>Edit post<br>
+    <small class="text-muted">Edit this blog post</small></h2>
 {% endif %}
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form | as_bootstrap }}
-    <button type="submit" class="btn btn-info">Save</button>
-    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-info cancel">Cancel</button>
-</form>
+<div id="issueform">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | as_bootstrap }}
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-primary cancel">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

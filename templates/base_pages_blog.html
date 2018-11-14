@@ -52,8 +52,8 @@
             </div>
             <!-- search -->
             <div class="navbar-nav ml-auto">
-                <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q">
+                <form class="form-inline my-2 my-lg-0" action="{% url 'search_blog' %}" method="get">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search Blog" aria-label="Search" name="q">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
@@ -86,15 +86,13 @@
                 </ul>
             </div>
             <div class="col-12 col-md-9 col-lg-10 content-col">
-                <h2 class="mt-3">{% block page_heading %}{% endblock %}<br>
+                <h1>{% block page_heading %}{% endblock %}<br>
                     <small class="text-muted">{% block page_heading_sub %}{% endblock %}</small>
-                </h2>
+                </h1>
                 {% block content %}{% endblock %}
             </div>
         </div>
     </div>
-
-
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="

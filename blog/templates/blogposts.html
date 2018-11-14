@@ -5,31 +5,25 @@
 {% block page_heading_sub %}A place to converse about all things Photography related{% endblock %}
 {% block content %}
 {% for post in posts %}
-<div class="container">
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-warning"></div>
     <div class="row">
         <div class="col-3 col-md-2 text-center">
-            <a class="story-img" href="#">
-                <img src="/media/img/profile.jpg" class="img-circle">
-            </a>
+            <i class="fas fa-camera-retro"></i>
             <p><span class="boldtext">Author:</span> {{ post.author }}</p>
-            <p><span class="boldtext">User is donor:</span>
-                {% if user.profile.is_donor == False %}
-                No
-                {% else %}
-                Yes
+            <p>
+                {% if user.profile.is_donor %}
+                <span class="">{{ post.author }} is a donor</span>
                 {% endif %}
             </p>
         </div>
         <div class="col-9 col-md-10">
-            <h3>{{ post.title }}</h3>
+            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+            <p> {{ post.published_date|date:"D d M Y" }} </p>
             <p>{{ post.content|truncatewords:30 }}</p>
-            <p><a href="{% url 'post_detail' post.id %}" class="btn btn-default">Read more</a></p>
-            <p><span class="boldtext">Published on:</span> {{ post.published_date }} </p>
-            <p><span class="boldtext">Views:</span> {{post.views}}</p>
-            <p><span class="boldtext">Tag:</span> {{ post.tag }}</p>
         </div>
     </div>
 </div>
-<hr>
+
 {% endfor %}
 {% endblock %}

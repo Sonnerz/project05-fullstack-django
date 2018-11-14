@@ -53,7 +53,10 @@ def create_or_edit_post(request, pk=None):
     post = get_object_or_404(Post, pk=pk) if pk else None
     if request.method == "POST":
         if "cancel" in request.POST:
-            return redirect(get_posts)
+            if not pk:
+                return redirect(get_posts)
+            else:
+                return redirect(post_detail, pk)
         form = BlogPostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)

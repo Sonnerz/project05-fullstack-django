@@ -26,7 +26,7 @@ html {
 }
 
 .active-link {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .issues-button {
@@ -48,6 +48,10 @@ html {
     box-shadow: 0 2px 11px rgba(0, 0, 0, 0.15);
 }
 
+.content-col h1 {
+    margin-top: 35px;
+}
+
 .comment-box {
     background-color: #4E5D6C;
     padding: 5px;
@@ -59,6 +63,15 @@ html {
 
 #issueform .container {
     margin-left: 0;
+}
+
+.img-blogpost {
+    width: 100%;
+    max-width: 300px;
+}
+
+.fas.fa-camera-retro {
+    font-size: 2rem;
 }
 
 /*  MASTHEAD */
@@ -117,10 +130,6 @@ html {
 
 /* Bugs & Features */
 
-.links-col {
-    background-color: #4E5D6C;
-}
-
 .list-group-item {
     padding: 0;
 }
@@ -137,7 +146,7 @@ html {
         line-height: 4rem;
     }
     .links-col {
-        height: 100%;
+        height: 100vh;
     }
     .list-group-item {
         margin: 0.75rem;
@@ -160,6 +169,6 @@ html {
         font-size: 1.25rem;
     }
     .links-col {
-        height: 100%;
+        height: 100vh;
     }
 }
