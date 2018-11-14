@@ -12,7 +12,7 @@ html {
 }
 
 .move-right {
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .navbar {
@@ -83,6 +83,11 @@ html {
     font-size: 2rem;
 }
 
+.login-container,
+.reset-container {
+    margin-top: 10rem;
+}
+
 /*  MASTHEAD */
 
 .masthead {
@@ -103,7 +108,7 @@ html {
     line-height: 2.5rem;
     letter-spacing: 0.8rem;
     background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-    -webkit-text-fill-color: transparent;
+    /* -webkit-text-fill-color: transparent; */
     -webkit-background-clip: text;
 }
 
@@ -124,9 +129,9 @@ html {
 }
 
 .messages {
-    width: 25%;
+    width: 70%;
     position: fixed;
-    left: 75%;
+    left: 33%;
     top: 48px;
     border: 1px solid transparent;
     border-bottom-left-radius: 1rem;

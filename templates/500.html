@@ -1,8 +1,19 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load staticfiles%}
+{% block page_title %}500 error{% endblock %}
 
-{% block page_title %}500 page{% endblock %}
 
-{% block page_heading %}500{% endblock %}
 {% block content %}
-<h1>500</h1>
+<!-- Header -->
+<header class="masthead">
+    <div class="container-fluid h-100 align-items-center">
+        <div class="row">
+            <div class="col-md-6 my-auto text-center">
+                <h1 class="my-0 text-uppercase">500 Error</h1>
+                <h2 class="text-white mt-2 mb-5 text-center nowrap">Error go back</h2>
+            </div>
+            <div class="col-md-6 mx-auto"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
+        </div>
+    </div>
+</header>
 {% endblock %}

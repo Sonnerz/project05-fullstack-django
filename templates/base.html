@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <!-- links-->
             {% if user.is_authenticated %}
-            <div class="navbar-nav ml-auto mr-auto">
+            <div class="navbar-nav mr-auto">
                 <span class="nav-item nav-link">Logged in: {{ user.username }}</span>
                 <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}">Profile</a></li>
                 {% if user.profile.is_donor %}
@@ -77,7 +77,12 @@
     </div>
     {% endif %}
     <!-- Block for single col pages -->
-    <div class="mt-5">{% block content %}{% endblock %}</div>
+
+    <div class="mt-5">
+        <div class="mx-auto">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="

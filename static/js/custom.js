@@ -1,13 +1,22 @@
 $(document).ready(function () {
 
     //#region set form fields to readonly - New bug
+
     $("#id_published_date").prop("readonly", true);
     $("#id_cost_per_hour").prop("readonly", true);
+
     //#endregion
 
 
+    //#region reset email input length
+
+    $('#id_email').attr('size', 60);
+
+    //#endregion
+
 
     //#region show/hide donate form - Feature details page
+
     $(".donate_feature_button").click(function () {
         $('#donate_feature_form').show()
 
@@ -18,6 +27,7 @@ $(document).ready(function () {
     $(".donate_feature_cancel").click(function () {
         $('#donate_feature_form').hide()
     });
+
     //#endregion
 
 
@@ -33,5 +43,9 @@ $(document).ready(function () {
     }
 
     // #endregion
+
+
+
+
 
 }); // close document.ready
