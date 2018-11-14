@@ -6,8 +6,9 @@
 
 {% block content %}
 <div class="container login-container">
-    <div class="row">
-        <div class="col-12">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1"></div>
+        <div class="col-md-6">
             <form method="POST">
                 {% csrf_token %}
                 {{ login_form | as_bootstrap }}
@@ -17,6 +18,7 @@
             </form>
             <p class="pt-4 text-center"><a href="{% url 'password_reset' %}">Forgotten your Password?</a></p>
         </div>
+        <div class="col col-lg-1"></div>
     </div>
 </div>
 
