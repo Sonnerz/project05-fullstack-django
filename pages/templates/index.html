@@ -6,17 +6,81 @@
 {% block content %}
 <!-- Header -->
 <header class="masthead">
-    <div class="container-fluid h-100 align-items-center">
-        <div class="row">
-            <div class="col-md-6 my-auto text-center">
-                <h1 class="my-0 text-uppercase">CAM-PAL</h1>
-                <h2 class="text-white mt-2 mb-5 text-center nowrap">The answer to taking Professional quality photos</h2>
-                {% if not user.is_authenticated %}
-                <div class="text-center"><a href="#about" class="btn btn-primary">Register</a></div>
-                {% endif %}
-            </div>
-            <div class="col-md-6 mx-auto"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
+    <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+            <h1 class="my-0 text-uppercase">CAM-PAL</h1>
+            <h2 class="text-white mt-2 mb-5 text-center nowrap">The answer to taking Professional quality photos</h2>
+            {% if not user.is_authenticated %}
+            <div class="text-center"><a href="#about" class="btn btn-primary">Register</a></div>
+            {% endif %}
         </div>
+        <div class="col-md-6 mx-auto"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
     </div>
 </header>
+<!-- About Section -->
+<section id="about" class="about-section text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-white mb-4">CAM-PAL</h2>
+                <p class="text-white-50"><img src="{% static 'img/about_mob.png' %}" alt="Image of phone" width="40%"
+                        style="float: right">CAM-PAL is smart software that suggests settings based on your subject and
+                    environment. It picks the optimal settings for any scene and then it lets you control the final
+                    shot.
+                </p>
+                <p class="text-white-50">CAM-PAL customises settings based on the lens and camera you're using, along
+                    with how they
+                    perform in different situations. CAM-PAL will move
+                    settings to avoid your cameras weaknesses. It can then choose the perfect shutter speed to get
+                    sharp photos without noise.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!-- Projects Section -->
+<section id="projects" class="projects-section bg-light">
+    <div class="container">
+
+        <!-- Project One Row -->
+        <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{% static 'img/demo-image-01.jpg' %}" alt="">
+            </div>
+            <div class="col-lg-6">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-left">
+                            <h4 class="text-white">Fireworks</h4>
+                            <p class="mb-0 text-white-50">An example of low light photography.</p>
+                            <hr class="d-none d-lg-block mb-0 ml-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Two Row -->
+        <div class="row justify-content-center no-gutters">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{% static 'img/demo-image-02.jpg' %}" alt="">
+            </div>
+            <div class="col-lg-6 order-lg-first">
+                <div class="bg-black text-center h-100 project">
+                    <div class="d-flex h-100">
+                        <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <h4 class="text-white">Joshua Tree</h4>
+                            <p class="mb-0 text-white-50">An example of harsh light environment.</p>
+                            <hr class="d-none d-lg-block mb-0 mr-0">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
 {% endblock %}

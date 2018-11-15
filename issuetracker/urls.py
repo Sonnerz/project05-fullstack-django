@@ -25,6 +25,7 @@ from cart import urls as urls_cart
 from checkout import urls as urls_checkout
 from blog import urls as urls_blog
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
