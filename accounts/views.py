@@ -8,16 +8,19 @@ from django.http import HttpResponse
 from issues.models import Bug, Feature
 from issues.views import bug_detail
 from django.utils import timezone
+from django.http import JsonResponse
+
+
 # Create your views here.
 
-
 def acc_index(request):
-    """Return acc_index.html file"""
+    """Return acc_index.html page. Logged in home page"""
+    # get user
     user = User.objects.get(email=request.user.email)
-
+    # get 5 latest bugs submitted
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')[:5]
-
+    # get 5 latest features requested
     features = Feature.objects.filter(published_date__lte=timezone.now
                                       ()).order_by('-published_date')[:5]
     return render(request, 'acc_index.html', {"bugs": bugs, 'features': features})
@@ -25,14 +28,14 @@ def acc_index(request):
 
 @login_required
 def logout(request):
-    """log out user"""
+    """Log out user"""
     auth.logout(request)
     messages.success(request, "You have been logged out")
     return redirect(reverse('index'))
 
 
 def login(request):
-    """log in user return login page"""
+    """Log in user and render login page"""
     if request.user.is_authenticated:
         return redirect(reverse('acc_index'))
     if request.method == "POST":
@@ -46,14 +49,15 @@ def login(request):
             messages.success(request,  "You are logged in")
             return redirect(reverse('acc_index'))
         else:
-            login_form.add_error(None, "UN or PW is wrong")
+            login_form.add_error(
+                None, "The Username or Password is incorrect.")
     else:
         login_form = UserLoginForm()
     return render(request, 'login.html', {"login_form": login_form})
 
 
 def registration(request):
-    """Render the registration page"""
+    """Render the user registration page"""
     if request.user.is_authenticated:
         return redirect(reverse('acc_index'))
 
@@ -67,10 +71,12 @@ def registration(request):
                                      password=request.POST['password1'])
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "you are regsitered")
+                messages.success(
+                    request, "You have been successfully registered.")
                 return redirect(reverse('user_profile'))
             else:
-                messages.error(request, "not registered")
+                messages.error(
+                    request, "Your registration attempt was unsuccessful.")
     else:
         registration_form = UserRegistrationForm()
     return render(request, 'registration.html',
@@ -79,10 +85,10 @@ def registration(request):
 
 @login_required
 def user_profile(request):
-    """prfole page"""
+    """Profile page - shows users purchase orders """
     user = User.objects.get(email=request.user.email)
 
-    # orders
+    # get users' purchase orders
     user_orders = Order.objects.filter(
         buyer_id=user.id).order_by('-id')
 
@@ -92,6 +98,18 @@ def user_profile(request):
 
 @login_required
 def get_order_details(request, pk):
+    # get the line items for each user order
     user_order_details = (OrderLineItem.objects.filter(
         order_id=pk))
     return render(request, 'orders.html', {'user_order_details': user_order_details, 'order_id': pk})
+
+
+def validate_username(request):
+    # view for ajax. Checks that username is unique as person completes registration form
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)

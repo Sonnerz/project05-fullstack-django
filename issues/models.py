@@ -57,6 +57,7 @@ class BugComment(models.Model):
         User, default=None, related_name="author_of_comment")
     bug = models.ForeignKey(Bug, default=None, on_delete=models.CASCADE)
     is_reported = models.BooleanField(default=False)
+    is_hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return self.bug.title

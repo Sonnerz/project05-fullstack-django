@@ -31,6 +31,7 @@ class PostComment(models.Model):
         User, default=None, related_name="author_of_postcomment")
     post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
     is_reported = models.BooleanField(default=False)
+    is_hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return self.post.title

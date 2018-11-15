@@ -4,7 +4,8 @@ from django.conf.urls import url
 from issues.views import get_all_bugs, bug_detail, bug_comment,\
     create_or_edit_bug, vote_bug,\
     get_all_features, feature_detail,\
-    new_feature, edit_feature, vote_feature, bug_comment_report
+    new_feature, edit_feature, vote_feature, bug_comment_report, super_admin,\
+    comment_toggle_hide, comment_toggle_report
 
 
 urlpatterns = [
@@ -23,4 +24,10 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/bugcomment/$', bug_comment, name='bug_comment'),
     url(r'^(?P<pk>\d+)/bugcommentreport/$',
         bug_comment_report, name='bug_comment_report'),
+
+    url(r'^superadmin/$', super_admin, name='super_admin'),
+    url(r'^(?P<pk>\d+)/commenttogglehide/$',
+        comment_toggle_hide, name='comment_toggle_hide'),
+    url(r'^(?P<pk>\d+)/commenttogglereport/$',
+        comment_toggle_report, name='comment_toggle_report'),
 ]

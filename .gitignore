@@ -10,3 +10,4 @@ env.py
 static/
 media/
 htmlcov/
+*.stackdump

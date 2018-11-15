@@ -81,6 +81,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 {% for bugcomment in bugcomments %}
+                {% if not bugcomment.is_hidden %}
                 <div class="row">
                     <div class="col-12">
                         <div class="comment-box">
@@ -97,6 +98,7 @@
                     </div>
                 </div>
                 <hr>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Feature, BugComment
+from blog.models import PostComment
 from .forms import BugForm, FeatureForm, BugCommentForm
 from uuid import uuid4
 from cart.views import add_to_cart
@@ -13,8 +14,8 @@ from checkout.models import OrderLineItem
 @login_required
 def get_all_bugs(request):
     """
-    Create a view taht will return a list
-    of Bugs that were published prior to 'now'
+    Create a view that will return a list
+    of all Bugs that were published prior to 'now'
     and render them to the bugs.html template
     """
     bugs = Bug.objects.filter(published_date__lte=timezone.now
@@ -45,7 +46,8 @@ def bug_detail(request, pk):
 @login_required
 def bug_comment(request, pk):
     """
-    Comment
+    Create a view that allows us to create
+    a bug comment associated with a bug by id
     """
     bug = get_object_or_404(Bug, pk=pk)
     print("Bug Comment PK", pk)
@@ -66,6 +68,10 @@ def bug_comment(request, pk):
 
 
 def create_ref():
+    """
+    Create custom reference number for Bugs
+    Bug-xxxxx
+    """
     return str("Bug-")+str(uuid4())[:5]
 
 
@@ -110,7 +116,7 @@ def vote_bug(request, pk):
 @login_required
 def get_all_features(request):
     """
-    Create a view taht will return a list
+    Create a view that will return a list
     of features that were published prior to 'now'
     and render them to the features.html template
     """
@@ -160,6 +166,10 @@ def feature_detail(request, pk):
 
 
 def create_feature_ref():
+    """
+    Create custom reference number for Features
+    Feat-xxxxx
+    """
     return str("Feat-")+str(uuid4())[:5]
 
 
@@ -167,8 +177,7 @@ def create_feature_ref():
 def new_feature(request):
     """
     Create a view that allows us to create
-    or edit a bug depending if the Bug ID
-    is null or not
+    a feature
     """
 
     if request.method == "POST":
@@ -195,8 +204,8 @@ def new_feature(request):
 @login_required
 def edit_feature(request, pk=None):
     """
-    Create a view that allows us to create
-    or edit a bug depending if the Bug ID
+    Create a view that allows us to
+    edit a feature depending if the Feature ID
     is null or not
     """
 
@@ -231,14 +240,60 @@ def vote_feature(request, pk):
 @login_required
 def bug_comment_report(request, pk):
     """
-    Create a view taht will return a list
-    of Bugs that were published prior to 'now'
-    and render them to the bugs.html template
+    Create a view that will allow a user to report
+    a bug comment if inappropriate, etc.
     """
     bugcomment = get_object_or_404(BugComment, pk=pk)
-    print(bugcomment.comment)
-    print(bugcomment.is_reported)
-
     bugcomment.is_reported = True
     bugcomment.save()
     return redirect(bug_detail, bugcomment.bug.id)
+
+
+@login_required
+def super_admin(request):
+    """
+    Create a view that will return a list
+    of reported comments for superadmin
+    to delete or alter.
+    """
+    bugcomments = BugComment.objects.filter(
+        is_reported=True).order_by('-created_date')
+
+    postcomments = PostComment.objects.filter(
+        is_reported=True).order_by('-created_date')
+
+    return render(request, "superadmin.html", {'bugcomments': bugcomments, 'postcomments': postcomments})
+
+
+@login_required
+def comment_toggle_hide(request, pk):
+    """
+    Create a view that will hide a reported bug comment by superadmin.
+    Create a view that will hide a reported blog post comment by superadmin.
+    """
+    reported_comment_bug = get_object_or_404(BugComment, pk=pk)
+    print(reported_comment_bug.ref)
+    reported_comment_bug.is_hidden = not reported_comment_bug.is_hidden
+    reported_comment_bug.save()
+
+    reported_comment_post = get_object_or_404(PostComment, pk=pk)
+    reported_comment_post.is_hidden = not reported_comment_post.is_hidden
+    reported_comment_post.save()
+    return redirect(super_admin)
+
+
+@login_required
+def comment_toggle_report(request, pk):
+    """
+    Create a view that will unreport a reported bug comment by superadmin.
+    Create a view that will unreport a reported blog post comment by superadmin.
+
+    """
+    reported_comment_bug = get_object_or_404(BugComment, pk=pk)
+    reported_comment_bug.is_reported = not reported_comment_bug.is_reported
+    reported_comment_bug.save()
+
+    reported_comment_post = get_object_or_404(PostComment, pk=pk)
+    reported_comment_post.is_reported = not reported_comment_post.is_reported
+    reported_comment_post.save()
+    return redirect(super_admin)

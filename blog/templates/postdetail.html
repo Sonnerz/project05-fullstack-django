@@ -58,6 +58,7 @@
         <div class="row mb-4">
             <div class="col-12">
                 {% for postcomment in postcomments %}
+                {% if not postcomment.is_hidden %}
                 <div class="row">
                     <div class="col-12">
                         <div class="post-comment-box">
@@ -71,7 +72,7 @@
                             {% if postcomment.is_reported != True %}
                             <p class="text-right report-badge"><a href="{% url 'blogpost_comment_report' postcomment.id %}"
                                     class="badge badge-danger">Report</a></p>
-                            {% endif %}
+                            {% endif %}{% endif %}
                         </div>
                     </div>
                 </div>

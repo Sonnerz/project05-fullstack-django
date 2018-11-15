@@ -58,8 +58,9 @@ html {
 .links-col {
     background-color: #4E5D6C;
     border-right: 1px solid #333;
-    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 2px 11px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 -10px 11px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 -10px 11px rgba(0, 0, 0, 0.15);
+    height: 100vh;
 }
 
 .links-col-blog {
@@ -78,7 +79,8 @@ html {
 }
 
 .login-container,
-.reset-container {
+.reset-container,
+.register-container {
     margin-top: 10rem;
 }
 
@@ -103,7 +105,10 @@ html {
 }
 
 footer {
-    padding: 5rem 0;
+    padding: 3rem 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(#4E5D6C), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(78, 93, 108, 0.8)));
+    background: linear-gradient(to bottom, #4E5D6C 0%, rgba(78, 93, 108, 0.9) 75%, rgba(22, 22, 22, 0.7) 100%);
+    width: 100%;
 }
 
 /* NAVBAR Bootstrap OVERRIDES */

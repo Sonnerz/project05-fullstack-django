@@ -95,9 +95,14 @@
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
-                            Request a
-                            Feature</a>
+                            Request a Feature</a>
                     </li>
+                    {% if user.is_superuser %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'super_admin' %}" class="btn btn-primary issues-button"><i class="fas fa-lock"></i></i>
+                            Superuser admin</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-12 col-md-9 col-lg-10 content-col">
@@ -108,6 +113,12 @@
             </div>
         </div>
     </div>
+    <!-- Footer -->
+    <footer class="bg-black small text-center text-white-50">
+        <div class="container">
+            Copyright &copy; CAM-PAL 2018
+        </div>
+    </footer>
 
 
 
@@ -121,4 +132,5 @@
     <script src="{% static 'js/custom.js' %}"></script>
     {% block head_js %}
     {% endblock head_js %}
+
 </body>
