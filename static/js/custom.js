@@ -1,21 +1,21 @@
 $(document).ready(function () {
 
-    //#region set form fields to readonly - New bug
+    // #region set form fields to readonly - New bug
 
     $("#id_published_date").prop("readonly", true);
     $("#id_cost_per_hour").prop("readonly", true);
 
-    //#endregion
+    // #endregion
 
 
-    //#region reset email input length
+    // #region reset email input length
 
     $('#id_email').attr('size', 60);
 
-    //#endregion
+    // #endregion
 
 
-    //#region show/hide donate form - Feature details page
+    // #region show/hide donate form - Feature details page
 
     $(".donate_feature_button").click(function () {
         $('#donate_feature_form').show()
@@ -28,8 +28,7 @@ $(document).ready(function () {
         $('#donate_feature_form').hide()
     });
 
-    //#endregion
-
+    // #endregion
 
 
     // #region Add class to NAVBAR LINK depending on the page displayed  
@@ -45,7 +44,17 @@ $(document).ready(function () {
     // #endregion
 
 
+    // #region move search button to beside Bug filter
+
+    $("#bugfilter").append("<button type='submit'>Search</button>");
+    $("#bugfilter select").addClass("custom-select");
+    $("#bugfilter button").addClass("btn btn-primary ");
+
+    // #endregion
+
+
 }); // close document.ready
+
 
 // #region Smooth scrolling from nav
 

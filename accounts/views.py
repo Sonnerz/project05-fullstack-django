@@ -12,7 +12,7 @@ from django.http import JsonResponse
 
 
 # Create your views here.
-
+@login_required
 def acc_index(request):
     """Return acc_index.html page. Logged in home page"""
     # get user

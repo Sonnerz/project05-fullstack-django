@@ -26,7 +26,7 @@ def get_all_bugs(request):
     bugs_filter = BugsFilter(request.GET, queryset=bugs)
 
     # Page the queryset
-    paginator = Paginator(bugs_filter.qs, 5)
+    paginator = Paginator(bugs_filter.qs, 4)
     page = request.GET.get('page', 1)
 
     try:
