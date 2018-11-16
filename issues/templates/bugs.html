@@ -5,85 +5,103 @@
 {% block page_heading_sub %}View all the bugs submitted{% endblock %}
 
 {% block content %}
-<nav aria-label="Page navigation example">
-    {% if bugs.has_other_pages %}
-    <ul class="pagination">
-        {% if bugs.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
-        {% else %}
-        <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
-        {% endif %}
-        {% for i in bugs.paginator.page_range %}
-        {% if bugs.number == i %}
-        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
-        {% else %}
-        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-        {% endif %}
-        {% endfor %}
-        {% if bugs.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
-        {% else %}
-        <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
-        {% endif %}
-    </ul>
-    {% endif %}
-</nav>
+
+<ul>
+    <form method="get">
+        {{ filter.form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+</ul>
 
 
-{% for bug in bugs%}
+
+
+<div class="container-fluid">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row">
+        <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Reference</div>
+        <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Details</div>
+        <div class="col-2 d-none d-md-block boldtext text-uppercase">Status</div>
+        <div class="col-2 d-none d-lg-block boldtext text-uppercase">Published</div>
+        <div class="col-2 d-none d-lg-block boldtext text-uppercase">Author</div>
+        <div class="col-4 col-md-3 col-lg-2"></div>
+    </div>
+</div>
+
+
+{% for bug in bugs.object_list %}
 
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <div class="col-12">
-            <h3>{{ bug.title|truncatewords:5 }}</h3>
+            <h5>{{ bug.title|truncatewords:10 }}</h5>
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Details:</div>
-        <div class="col-7 col-md-9 col-lg-10">{{ bug.details|truncatewords:30 }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.author }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.tag }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.votes }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.views }}</div>
-    </div>
-    {% if bug.status == 'Closed' %}
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Resolved date:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
-                <i class="fas fa-book-reader"></i> Read
-                more</a></div>
+        <div class="col-4 col-md-3 col-lg-2">{{ bug.ref }}</div>
+        <div class="col-4 col-md-3 col-lg-2">{{ bug.details|truncatewords:10 }}</div>
+        <div class="col-2 d-none d-md-block">{{ bug.status }}</div>
+        <div class="col-2 d-none d-lg-block">{{ bug.published_date|date:"d-m-Y" }}</div>
+        <div class="col-2 d-none d-lg-block">{{ bug.author }}</div>
+        <div class="col-4 col-md-3 col-lg-2"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> View bug details</a></div>
     </div>
 </div>
 
 {% endfor %}
+
+
+<!-- PAGINATION -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation">
+                {% if bugs.has_other_pages %}
+                {% if 'status' in request.get_full_path %}
+                <ul class="pagination">
+                    {% if bugs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ bugs.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in bugs.paginator.page_range %}
+                    {% if bugs.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if bugs.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ bugs.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <ul class="pagination">
+                    {% if bugs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in bugs.paginator.page_range %}
+                    {% if bugs.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if bugs.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
 {% endblock %}

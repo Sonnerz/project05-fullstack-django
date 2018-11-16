@@ -7,10 +7,11 @@ from .forms import BugForm, FeatureForm, BugCommentForm
 from uuid import uuid4
 from cart.views import add_to_cart
 from checkout.models import OrderLineItem
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .filters import BugsFilter
+
 
 # Create your views here.
-
 
 @login_required
 def get_all_bugs(request):
@@ -21,9 +22,13 @@ def get_all_bugs(request):
     """
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')
+    # filter the queryset
+    bugs_filter = BugsFilter(request.GET, queryset=bugs)
+
+    # Page the queryset
+    paginator = Paginator(bugs_filter.qs, 5)
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(bugs, 3)
     try:
         bugs = paginator.page(page)
     except PageNotAnInteger:
@@ -31,7 +36,7 @@ def get_all_bugs(request):
     except EmptyPage:
         bugs = paginator.page(paginator.num_pages)
 
-    return render(request, "bugs.html", {'bugs': bugs})
+    return render(request, "bugs.html", {'bugs': bugs, 'filter': bugs_filter})
 
 
 @login_required
