@@ -84,6 +84,12 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'new_post' %}" class="btn btn-primary issues-button">Create New Blog Post</a>
                     </li>
+                    {% if user.is_superuser %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="{% url 'super_admin_blog' %}" class="btn btn-primary issues-button"><i class="fas fa-lock"></i></i>
+                            Superuser admin</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
             <div class="col-12 col-md-9 col-lg-10 content-col">

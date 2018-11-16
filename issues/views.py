@@ -7,6 +7,7 @@ from .forms import BugForm, FeatureForm, BugCommentForm
 from uuid import uuid4
 from cart.views import add_to_cart
 from checkout.models import OrderLineItem
+from django.core.paginator import Paginator
 
 # Create your views here.
 
@@ -20,6 +21,16 @@ def get_all_bugs(request):
     """
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(bugs, 3)
+    try:
+        bugs = paginator.page(page)
+    except PageNotAnInteger:
+        bugs = paginator.page(1)
+    except EmptyPage:
+        bugs = paginator.page(paginator.num_pages)
+
     return render(request, "bugs.html", {'bugs': bugs})
 
 
@@ -259,41 +270,18 @@ def super_admin(request):
     bugcomments = BugComment.objects.filter(
         is_reported=True).order_by('-created_date')
 
-    postcomments = PostComment.objects.filter(
-        is_reported=True).order_by('-created_date')
-
-    return render(request, "superadmin.html", {'bugcomments': bugcomments, 'postcomments': postcomments})
+    return render(request, "superadmin.html", {'bugcomments': bugcomments})
 
 
 @login_required
 def comment_toggle_hide(request, pk):
     """
     Create a view that will hide a reported bug comment by superadmin.
-    Create a view that will hide a reported blog post comment by superadmin.
     """
-    reported_comment_bug = get_object_or_404(BugComment, pk=pk)
-    print(reported_comment_bug.ref)
-    reported_comment_bug.is_hidden = not reported_comment_bug.is_hidden
-    reported_comment_bug.save()
+    reported_comment = get_object_or_404(BugComment, pk=pk)
+    reported_comment.is_hidden = not reported_comment.is_hidden
+    if not reported_comment.is_hidden:
+        reported_comment.is_reported = not reported_comment.is_reported
+    reported_comment.save()
 
-    reported_comment_post = get_object_or_404(PostComment, pk=pk)
-    reported_comment_post.is_hidden = not reported_comment_post.is_hidden
-    reported_comment_post.save()
-    return redirect(super_admin)
-
-
-@login_required
-def comment_toggle_report(request, pk):
-    """
-    Create a view that will unreport a reported bug comment by superadmin.
-    Create a view that will unreport a reported blog post comment by superadmin.
-
-    """
-    reported_comment_bug = get_object_or_404(BugComment, pk=pk)
-    reported_comment_bug.is_reported = not reported_comment_bug.is_reported
-    reported_comment_bug.save()
-
-    reported_comment_post = get_object_or_404(PostComment, pk=pk)
-    reported_comment_post.is_reported = not reported_comment_post.is_reported
-    reported_comment_post.save()
     return redirect(super_admin)

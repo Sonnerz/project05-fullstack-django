@@ -14,7 +14,14 @@
                     {% for bugcomment in bugcomments %}
                     <div class="row">
                         <div class="col-12">
-                            <h4>Bug Comment</h4>
+                            <h4>Bug : <a href="{% url 'bug_detail' bugcomment.bug.id %}">
+                                    {{ bugcomment.bug | truncatewords:10 }}</a></h4>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Is comment hidden: {{ bugcomment.is_hidden }}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -26,13 +33,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row mt-3">
                         <div class="col-12">
-                            <p>Is comment hidden: {{ bugcomment.is_hidden }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
                             {% if not bugcomment.is_hidden %}
                             <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">Hide Bug
                                 Comment</a>
@@ -41,60 +44,9 @@
                                 Comment</a>
                             {% endif %}
                         </div>
-                        <div class="col-6">
-                            {% if not bugcomment.is_reported %}
-                            <a href="{% url 'comment_toggle_report' bugcomment.id %}" class="btn btn-info">Report Bug
-                                Comment</a>
-                            {% else %}
-                            <a href="{% url 'comment_toggle_report' bugcomment.id %}" class="btn btn-info">Unreport Bug
-                                Comment</a>
-                            {% endif %}
-                        </div>
+
                     </div>
-                    <hr>
-                    {% endfor %}
-                    {% for postcomment in postcomments %}
-                    <div class="row">
-                        <div class="col-12">
-                            <h4>Blog Post Comment</h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="comment-box">
-                                Posted by: <span class="text-success">{{ postcomment.author }}</span> on
-                                <span class="text-success"> {{postcomment.created_date }}</span><br>
-                                <p>{{ postcomment.comment }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p>Is comment hidden: {{ postcomment.is_hidden }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            {% if not postcomment.is_hidden %}
-                            <a href="{% url 'comment_toggle_hide' postcomment.id %}" class="btn btn-info">Hide Post
-                                Comment</a>
-                            {% else %}
-                            <a href="{% url 'comment_toggle_hide' postcomment.id %}" class="btn btn-info">Show Post
-                                Comment</a>
-                            {% endif %}
-                        </div>
-                        <div class="col-6">
-                            {% if not postcomment.is_reported %}
-                            <a href="{% url 'comment_toggle_report' postcomment.id %}" class="btn btn-info">Report Post
-                                Comment</a>
-                            {% else %}
-                            <a href="{% url 'comment_toggle_report' postcomment.id %}" class="btn btn-info">Unreport
-                                Post
-                                Comment</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                    <hr>
+                    <div class="row mb-4 mt-4 border-bottom border-success"></div>
                     {% endfor %}
                 </div>
             </div>

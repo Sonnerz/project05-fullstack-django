@@ -85,7 +85,8 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="comment-box">
-                            Posted by: <span class="text-success">{{ bugcomment.author }}</span> on
+                            <span class="boldtext">Posted by:</span> <span class="text-success">{{ bugcomment.author }}</span>
+                            on
                             <span class="text-success"> {{bugcomment.created_date }}</span><br>
                             {% if bugcomment.is_reported %}
                             <span class="text-danger font-italic boldtext"> ** This comment has been reported **</span>

@@ -105,3 +105,30 @@ def blogpost_comment_report(request, pk):
     comment.is_reported = True
     comment.save()
     return redirect(post_detail, comment.post.id)
+
+
+@login_required
+def super_admin_blog(request):
+    """
+    Create a view that will return a list
+    of reported comments for superadmin
+    to delete or alter.
+    """
+    postcomments = PostComment.objects.filter(
+        is_reported=True).order_by('-created_date')
+
+    return render(request, "superadminblog.html", {'postcomments': postcomments})
+
+
+@login_required
+def post_toggle_hide(request, pk):
+    """
+    Create a view that will hide a reported bug comment by superadmin.
+    """
+    reported_comment = get_object_or_404(PostComment, pk=pk)
+    reported_comment.is_hidden = not reported_comment.is_hidden
+    if not reported_comment.is_hidden:
+        reported_comment.is_reported = not reported_comment.is_reported
+    reported_comment.save()
+
+    return redirect(super_admin_blog)

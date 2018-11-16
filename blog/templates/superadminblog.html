@@ -1,0 +1,53 @@
+{% extends 'base_pages_blog.html' %}
+{% load bootstrap_tags %}
+{% block page_title %}Reported Blog Post comments{% endblock %}
+
+{% block page_heading %}Reported Blog Post Comments{% endblock %}
+{% block page_heading_sub %}Super admin: list of reported Blog Post comments{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div id="issueform">
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col-12">
+                    {% for postcomment in postcomments %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>Post : <a href="{% url 'post_detail' postcomment.post.id %}">
+                                    {{ postcomment.post | truncatewords:10 }}</a></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Is comment hidden: {{ postcomment.is_hidden }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="post-comment-box">
+                                Posted by: <span class="text-success">{{ postcomment.author }}</span> on
+                                <span class="text-success"> {{postcomment.created_date }}</span><br>
+                                <p>{{ postcomment.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            {% if not postcomment.is_hidden %}
+                            <a href="{% url 'post_toggle_hide' postcomment.id %}" class="btn btn-info">Hide Comment</a>
+                            {% else %}
+                            <a href="{% url 'post_toggle_hide' postcomment.id %}" class="btn btn-info">Show Comment</a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
