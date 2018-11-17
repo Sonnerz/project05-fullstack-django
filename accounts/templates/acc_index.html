@@ -5,6 +5,7 @@
 {% block page_heading_sub %}List of the most Recent Bugs and Features{% endblock %}
 
 {% block content %}
+<!-- Internal home page showing most recent bugs and features -->
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
 <div id="issueform">
     <div class="container">
@@ -19,13 +20,13 @@
         </div>
     </div>
 </div>
+<!-- BUGS -->
 {% for bug in bugs %}
 <div id="issueform">
     <div class="container">
         <div class="row mb-4">
             <div class="col-6 col-md-3">{{ bug.title|truncatewords:10 }}</div>
             <div class="col-3 col-md-3 d-none d-lg-block">{{ bug.ref }}</div>
-
             <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'bug_detail' bug.id %}"
                     class="mt-2">View bug details</a></div>
         </div>
@@ -33,13 +34,13 @@
 </div>
 {% endfor %}
 
+<!-- FEATURES -->
 {% for feature in features %}
 <div id="issueform">
     <div class="container">
         <div class="row mb-4">
             <div class="col-6 col-md-3">{{ feature.title|truncatewords:10 }}</div>
             <div class="col-3 col-md-3 d-none d-lg-block">{{ feature.ref }}</div>
-
             <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'feature_detail' feature.id %}"
                     class="mt-2">View feature details</a></div>
         </div>

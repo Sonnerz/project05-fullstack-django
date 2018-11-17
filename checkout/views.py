@@ -47,10 +47,10 @@ def checkout(request):
                     card=payment_form.cleaned_data['stripe_id'],
                 )
             except stripe.error.CardError:
-                messages.error(request, "your card was declined")
+                messages.error(request, "Your card has been declined.")
 
             if customer.paid:
-                messages.error(request, "you have successffully paid")
+                messages.error(request, "Your purchase was successful.")
                 # set user to donor
                 is_user_a_donor = get_object_or_404(
                     Donor, user_id=request.user)
@@ -76,11 +76,11 @@ def checkout(request):
                 request.session['cart'] = {}
                 return redirect(reverse('get_all_features'))
             else:
-                messages.error(request, "unagle to take payemet")
+                messages.error(request, "Unable to take payment at this time.")
         else:
             print(payment_form.errors)
             messages.error(
-                request, "we were unable to take a payment with that card")
+                request, "We were unable to take a payment with that card.")
     else:
         payment_form = MakePaymentForm()
         order_form = OrderForm()

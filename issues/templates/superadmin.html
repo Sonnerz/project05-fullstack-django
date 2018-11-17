@@ -6,6 +6,7 @@
 {% block page_heading_sub %}Super admin: list of reported comments{% endblock %}
 
 {% block content %}
+<!-- SUPERADMIN CAN MANAGE REPORTED COMMENTS -->
 <div class="container-fluid mt-4">
     <div id="issueform">
         <div class="container-fluid">
@@ -40,8 +41,8 @@
                             <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">Hide Bug
                                 Comment</a>
                             {% else %}
-                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">Show Bug
-                                Comment</a>
+                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">UnReport and
+                                Show Bug Comment</a>
                             {% endif %}
                         </div>
 

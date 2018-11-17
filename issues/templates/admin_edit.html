@@ -1,17 +1,12 @@
 {% extends 'base_pages.html' %}
 {% load bootstrap_tags %}
-{% block page_title %}Submit Bug{% endblock %}
+{% block page_title %}Admin Edit bug{% endblock %}
 
-{% block page_heading %}Bug{% endblock %}
-{% block page_heading_sub %}Bug for investigation{% endblock %}
+{% block page_heading %}Admin Edit bug{% endblock %}
+{% block page_heading_sub %}Update all bug details{% endblock %}
 
 {% block content %}
 <!-- CREATE OR EDIT A BUG -->
-{% if request.path == '/issues/new/' %}
-<h1>New bug</h1>
-{% else %}
-<h1>Edit bug</h1>
-{% endif %}
 <div id="issueform">
     <div class="container">
         <div class="row">

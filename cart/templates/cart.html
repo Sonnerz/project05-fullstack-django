@@ -7,7 +7,7 @@
 {% block page_heading_sub %}View items in your cart{% endblock %}
 
 {% block content %}
-
+<!-- DISPLAY CART ITEMS -->
 
 <div class="container-fluid">
 
@@ -57,7 +57,7 @@
         </div>
     </div>
     {% endfor %}
-
+    <!-- DISPLAY TOTAL FOR CART ITEMS -->
 
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
@@ -71,6 +71,7 @@
         </div>
     </div>
     {% else %}
+    <!-- DISPLAY NOTHING MESSAGE IF CART EMPTY -->
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <div class="col-12">

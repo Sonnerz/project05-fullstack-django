@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Feature, BugComment
 from blog.models import PostComment
-from .forms import BugForm, FeatureForm, BugCommentForm
+from .forms import BugForm, FeatureForm, BugCommentForm, AdminBugForm, AdminFeatureForm
 from uuid import uuid4
 from cart.views import add_to_cart
 from checkout.models import OrderLineItem
@@ -255,20 +255,6 @@ def edit_feature(request, pk=None):
 
 
 @login_required
-def vote_feature(request, pk):
-    """
-    Vote up a feature
-    """
-
-    feature = get_object_or_404(Feature, pk=pk)
-    print("feature Vote PK", pk)
-    feature.votes += 1
-    feature.save()
-
-    return render(request, "featuredetail.html", {'feature': feature})
-
-
-@login_required
 def bug_comment_report(request, pk):
     """
     Create a view that will allow a user to report
@@ -305,3 +291,43 @@ def comment_toggle_hide(request, pk):
     reported_comment.save()
 
     return redirect(super_admin)
+
+
+@login_required
+def admin_edit(request, pk):
+    """
+    Create a view that will allow a superadmin
+    to edit all details of an item
+    If it's a bug then b
+    If it's a feature then f
+    """
+    typeofitem = request.GET.get('type')
+    print(typeofitem)
+    if typeofitem == "b":
+        bug = get_object_or_404(Bug, pk=pk)
+        if request.method == "POST":
+            if "cancel" in request.POST:
+                return redirect(bug_detail, bug.pk)
+            form = AdminBugForm(request.POST, request.FILES, instance=bug)
+            if form.is_valid():
+                bug = form.save(commit=False)
+                bug.save()
+                return redirect(bug_detail, bug.pk)
+        else:
+            form = AdminBugForm(instance=bug)
+        return render(request, 'admin_edit.html', {'form': form})
+    elif typeofitem == "f":
+        feature = get_object_or_404(Feature, pk=pk)
+        if request.method == "POST":
+            if "cancel" in request.POST:
+                return redirect(feature_detail, feature.pk)
+            form = AdminFeatureForm(
+                request.POST, request.FILES, instance=feature)
+            if form.is_valid():
+                feature = form.save(commit=False)
+                feature.save()
+                return redirect(feature_detail, feature.pk)
+        else:
+            form = AdminBugForm(instance=feature)
+        return render(request, 'admin_edit.html', {'form': form})
+    return redirect(get_all_features)

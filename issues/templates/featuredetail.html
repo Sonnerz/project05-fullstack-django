@@ -5,6 +5,7 @@
 {% block page_heading_sub %}All the details about this Feature{% endblock %}
 
 {% block content %}
+<!-- DISPLAY FEATURE DETAILS -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
@@ -51,13 +52,14 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Total number of hours bought:</div>
+        <div class="col-5 col-md-3 col-lg-2">Total number of hours purchased:</div>
         <div class="col-7 col-md-9 col-lg-10">{{ totals.total_hrs_bought }}</div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Total money raised:</div>
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_raised }}</div>
     </div>
+    <!-- IF MINIMUM MONEY IS NOT RAISED SHOW  -->
     <div class="row">
         {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 col-lg-2 my-auto">Total money needed:</div>
     <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_needed }}</div>
@@ -65,27 +67,38 @@
 </div>
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
 <div class="row text-center mb-4">
+    <!-- if you got to this page from orders view then go back to orders view -->
     {% if from_orders == True %}
-    <div class="col-12 col-md-4 pt-2"><a href="{{ refering_order }}" class=" btn btn-info"><i class="fas fa-arrow-left"></i>
+    <div class="col-12 col-md-3 pt-2"><a href="{{ refering_order }}" class=" btn btn-info"><i class="fas fa-arrow-left"></i>
             Back to Order Details</a></div>
     {% else %}
-    <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success"><i class="fas fa-arrow-left"></i>
+    <!-- ELSE GO BACK TO ALL FEATURES VIEW -->
+    <div class="col-12 col-md-3 pt-2"><a href="{% url 'get_all_features' %}" class="btn btn-success"><i class="fas fa-arrow-left"></i>
             Back to features</a></div>
     {% endif %}
+    <!-- IF YOU ARE THE AUTHOR YOU CAN EDIT THE FEATURE -->
     {% if user.username == feature.author.username %}
-    <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+    <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info"><i class="far fa-edit"></i>
             Edit feature</a></div>
     {% endif %}
-    <div class="col-12 col-md-4 pt-2">{% if user.username == feature.author.username %}
-        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate more</button>
+    <!-- IF YOU ARE A SUPERADMIN -->
+    {% if user.is_superuser %}
+    <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' feature.id %}?type=f" class="btn btn-danger"><i
+                class="far fa-edit"></i>
+            Admin Edit</a></div>
+    {% endif %}
+    <!-- IF YOU CREATED THE FEATURE YOU CAN DONATE 'MORE' MONEY -->
+    <div class="col-12 col-md-3 pt-2">{% if user.username == feature.author.username %}
+        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate again</button>
         {% else %}
+        <!-- ELSE DONATE MONEY -->
         <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate</button>
         {% endif %}
     </div>
 </div>
 </div>
 
-
+<!-- FORM TO PURCHASE HOURS TOWARDS DEVELOPMENT -->
 <div id="donate_feature_form" class="hide-first mt-5 mb-5">
     <div id="issueform">
         <div class="container">

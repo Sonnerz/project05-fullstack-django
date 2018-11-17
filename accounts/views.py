@@ -85,7 +85,7 @@ def registration(request):
 
 @login_required
 def user_profile(request):
-    """Profile page - shows users purchase orders """
+    """Profile page - shows users orders """
     user = User.objects.get(email=request.user.email)
 
     # get users' purchase orders
@@ -98,6 +98,7 @@ def user_profile(request):
 
 @login_required
 def get_order_details(request, pk):
+    """Shows users order line items """
     # get the line items for each user order
     user_order_details = (OrderLineItem.objects.filter(
         order_id=pk))
@@ -105,7 +106,10 @@ def get_order_details(request, pk):
 
 
 def validate_username(request):
-    # view for ajax. Checks that username is unique as person completes registration form
+    """ 
+    View for ajax. 
+    Checks that username is unique as person completes registration form
+    """
     username = request.GET.get('username', None)
     data = {
         'is_taken': User.objects.filter(username__iexact=username).exists()

@@ -11,7 +11,8 @@ from django.db.models import Q
 
 def donor_check(user):
     """
-    User needs to be logged in and a donor to use Blog
+    User needs to be logged in and have made a purchase on the site
+    to be able to view the Blog
     """
     if user.is_authenticated and user.profile.is_donor == 1:
         return 1
@@ -20,7 +21,7 @@ def donor_check(user):
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def get_posts(request):
     """
-    Create a view taht will return a list
+    Create a view that will return a list
     of Posts that were published prior to 'now'
     and render them to the blogposts.html template
     """
@@ -99,7 +100,7 @@ def create_or_edit_post(request, pk=None):
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def delete_post(request, pk):
     """
-    Create a view that allows us to delete a post
+    Create a view that allows a user to delete a post
     """
     post = Post.objects.get(id=pk)
     post.delete()
@@ -109,7 +110,7 @@ def delete_post(request, pk):
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def create_post_comment(request, pk):
     """
-    Comment post comment
+    Create a post comment and associate with its Blog Post
     """
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -130,14 +131,9 @@ def create_post_comment(request, pk):
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def blogpost_comment_report(request, pk):
     """
-    Create a view taht will return a list
-    of Bugs that were published prior to 'now'
-    and render them to the bugs.html template
+    Allow a user to report a comment for moderation
     """
     comment = get_object_or_404(PostComment, pk=pk)
-    print(comment.comment)
-    print(comment.is_reported)
-
     comment.is_reported = True
     comment.save()
     return redirect(post_detail, comment.post.id)
@@ -148,7 +144,7 @@ def super_admin_blog(request):
     """
     Create a view that will return a list
     of reported comments for superadmin
-    to delete or alter.
+    to hide or un-report.
     """
     postcomments = PostComment.objects.filter(
         is_reported=True).order_by('-created_date')
@@ -159,7 +155,8 @@ def super_admin_blog(request):
 @login_required
 def post_toggle_hide(request, pk):
     """
-    Create a view that will hide a reported bug comment by superadmin.
+    Create a view that allows superadmin to hide and/ 
+    or un-report a reported bug comment.
     """
     reported_comment = get_object_or_404(PostComment, pk=pk)
     reported_comment.is_hidden = not reported_comment.is_hidden

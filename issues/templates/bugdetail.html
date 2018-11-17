@@ -5,6 +5,7 @@
 {% block page_heading_sub %}All the details about this Bug{% endblock %}
 
 {% block content %}
+<!-- DISPLAY BUG DETAILS -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row mb-2">
@@ -61,20 +62,25 @@
     </div>
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row text-center mb-4">
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i>
+        <div class="col-12 col-md-3 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i>
                 Back to Bugs</a></div>
         {% if user.username == bug.author.username %}
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+        <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info"><i class="far fa-edit"></i>
                 Edit bug</a></div>
         {% endif %}
         {% if user.username != bug.author.username %}
         {% if bug.status != 'Closed' %}
-        <div class="col-12 col-md-4 pt-2">
+        <div class="col-12 col-md-3 pt-2">
             <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
         </div>
         {% endif %}{% endif %}
-        <div class="col-12 col-md-4 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
+        <div class="col-12 col-md-3 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
                 Comment</a></div>
+        {% if user.is_superuser %}
+        <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' bug.id %}?type=b" class="btn btn-danger"><i
+                    class="far fa-edit"></i>
+                Admin Edit</a></div>
+        {% endif %}
     </div>
 </div>
 <div id="issueform">
