@@ -52,11 +52,9 @@ def bug_detail(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
     bug.views += 1
     bug.save()
-    print("bug.views", bug.views)
     bugcomments = BugComment.objects.filter(
         bug_id=pk, created_date__lte=timezone.now()).order_by('-created_date')
 
-    print("Bug Detail PK", pk)
     return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments})
 
 
@@ -67,7 +65,6 @@ def bug_comment(request, pk):
     a bug comment associated with a bug by id
     """
     bug = get_object_or_404(Bug, pk=pk)
-    print("Bug Comment PK", pk)
 
     if request.method == "POST":
         if "cancel" in request.POST:
@@ -123,11 +120,10 @@ def vote_bug(request, pk):
     """
 
     bug = get_object_or_404(Bug, pk=pk)
-    print("Bug Vote PK", pk)
     bug.votes += 1
     bug.save()
 
-    return render(request, "bugdetail.html", {'bug': bug})
+    return redirect(bug_detail, bug.pk)
 
 
 @login_required
@@ -302,7 +298,6 @@ def admin_edit(request, pk):
     If it's a feature then f
     """
     typeofitem = request.GET.get('type')
-    print(typeofitem)
     if typeofitem == "b":
         bug = get_object_or_404(Bug, pk=pk)
         if request.method == "POST":

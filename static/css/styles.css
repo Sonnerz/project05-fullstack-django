@@ -102,13 +102,15 @@ html {
 
 /* ABOUT SECTION */
 
-.about-section {
+.about-section,
+.info-section {
     padding-top: 10rem;
     background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
     background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
 }
 
-.about-section p {
+.about-section p,
+.info-section p {
     margin-bottom: 5rem;
 }
 
@@ -123,8 +125,9 @@ html {
 footer {
     padding: 3rem 0;
     background: -webkit-gradient(linear, left top, left bottom, from(#4E5D6C), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(78, 93, 108, 0.8)));
-    background: linear-gradient(to bottom, #4E5D6C 0%, rgba(78, 93, 108, 0.9) 75%, rgba(22, 22, 22, 0.7) 100%);
+    background: linear-gradient(to bottom, #4E5D6C 0%, rgba(78, 93, 108, 0.6) 75%, #2B3E50);
     width: 100%;
+    height: 130px;
 }
 
 /* NAVBAR Bootstrap OVERRIDES */

@@ -14,7 +14,8 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
-                    Minimum of 1 hour
+                    <span>Minimum of 1 hour <i class="fas fa-info-circle" data-toggle="tooltip" title="Minimum of 10 hours in total before this 
+                        feature will be considered for development"></i></span>
                     <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
                         value="1">
                     <div class="text-center">
