@@ -14,16 +14,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-5 col-md-3 align-top">Details:</div>
-            <div class="col-7 col-md-9">{{ bug.details }}</div>
+            <div class="col-5 col-md-2 align-top">Details:</div>
+            <div class="col-7 col-md-10">{{ bug.details }}</div>
         </div>
         <div class="row">
-            <div class="col-5 col-md-3 my-auto">Published date:</div>
-            <div class="col-7 col-md-9 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
+            <div class="col-5 col-md-2 my-auto">Published date:</div>
+            <div class="col-7 col-md-10 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
         </div>
         <div class="row mb-5">
-            <div class="col-5 col-md-3 my-auto">Author:</div>
-            <div class="col-7 col-md-9 my-auto">{{ bug.author }}</div>
+            <div class="col-5 col-md-2 my-auto">Author:</div>
+            <div class="col-7 col-md-10 my-auto">{{ bug.author }}</div>
         </div>
 
         <form method="POST" enctype="multipart/form-data">

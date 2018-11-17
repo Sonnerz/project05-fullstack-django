@@ -5,6 +5,8 @@ from django.contrib import messages
 from django.utils import timezone
 from .models import Post, PostComment
 from .forms import BlogPostForm, PostCommentForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Q
 
 
 def donor_check(user):
@@ -24,6 +26,17 @@ def get_posts(request):
     """
     posts = Post.objects.filter(published_date__lte=timezone.now
                                 ()).order_by('-published_date')
+
+    # Page the queryset
+    paginator = Paginator(posts, 3)
+    page = request.GET.get('page', 1)
+
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     return render(request, "blogposts.html", {'posts': posts})
 
 
@@ -31,7 +44,7 @@ def get_posts(request):
 def post_detail(request, pk):
     """
     Create a view that returns a single
-    Post object based on the post ID (pk) and 
+    Post object based on the post ID (pk) and
     render it to the postdetail.html template
     or return a 404 error if ppost is not found
     """
@@ -39,8 +52,21 @@ def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.views += 1
     post.save()
-    postcomments = PostComment.objects.filter(
-        post_id=pk, created_date__lte=timezone.now()).order_by('-created_date')
+    # get post comments that haven't been hidden by superadmin
+    postcomments = PostComment.objects.filter(~Q(is_hidden=True),
+                                              post_id=pk).order_by('-created_date')
+
+    # Page the post comments
+    paginator = Paginator(postcomments, 4)
+    page = request.GET.get('page', 1)
+
+    try:
+        postcomments = paginator.page(page)
+    except PageNotAnInteger:
+        postcomments = paginator.page(1)
+    except EmptyPage:
+        postcomments = paginator.page(paginator.num_pages)
+
     return render(request, "postdetail.html", {'post': post, 'postcomments': postcomments})
 
 
@@ -68,6 +94,16 @@ def create_or_edit_post(request, pk=None):
     else:
         form = BlogPostForm(instance=post)
     return render(request, 'blogpostform.html', {'form': form})
+
+
+@user_passes_test(donor_check, login_url='/accounts/login/')
+def delete_post(request, pk):
+    """
+    Create a view that allows us to delete a post
+    """
+    post = Post.objects.get(id=pk)
+    post.delete()
+    return redirect(get_posts)
 
 
 @user_passes_test(donor_check, login_url='/accounts/login/')

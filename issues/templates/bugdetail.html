@@ -8,57 +8,58 @@
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row mb-2">
-        <div class="col-12">
+        <div class="col-12 text-success">
             <h3>{{ bug.title }}</h3>
         </div>
     </div>
     <div class="row mb-4">
-        <div class="col-12">
-            {% if bug.image %}
+        {% if bug.image %}
+        <div class="col-12 col-md-3">
             <img class="img-blogpost" src="{{ MEDIA_URL }}{{ bug.image }}">
+        </div>
+        {% endif %}
+        <div class="col-12 col-md-9">
+            <div class="row mt-3">
+                <div class="col-5 col-md-3 col-lg-2">Reference:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.ref }}</div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Published date:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.published_date|date:"d-m-Y"}}</div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Author:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.author }}</div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Current Status:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.status }}</div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Views:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.views }}</div>
+            </div>
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Votes:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.votes }}</div>
+            </div>
+            {% if bug.status == 'Closed' %}
+            <div class="row">
+                <div class="col-5 col-md-3 col-lg-2">Resolved date:</div>
+                <div class="col-7 col-md-9 col-lg-10">{{ bug.resolved_date|date:"d-m-Y" }}</div>
+            </div>
             {% endif %}
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
+        <div class="col-5 col-md-2 col-lg-2">Details:</div>
+        <div class="col-7 col-md-10 col-lg-10">{{ bug.details }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Details:</div>
-        <div class="col-7 col-md-9 col-lg-10">{{ bug.details }}</div>
+        <div class="col-5 col-md-2 col-lg-2">Tag:</div>
+        <div class="col-7 col-md-10 col-lg-10">{{ bug.tag }}</div>
     </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Published date:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.published_date|date:"d-m-Y" }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.author }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.views }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.votes }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.tag }}</div>
-    </div>
-    {% if bug.status == 'Closed' %}
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Resolved date:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.resolved_date|date:"d-m-Y" }}</div>
-    </div>
-    {% endif %}
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
-
     <div class="row text-center mb-4">
         <div class="col-12 col-md-4 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i>
                 Back to Bugs</a></div>

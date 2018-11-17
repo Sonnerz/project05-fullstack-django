@@ -70,12 +70,20 @@
     </div>
 </div>
 
+<!-- Reults Info -->
+<div class="row">
+    <div class="col-12 text-center">
+        <span class="boldtext">{{ bugs.paginator.count }} </span> Results in total.
+        Viewing Bugs {{ bugs.start_index }} to {{ bugs.end_index }}
+    </div>
+</div>
+
 
 <!-- Data title row -->
 
-<div class="container-fluid" style="background-color:rgb(202, 243, 250);color:#333">
+<div class="container-fluid table-titles">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
-    <div class="row">
+    <div class="row border-top-2">
         <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Reference</div>
         <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Details</div>
         <div class="col-2 d-none d-md-block boldtext text-uppercase">Status</div>
@@ -104,7 +112,7 @@
         <div class="col-4 col-md-3 col-lg-2"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
                 <i class="fas fa-book-reader"></i> View bug details</a></div>
     </div>
-    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row mb-3 mt-3 border-bottom border-success"></div>
 </div>
 
 {% endfor %}

@@ -65,6 +65,11 @@ html {
     justify-content: center;
 }
 
+.table-titles {
+    /* background: -webkit-gradient(linear, left top, left bottom, from(#4E5D6C), color-stop(75%, rgba(78, 93, 108, 0.8)), to(rgba(22, 22, 22, 0.9))); */
+    background: linear-gradient(#333, #4E5D6C);
+}
+
 /* LAYOUT */
 
 .links-col {

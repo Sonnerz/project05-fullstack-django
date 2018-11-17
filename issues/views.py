@@ -8,7 +8,8 @@ from uuid import uuid4
 from cart.views import add_to_cart
 from checkout.models import OrderLineItem
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .filters import BugsFilter
+from .filters import BugsFilter, FeaturesFilter
+from django.db.models import Q
 
 
 # Create your views here.
@@ -136,10 +137,24 @@ def get_all_features(request):
     of features that were published prior to 'now'
     and render them to the features.html template
     """
-    features = Feature.objects.filter(published_date__lte=timezone.now
-                                      ()).order_by('-published_date')
+    features = Feature.objects.filter(
+        ~Q(status='Pending Payment')).order_by('-published_date')
 
-    return render(request, "features.html", {'features': features})
+    # filter the queryset
+    features_filter = FeaturesFilter(request.GET, queryset=features)
+
+    # Page the queryset
+    paginator = Paginator(features_filter.qs, 4)
+    page = request.GET.get('page', 1)
+
+    try:
+        features = paginator.page(page)
+    except PageNotAnInteger:
+        features = paginator.page(1)
+    except EmptyPage:
+        features = paginator.page(paginator.num_pages)
+
+    return render(request, "features.html", {'features': features, 'filter': features_filter})
 
 
 @login_required

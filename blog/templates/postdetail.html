@@ -44,6 +44,8 @@
                     {% if user.username == post.author.username %}
                     <a href="{% url 'edit_post' post.id %}" class="btn btn-primary"><i class="far fa-edit"></i>Edit
                         Post</a>
+                    <a href="{% url 'delete_post' post.id %}" class="btn btn-primary"><i class="far fa-edit"></i>Delete
+                        Post</a>
                     {% endif %}
                 </div>
             </div>
@@ -52,6 +54,46 @@
     </div>
     <div class="row mb-4 mt-4 border-bottom border-warning"></div>
 </div>
+
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if postcomments.has_other_pages %}
+                <ul class="pagination">
+                    {% if postcomments.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ postcomments.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in postcomments.paginator.page_range %}
+                    {% if postcomments.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if postcomments.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ postcomments.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+<div class="row">
+    <div class="col-12 text-center">
+        <span class="boldtext">{{ postcomments.paginator.count }} </span> Results in total.
+        Viewing Posts Comments {{ postcomments.start_index }} to {{ postcomments.end_index }}
+    </div>
+</div>
+
 
 <div id="issueform">
     <div class="container-fluid">

@@ -5,57 +5,171 @@
 {% block page_heading_sub %}View all the features requested{% endblock %}
 
 {% block content %}
-{% for feature in features %}
-{% if feature.status != 'Pending Payment'%}
-
+<!-- Filter data -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
-        <div class="col-12">
-            <h3>{{ feature.title|truncatewords:5 }}</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Details</div>
-        <div class="col-7 col-md-9 col-lg-10">{{ feature.details|truncatewords:30 }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.author }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Status:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.status }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.tag }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Cost per hour:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.cost_per_hour }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.views }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">
-                <i class="fas fa-book-reader"></i> Read
-                more</a></div>
+        <form method="get" id="bugfilter">
+            Filter by status
+            {{ filter.form }}
+        </form>
     </div>
 </div>
 
-{% endif %}
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if features.has_other_pages %}
+                {% if 'status' in request.get_full_path %}
+                <ul class="pagination">
+                    {% if features.has_previous %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in features.paginator.page_range %}
+                    {% if features.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if features.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <ul class="pagination">
+                    {% if features.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in features.paginator.page_range %}
+                    {% if features.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if features.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+<div class="row">
+    <div class="col-12 text-center">
+        <span class="boldtext">{{ features.paginator.count }} </span> Results in total.
+        Viewing Features {{ features.start_index }} to {{ features.end_index }}
+    </div>
+</div>
+
+
+<!-- Data title row -->
+
+<div class="container-fluid table-titles">
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
+    <div class="row border-top-2">
+        <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Reference</div>
+        <div class="col-4 col-md-3 col-lg-2 boldtext text-uppercase">Details</div>
+        <div class="col-2 d-none d-md-block boldtext text-uppercase">Status</div>
+        <div class="col-2 d-none d-lg-block boldtext text-uppercase">Published</div>
+        <div class="col-2 d-none d-lg-block boldtext text-uppercase">Author</div>
+        <div class="col-4 col-md-3 col-lg-2"></div>
+    </div>
+    <div class="row mb-4 mt-4 "></div>
+</div>
+
+<!-- SHOW ALL FEATURES -->
+<!-- IF FEATURE IS NOT PAYMENT PENDING -->
+{% for feature in features.object_list %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-success">
+            <h5>{{ feature.title|truncatewords:10 }}</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 col-md-3 col-lg-2">{{ feature.ref }}</div>
+        <div class="col-4 col-md-3 col-lg-2">{{ feature.details|truncatewords:10 }}</div>
+        <div class="col-2 d-none d-md-block">{{ feature.status }}</div>
+        <div class="col-2 d-none d-md-block">{{ feature.published_date|date:"d-m-Y" }}</div>
+        <div class="col-2 d-none d-md-block">{{ feature.author }}</div>
+        <div class="col-4 col-md-3 col-lg-2"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">
+                <i class="fas fa-book-reader"></i> View Details</a></div>
+    </div>
+    <div class="row mb-3 mt-3 border-bottom border-success"></div>
+</div>
+
+
 {% endfor %}
+
+<!-- PAGINATION -->
+<div class="container-fluid mt-5 text-center">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if features.has_other_pages %}
+                {% if 'status' in request.get_full_path %}
+                <ul class="pagination">
+                    {% if features.has_previous %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in features.paginator.page_range %}
+                    {% if features.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if features.has_next %}
+                    <li class="page-item"><a class="page-link" href="{{ request.get_full_path }}&page={{ features.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <ul class="pagination">
+                    {% if features.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in features.paginator.page_range %}
+                    {% if features.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if features.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

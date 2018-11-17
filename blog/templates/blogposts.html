@@ -4,6 +4,46 @@
 {% block page_heading %}Blog{% endblock %}
 {% block page_heading_sub %}A place to converse about all things Photography related{% endblock %}
 {% block content %}
+
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if posts.has_other_pages %}
+                <ul class="pagination">
+                    {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if posts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+<div class="row">
+    <div class="col-12 text-center">
+        <span class="boldtext">{{ posts.paginator.count }} </span> Results in total.
+        Viewing Posts {{ posts.start_index }} to {{ posts.end_index }}
+    </div>
+</div>
+
 {% for post in posts %}
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-warning"></div>
