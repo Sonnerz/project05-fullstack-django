@@ -186,6 +186,7 @@ footer {
 }
 
 .messages {
+    padding-right: 5%;
     width: 70%;
     position: fixed;
     left: 33%;
