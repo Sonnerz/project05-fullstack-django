@@ -6,6 +6,5 @@ python:
 install: "pip install -r requirements.txt"
 script:
 - SECRET_KEY="something" ./manage.py test
-- nosetests -v --with-coverage --cover-tests --cover-package=noseselecttests accounts/test_accounts_views.py
 after_success:
     - bash <(curl -s https://codecov.io/bash)
