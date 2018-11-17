@@ -31,12 +31,13 @@ class TestViews(TestCase):
         self.assertContains(response, 'csrfmiddlewaretoken')
 
         self.c.login(username='test', password='test')
-        response = self.c.get(reverse('index'))
+        response = self.c.get(reverse('acc_index'))
         self.assertEqual(response.status_code, 200)
 
         self.assertTrue(self.c.login(username='test', password='test'))
         response = self.c.get(reverse('login'))
-        self.assertRedirects(response, expected_url=reverse('index'))
+        self.assertRedirects(
+            response, expected_url=reverse('acc_index'))
 
     # LOGOUT
 
@@ -79,7 +80,7 @@ class TestViews(TestCase):
 
         self.assertTrue(self.c.login(username='test', password='test'))
         response = self.c.get(reverse('login'))
-        self.assertRedirects(response, expected_url=reverse('index'))
+        self.assertRedirects(response, expected_url=reverse('acc_index'))
 
 
 # https://simpleisbetterthancomplex.com/series/2017/09/25/a-complete-beginners-guide-to-django-part-4.html#testing-the-sign-up-view
