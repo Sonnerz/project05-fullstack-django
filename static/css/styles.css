@@ -97,7 +97,7 @@ html {
 .login-container,
 .reset-container,
 .register-container {
-    margin-top: 10rem;
+    margin-top: 8rem;
 }
 
 /* ABOUT SECTION */
@@ -105,13 +105,14 @@ html {
 .about-section,
 .info-section {
     padding-top: 10rem;
+    padding-bottom: 10rem;
     background: -webkit-gradient(linear, left top, left bottom, from(#161616), color-stop(75%, rgba(22, 22, 22, 0.9)), to(rgba(22, 22, 22, 0.8)));
     background: linear-gradient(to bottom, #161616 0%, rgba(22, 22, 22, 0.9) 75%, rgba(22, 22, 22, 0.8) 100%);
 }
 
 .about-section p,
 .info-section p {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
 .projects-section {
@@ -144,12 +145,16 @@ footer {
 
 /*  HOMEPAGE MASTHEAD */
 
+.index-image {
+    display: none;
+}
+
 .masthead {
     position: relative;
     width: 100%;
     height: auto;
     min-height: 35rem;
-    padding: 15rem 0;
+    padding: 8rem 0;
     background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.1)), color-stop(75%, rgba(22, 22, 22, 0.5)), to(#161616)), url("/static/img/bg-masthead.jpg");
     background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 40%, #161616 100%), url("/static/img/bg-masthead.jpg");
     background-position: center;
@@ -163,9 +168,10 @@ footer {
     font-size: 2.5rem;
     line-height: 2.5rem;
     letter-spacing: 0.8rem;
-    background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    color: #fff;
+    /* background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
     -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
+    -webkit-background-clip: text; */
 }
 
 .masthead h2 {
@@ -225,6 +231,12 @@ footer {
     }
     .list-group-item {
         margin: 0.75rem;
+    }
+    .masthead {
+        padding: 15rem 0;
+    }
+    .index-image {
+        display: block;
     }
 }
 

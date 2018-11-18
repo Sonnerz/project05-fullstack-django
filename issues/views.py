@@ -52,8 +52,19 @@ def bug_detail(request, pk):
     bug = get_object_or_404(Bug, pk=pk)
     bug.views += 1
     bug.save()
-    bugcomments = BugComment.objects.filter(
-        bug_id=pk, created_date__lte=timezone.now()).order_by('-created_date')
+    bugcomments = BugComment.objects.filter(~Q(is_hidden=True),
+                                            bug_id=pk).order_by('-created_date')
+
+    # Page the post comments
+    paginator = Paginator(bugcomments, 4)
+    page = request.GET.get('page', 1)
+
+    try:
+        bugcomments = paginator.page(page)
+    except PageNotAnInteger:
+        bugcomments = paginator.page(1)
+    except EmptyPage:
+        bugcomments = paginator.page(paginator.num_pages)
 
     return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments})
 

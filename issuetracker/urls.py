@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.static import serve
 from .settings import MEDIA_ROOT
-from pages.views import *
+from pages.views import index
 from accounts import urls as urls_accounts
 from issues import urls as urls_issues
 from search import urls as urls_search
@@ -29,7 +29,6 @@ from blog import urls as urls_blog
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
-    url(r'^info/', info, name="info"),
     url(r'^accounts/', include(urls_accounts)),
     url(r'^issues/', include(urls_issues)),
     url(r'^search/', include(urls_search)),

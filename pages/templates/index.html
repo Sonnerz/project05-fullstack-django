@@ -11,15 +11,15 @@
             <h1 class="my-0 text-uppercase">CAM-PAL</h1>
             <h2 class="text-white mt-2 mb-5 text-center nowrap">The answer to taking Professional quality photos</h2>
             {% if not user.is_authenticated %}
-            <div class="text-center"><a href="#about" class="btn btn-primary">Register</a></div>
+            <div class="text-center"><a href="{% url 'registration' %}" class="btn btn-primary">Register</a></div>
             {% endif %}
         </div>
-        <div class="col-md-6 mx-auto"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
+        <div class="col-md-6 mx-auto index-image"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
     </div>
 </header>
 <!-- About Section -->
-<section id="about" class="about-section text-center">
-    <div class="container">
+<section class="about-section">
+    <div class="container" id="about">
         <div class="row">
             <div class="col-lg-8 mx-auto">
                 <h2 class="text-white mb-4">CAM-PAL</h2>
@@ -35,13 +35,11 @@
                     sharp photos without noise.</p>
             </div>
         </div>
-
     </div>
 </section>
 <!-- Projects Section -->
-<section id="projects" class="projects-section bg-light">
-    <div class="container">
-
+<section class="projects-section bg-light">
+    <div class="container" id="projects">
         <!-- Project One Row -->
         <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
             <div class="col-lg-6">
@@ -59,7 +57,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Project Two Row -->
         <div class="row justify-content-center no-gutters">
             <div class="col-lg-6">
@@ -75,6 +72,28 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Info Section -->
+<section class="info-section">
+    <div class="container" id="info">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="text-white mb-4">CAM-PAL</h2>
+                <p class="text-white-50"><img src="{% static 'img/camera.png' %}" alt="Image of camera" width="50%"
+                        style="float: right">This is a support site for CAM-PAL.
+                    This is where CAM-PAL users can come and submit any issues they have with the software or request
+                    new features to be developed.
+                </p>
+                <p class="text-white-50">Bugs can be added without charge. We will endeavour to address any issues that
+                    users submit for review. </p>
+                <p class="text-white-50">Requests for new features will require a minimum purchase of 1 hour at €50
+                    per hour. Each feature will require a minimum of 10 hours (€500) to be raised before the CAM-PAL
+                    developers will consider reviewing/developing a feature request.</p>
+                <p class="text-white-50">If you request a new feature or donate towards the development of a new
+                    feature you will gain access to our Blog area where you can share your Photography stories with us.</p>
             </div>
         </div>
 

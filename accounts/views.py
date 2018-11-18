@@ -9,6 +9,7 @@ from issues.models import Bug, Feature
 from issues.views import bug_detail
 from django.utils import timezone
 from django.http import JsonResponse
+from django.db.models import Q
 
 
 # Create your views here.
@@ -106,8 +107,8 @@ def get_order_details(request, pk):
 
 
 def validate_username(request):
-    """ 
-    View for ajax. 
+    """
+    View for ajax.
     Checks that username is unique as person completes registration form
     """
     username = request.GET.get('username', None)
@@ -116,4 +117,19 @@ def validate_username(request):
     }
     if data['is_taken']:
         data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)
+
+
+def validate_email(request):
+    """
+    View for ajax.
+    Checks that email exists in database for password reset
+    """
+    email = request.GET.get('email', None)
+    data = {
+        'is_taken': User.objects.filter(email__iexact=email).exists()
+    }
+
+    if data['is_taken'] == False:
+        data['error_message'] = 'That email is not registered.'
     return JsonResponse(data)

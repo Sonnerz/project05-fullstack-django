@@ -43,14 +43,15 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{% url 'post_comment' post.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
+                    <a href="{% url 'post_comment' post.id %}" class="btn btn-info mt-2"><i class="far fa-comment-dots"></i>
                         Comment</a>
-                    <a href="{% url 'get_posts' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Back to
+                    <a href="{% url 'get_posts' %}" class="btn btn-primary mt-2"><i class="fas fa-arrow-left"></i> Back
+                        to
                         Blog</a>
                     {% if user.username == post.author.username %}
-                    <a href="{% url 'edit_post' post.id %}" class="btn btn-primary"><i class="far fa-edit"></i>Edit
+                    <a href="{% url 'edit_post' post.id %}" class="btn btn-primary mt-2"><i class="far fa-edit"></i>Edit
                         Post</a>
-                    <a href="{% url 'delete_post' post.id %}" class="btn btn-primary"><i class="far fa-edit"></i>Delete
+                    <a href="{% url 'delete_post' post.id %}" class="btn btn-primary mt-2"><i class="far fa-edit"></i>Delete
                         Post</a>
                     {% endif %}
                 </div>
@@ -93,13 +94,26 @@
 </div>
 
 <!-- Reults Info -->
-<div class="row">
-    <div class="col-12 text-center">
-        <span class="boldtext">{{ postcomments.paginator.count }} </span> Results in total.
-        Viewing Posts Comments {{ postcomments.start_index }} to {{ postcomments.end_index }}
+{% if postcomments.paginator.count %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <span class="boldtext">{{ postcomments.paginator.count }} </span> Results in total.
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            Viewing Posts Comments {{ postcomments.start_index }} to {{ postcomments.end_index }}
+        </div>
     </div>
 </div>
-
+{% else %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <span>There are no comments for this blog post. </span>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div id="issueform">
     <div class="container-fluid">
@@ -111,10 +125,10 @@
                     <div class="col-12">
                         <div class="post-comment-box">
                             <span class="boldtext">Posted by:</span> <span class="text-success">{{ postcomment.author}}</span>
-                            on
+                            <br>
                             <span class="text-success"> {{postcomment.created_date }}</span><br>
                             {% if postcomment.is_reported %}
-                            <span class="text-danger font-italic boldtext"> ** This comment has been reported **</span>
+                            <span class="text-danger font-italic boldtext"> *This comment has been reported</span>
                             {% endif %}
                             <p>{{ postcomment.comment }}</p>
                             {% if postcomment.is_reported != True %}
@@ -131,5 +145,11 @@
         </div>
     </div>
 </div>
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-right pb-3">
+            <a href="#top">Back to Top</a> <i class="fas fa-arrow-circle-up"></i>
+        </div>
+    </div>
+</div>
 {% endblock %}
