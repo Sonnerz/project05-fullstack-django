@@ -52,16 +52,16 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Total number of hours purchased:</div>
+        <div class="col-5 col-md-3 col-lg-2">Funded Development hours:</div>
         <div class="col-7 col-md-9 col-lg-10">{{ totals.total_hrs_bought }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Total money raised:</div>
+        <div class="col-5 col-md-3 col-lg-2 my-auto">Funding raised:</div>
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_raised }}</div>
     </div>
     <!-- IF MINIMUM MONEY IS NOT RAISED SHOW  -->
     <div class="row">
-        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 col-lg-2 my-auto">Total money needed:</div>
+        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 col-lg-2 my-auto">Funding needed:</div>
     <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_needed }}</div>
     {% endif %}
 </div>
@@ -87,6 +87,7 @@
                 class="far fa-edit"></i>
             Admin Edit</a></div>
     {% endif %}
+    {% if feature.status == 'Target not Reached' %}
     <!-- IF YOU CREATED THE FEATURE YOU CAN DONATE 'MORE' MONEY -->
     <div class="col-12 col-md-3 pt-2">{% if user.username == feature.author.username %}
         <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate again</button>
@@ -95,6 +96,7 @@
         <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate</button>
         {% endif %}
     </div>
+    {% endif %}
 </div>
 </div>
 
@@ -111,7 +113,8 @@
             <div class="row">
                 <div class="col-12 col-md-10">
                     <form method="post" action="{% url 'add_to_cart' feature.id %}" class="text-right">
-                        Minimum of 1 hour
+                        <span>Minimum of 1 hour <i class="fas fa-info-circle" data-toggle="tooltip" title="Minimum of 10 hours in total before this 
+                                feature will be considered for development"></i></span>
                         {% csrf_token %}
                         <input name="quantity" type="number" min="1" max="20" class="form-control" placeholder="Quantity"
                             value="1">

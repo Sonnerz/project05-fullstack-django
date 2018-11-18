@@ -9,6 +9,12 @@ class BugForm(forms.ModelForm):
                   'tag', 'published_date')
 
 
+class FeatureForm(forms.ModelForm):
+    class Meta:
+        model = Feature
+        fields = ('title', 'details', 'tag', 'published_date', 'cost_per_hour')
+
+
 class AdminBugForm(forms.ModelForm):
     class Meta:
         model = Bug
@@ -18,15 +24,8 @@ class AdminBugForm(forms.ModelForm):
 
 class AdminFeatureForm(forms.ModelForm):
     class Meta:
-        model = Bug
-        fields = ('title', 'details', 'image',
-                  'tag', 'published_date', 'status')
-
-
-class FeatureForm(forms.ModelForm):
-    class Meta:
         model = Feature
-        fields = ('title', 'details', 'tag', 'published_date', 'cost_per_hour')
+        fields = ('title', 'details', 'tag', 'published_date', 'status')
 
 
 class BugCommentForm(forms.ModelForm):

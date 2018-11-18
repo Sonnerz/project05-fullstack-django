@@ -14,9 +14,8 @@ STATUS_CHOICES = (
 
 FEATURE_STATUS_CHOICES = (
     ('Pending Payment', 'Pending Payment'),
-    ('Open', 'Open'),
-    ('Target not Reached', 'Target not Reached'),
     ('Under Review', 'Under Review'),
+    ('Target not Reached', 'Target not Reached'),
     ('Under Development', 'Under Development'),
     ('Testing', 'Testing'),
     ('Deployed', 'Deployed'),

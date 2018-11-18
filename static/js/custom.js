@@ -46,6 +46,15 @@ $(document).ready(function () {
     // #endregion
 
 
+    // #region move search button to beside Bug filter
+
+    $("#bugfilter").append("<button type='submit'>Search</button>");
+    $("#bugfilter select").addClass("custom-select");
+    $("#bugfilter button").addClass("btn btn-primary ");
+
+    // #endregion
+
+
 }); // close document.ready
 
 

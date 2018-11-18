@@ -1,10 +1,21 @@
 {% extends 'base_pages.html' %}
-
+{% load poll_tags %}
 {% block page_title %}Most Recent Bugs and Features{% endblock %}
 {% block page_heading %}Recent Bugs and Features{% endblock %}
 {% block page_heading_sub %}List of the most Recent Bugs and Features{% endblock %}
 
+
+
 {% block content %}
+<div class="row mb-4 mt-4 border-bottom border-success"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            {% poll %}
+        </div>
+    </div>
+</div>
+
 <!-- Internal home page showing most recent bugs and features -->
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
 <div id="issueform">

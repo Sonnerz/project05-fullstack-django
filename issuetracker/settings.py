@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'search',
     'storages',
     'pages',
+    'poll',
 ]
 
 MIDDLEWARE = [

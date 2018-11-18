@@ -233,7 +233,6 @@ def new_feature(request):
             this_feature = Feature.objects.filter(ref=feature.ref)
             for item in this_feature:
                 add_to_cart(request, item.id)
-            return redirect(get_all_features)
     else:
         form = FeatureForm()
     return render(request, 'featureform_new.html', {'form': form})
@@ -334,6 +333,6 @@ def admin_edit(request, pk):
                 feature.save()
                 return redirect(feature_detail, feature.pk)
         else:
-            form = AdminBugForm(instance=feature)
+            form = AdminFeatureForm(instance=feature)
         return render(request, 'admin_edit.html', {'form': form})
     return redirect(get_all_features)
