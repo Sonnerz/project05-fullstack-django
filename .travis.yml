@@ -6,5 +6,7 @@ python:
 install: "pip install -r requirements.txt"
 script:
 - SECRET_KEY="something" ./manage.py test
+- nosetts accounts/test_accounts_views.py -v — with-coverage
 after_success:
     - bash <(curl -s https://codecov.io/bash)
+
