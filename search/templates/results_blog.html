@@ -18,27 +18,73 @@
 </div>
 {% endif %}
 
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if posts.has_other_pages %}
+                <ul class="pagination">
+                    {% if posts.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}&b={{b}}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}&b={{b}}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if posts.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}&b={{b}}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+{% if posts.paginator.count %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <span class="boldtext">{{ posts.paginator.count }} </span> Results found.
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            Viewing Results {{ posts.start_index }} to {{ posts.end_index }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% for post in posts %}
 
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <div class="col-12">
-            <h3>Post: {{ post.title }}</h3>
+            <h3>Post: <a href="{% url 'post_detail' post.id %}" title="{{ post.title }}">{{ post.title }}</a></h3>
         </div>
     </div>
     <div class="row">
         <div class="col-5 col-md-2 col-lg-2 align-top">Details:</div>
         <div class="col-7 col-md-10 col-lg-10">{{ post.content|truncatewords:10 }}</div>
     </div>
-    <div class="row">
-        <div class="col-5 col-md-2 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-10 col-lg-10 my-auto pb-4"><a href="{% url 'post_detail' post.id %}" class="btn btn-info mt-2">
-                <i class="fas fa-book-reader"></i> View this post</a></div>
-    </div>
 </div>
 
 {% endfor %}
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-right pb-3">
+            <a href="#top">Back to Top</a> <i class="fas fa-arrow-circle-up"></i>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

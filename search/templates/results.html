@@ -29,18 +29,63 @@
 </div>
 {% endif %}
 
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if bugs.has_other_pages %}
+                <ul class="pagination">
+                    {% if bugs.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.previous_page_number }}&q={{q}}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in bugs.paginator.page_range %}
+                    {% if bugs.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}&q={{q}}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if bugs.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ bugs.next_page_number }}&q={{q}}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+{% if bugs.paginator.count %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <span class="boldtext">{{ bugs.paginator.count }} </span> Results found.
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            Viewing Results {{ bugs.start_index }} to {{ bugs.end_index }}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% for bug in bugs %}
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <div class="col-12">
-            <h3>Bug: {{ bug.title }}</h3>
+            <h3>Bug: <a href="{% url 'bug_detail' bug.id %}" title="{{ bug.title }}">{{ bug.title }}</a></h3>
         </div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.ref }}</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'bug_detail' bug.id %}" title="{{ bug.title }}">
+                {{bug.ref}}</a></div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
@@ -50,15 +95,55 @@
         <div class="col-5 col-md-3 col-lg-2 my-auto">Current Status:</div>
         <div class="col-7 col-md-9 col-lg-10 my-auto">{{ bug.status }}</div>
     </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto pb-4"><a href="{% url 'bug_detail' bug.id %}" class="btn btn-info mt-2">
-                <i class="fas fa-book-reader"></i> Read more</a></div>
-    </div>
 </div>
 
 {% endfor %}
 
+
+<!-- PAGINATION -->
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-12">
+            <nav aria-label="Page navigation" class="text-lg-center">
+                {% if features.has_other_pages %}
+                <ul class="pagination">
+                    {% if features.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.previous_page_number }}&q={{q}}">Previous</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Previous</a></span></li>
+                    {% endif %}
+                    {% for i in features.paginator.page_range %}
+                    {% if features.number == i %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ i }}</a> <span class="sr-only">(current)</span></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}&q={{q}}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if features.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ features.next_page_number }}&q={{q}}">Next</a></li>
+                    {% else %}
+                    <li class="page-item disabled"><span><a class="page-link" href="#">Next</a></span></li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Reults Info -->
+{% if features.paginator.count %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <span class="boldtext">{{ features.paginator.count }} </span> Results found.
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            Viewing Results {{ features.start_index }} to {{ features.end_index }}
+        </div>
+    </div>
+</div>
+{% endif %}
 
 
 {% for feature in features %}
@@ -66,23 +151,28 @@
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <div class="col-12">
-            <h3>Feature: {{ feature.title }}</h3>
+            <h3>Feature: <a href="{% url 'feature_detail' feature.id %}" title="{{ feature.title }}">
+                    {{ feature.title}}</a></h3>
         </div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
+        <div class="col-7 col-md-9 col-lg-10 my-auto"><a href="{% url 'feature_detail' feature.id %}" title="{{ feature.title }}">
+                {{feature.ref }}</a></div>
     </div>
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-5 col-md-3 col-lg-2 align-top">Details:</div>
-        <div class="col-7 col-md-9 col-lg-10">{{ feature.details|truncatewords:10 }}</div>
-    </div>
-    <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto"></div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto pb-4"><a href="{% url 'feature_detail' feature.id %}" class="btn btn-info mt-2">
-                <i class="fas fa-book-reader"></i> Read more</a></div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.details|truncatewords:10 }} </div>
     </div>
 </div>
 {% endfor %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-right pb-3">
+            <a href="#top">Back to Top</a> <i class="fas fa-arrow-circle-up"></i>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

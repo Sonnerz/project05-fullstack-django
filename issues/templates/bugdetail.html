@@ -8,7 +8,7 @@
 <!-- DISPLAY BUG DETAILS -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
-    <div class="row mb-2">
+    <div class="row">
         <div class="col-12 text-success">
             <h3>{{ bug.title }}</h3>
         </div>
@@ -21,33 +21,33 @@
         {% endif %}
         <div class="col-12 col-md-9">
             <div class="row mt-3">
-                <div class="col-5 col-md-3 col-lg-2">Reference:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.ref }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Reference:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.ref }}</div>
             </div>
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Published date:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.published_date|date:"d-m-Y"}}</div>
+                <div class="col-5 col-md-4 col-lg-3">Published date:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.published_date|date:"d-m-Y"}}</div>
             </div>
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Author:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.author }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Author:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.author }}</div>
             </div>
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Current Status:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.status }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Current Status:</div>
+                <div class="col-7 col-md-8 col-lg-9 text-warning">{{ bug.status }}</div>
             </div>
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Views:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.views }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Views:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.views }}</div>
             </div>
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Votes:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.votes }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Votes:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.votes }}</div>
             </div>
             {% if bug.status == 'Closed' %}
             <div class="row">
-                <div class="col-5 col-md-3 col-lg-2">Resolved date:</div>
-                <div class="col-7 col-md-9 col-lg-10">{{ bug.resolved_date|date:"d-m-Y" }}</div>
+                <div class="col-5 col-md-4 col-lg-3">Resolved date:</div>
+                <div class="col-7 col-md-8 col-lg-9">{{ bug.resolved_date|date:"d-m-Y" }}</div>
             </div>
             {% endif %}
         </div>
@@ -121,7 +121,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-6 text-center">
-            <span class="boldtext">{{ bugcomments.paginator.count }} </span> Results in total.
+            <span class="boldtext">{{ bugcomments.paginator.count }} </span> Comment in total.
         </div>
         <div class="col-12 col-md-6 text-center">
             Viewing Bug Comments {{ bugcomments.start_index }} to {{ bugcomments.end_index }}
