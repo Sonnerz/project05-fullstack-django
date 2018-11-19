@@ -189,16 +189,20 @@ def feature_detail(request, pk):
     # Get the total money raised for this Feature
     total_hrs_bought = 0
     number_of_times_ordered = 0
+    total_cost_of_dev = feature.dev_hours_req * 50
     for orders in feature_orders:
         number_of_times_ordered += 1
         total_hrs_bought += orders.quantity
     # Get total money raised for this Feature
     total_money_raised = total_hrs_bought * 50
-    total_money_needed = 500 - total_money_raised
+    total_money_needed = total_cost_of_dev - total_money_raised
+    total_hours_needed = feature.dev_hours_req - total_hrs_bought
     totals = {'total_hrs_bought': total_hrs_bought,
               'total_money_raised': total_money_raised,
               'total_money_needed': total_money_needed,
-              'number_of_times_ordered': number_of_times_ordered, }
+              'number_of_times_ordered': number_of_times_ordered,
+              'total_cost_of_dev': total_cost_of_dev,
+              'total_hours_needed': total_hours_needed}
     return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders,
                                                   'totals': totals, 'from_orders': from_orders, 'refering_order': refering_order})
 
@@ -233,6 +237,7 @@ def new_feature(request):
             this_feature = Feature.objects.filter(ref=feature.ref)
             for item in this_feature:
                 add_to_cart(request, item.id)
+            return redirect(get_all_features)
     else:
         form = FeatureForm()
     return render(request, 'featureform_new.html', {'form': form})

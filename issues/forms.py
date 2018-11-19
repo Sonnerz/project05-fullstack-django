@@ -25,7 +25,8 @@ class AdminBugForm(forms.ModelForm):
 class AdminFeatureForm(forms.ModelForm):
     class Meta:
         model = Feature
-        fields = ('title', 'details', 'tag', 'published_date', 'status')
+        fields = ('title', 'details', 'tag',
+                  'published_date', 'status', 'dev_hours_req')
 
 
 class BugCommentForm(forms.ModelForm):

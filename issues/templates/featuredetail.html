@@ -14,55 +14,68 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Reference:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.ref }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Reference:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.ref }}</div>
     </div>
     <div class="row">
         <div class="col-5 col-md-3 col-lg-2">Details</div>
         <div class="col-7 col-md-9 col-lg-10">{{ feature.details }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Published on:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.published_date|date:"d-m-Y" }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Published on:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.published_date|date:"d-m-Y" }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Author:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.author }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Author:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.author }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Tag:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.tag }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Tag:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.tag }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Status:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.status }}</div>
+        <div class="col-5 col-md-3 col-lg-2">Status:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.status }}</div>
+    </div>
+    <div class="row">
+        <div class="col-5 col-md-3 col-lg-2">Views:</div>
+        <div class="col-7 col-md-9 col-lg-10">{{ feature.views }}</div>
     </div>
     <div class="row mb-4 mt-4 border-bottom border-info"></div>
+</div>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Votes:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.number_of_times_ordered }}</div>
+        <div class="col-7 col-md-7 col-lg-4">Number of subscribers:</div>
+        <div class="col-5 col-md-5 col-lg-8">{{ totals.number_of_times_ordered }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Cost per hour:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto"><i class="fas fa-euro-sign"></i>{{ feature.cost_per_hour }}</div>
+        <div class="col-7 col-md-7 col-lg-4">Cost per hour:</div>
+        <div class="col-5 col-md-5 col-lg-8"><i class="fas fa-euro-sign"></i>{{ feature.cost_per_hour }}</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Views:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ feature.views }}</div>
+        <div class="col-7 col-md-7 col-lg-4">Number of development hours required:</div>
+        <div class="col-5 col-md-5 col-lg-8">{{ feature.dev_hours_req }} hours</div>
+    </div>
+    <div class="row">
+        <div class="col-7 col-md-7 col-lg-4">Amount of funding required:</div>
+        <div class="col-5 col-md-5 col-lg-8"><i class="fas fa-euro-sign"></i>{{ totals.total_cost_of_dev }}</div>
     </div>
     <hr>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2">Funded Development hours:</div>
-        <div class="col-7 col-md-9 col-lg-10">{{ totals.total_hrs_bought }}</div>
+        <div class="col-7 col-md-7 col-lg-4">Funded hours:</div>
+        <div class="col-5 col-md-5 col-lg-8">{{ totals.total_hrs_bought }} hours</div>
     </div>
     <div class="row">
-        <div class="col-5 col-md-3 col-lg-2 my-auto">Funding raised:</div>
-        <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_raised }}</div>
+        <div class="col-7 col-md-7 col-lg-4">Funding raised:</div>
+        <div class="col-5 col-md-5 col-lg-8"><i class="fas fa-euro-sign"></i>{{ totals.total_money_raised }}</div>
     </div>
     <!-- IF MINIMUM MONEY IS NOT RAISED SHOW  -->
     <div class="row">
-        {% if totals.total_money_raised < 500 %} <div class="col-5 col-md-3 col-lg-2 my-auto">Funding needed:</div>
-    <div class="col-7 col-md-9 col-lg-10 my-auto">{{ totals.total_money_needed }}</div>
+        {% if totals.total_money_raised < totals.total_cost_of_dev %} <div class="col-7 col-md-7 col-lg-4">Funding
+            needed:</div>
+    <div class="col-5 col-md-5 col-lg-8"><i class="fas fa-euro-sign"></i>{{ totals.total_money_needed }}
+        ({{ totals.total_hours_needed }} hours)</div>
+
     {% endif %}
 </div>
 <div class="row mb-4 mt-4 border-bottom border-success"></div>

@@ -68,8 +68,10 @@ def checkout(request):
                     # if feature has past orders, total the hours
                     for orders in feature_orders:
                         total_hrs_bought += orders.quantity
-                        if total_hrs_bought >= 10:
+                        if total_hrs_bought == 2:
                             feature.status = "Under Review"
+                        elif total_hrs_bought >= feature.dev_hours_req:
+                            feature.status = "Under Development"
                         else:
                             feature.status = "Target not Reached"
                     feature.save()

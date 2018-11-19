@@ -80,6 +80,7 @@ class Feature(models.Model):
         max_digits=6, decimal_places=2, default=50.00)
     status = models.CharField(
         max_length=20, choices=FEATURE_STATUS_CHOICES, default='Pending Payment')
+    dev_hours_req = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
