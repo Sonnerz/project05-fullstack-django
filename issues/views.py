@@ -24,6 +24,7 @@ def get_all_bugs(request):
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')
     # filter the queryset
+    statusvalue = request.GET.get('status', '')
     bugs_filter = BugsFilter(request.GET, queryset=bugs)
 
     # Page the queryset
@@ -37,7 +38,7 @@ def get_all_bugs(request):
     except EmptyPage:
         bugs = paginator.page(paginator.num_pages)
 
-    return render(request, "bugs.html", {'bugs': bugs, 'filter': bugs_filter})
+    return render(request, "bugs.html", {'bugs': bugs, 'filter': bugs_filter, 'statusvalue': statusvalue})
 
 
 @login_required
@@ -111,7 +112,7 @@ def create_or_edit_bug(request, pk=None):
     bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == "POST":
         if "cancel" in request.POST:
-            return redirect(get_all_bugs)
+            return redirect(bug_detail, bug.pk)
         form = BugForm(request.POST, request.FILES, instance=bug)
         if form.is_valid():
             bug = form.save(commit=False)
@@ -148,6 +149,7 @@ def get_all_features(request):
         ~Q(status='Pending Payment')).order_by('-published_date')
 
     # filter the queryset
+    statusvalue = request.GET.get('status', '')
     features_filter = FeaturesFilter(request.GET, queryset=features)
 
     # Page the queryset
@@ -161,7 +163,7 @@ def get_all_features(request):
     except EmptyPage:
         features = paginator.page(paginator.num_pages)
 
-    return render(request, "features.html", {'features': features, 'filter': features_filter})
+    return render(request, "features.html", {'features': features, 'filter': features_filter, 'statusvalue': statusvalue})
 
 
 @login_required

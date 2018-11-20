@@ -72,14 +72,18 @@
 <!-- Reults Info -->
 <div class="row">
     <div class="col-12 text-center">
-        <span class="boldtext">{{ features.paginator.count }} </span> Results in total.
-        Viewing Features {{ features.start_index }} to {{ features.end_index }}
+        <span class="boldtext">{{ features.paginator.count }} </span>
+        Results {% if statusvalue == '' %} in total. {% else %} for <span class="text-warning boldtext">{{statusvalue}}</span>.
+        {% endif %}
+        {% if features.paginator.count %}
+        Viewing Bugs {{ features.start_index }} to {{ features.end_index }}
+        {% endif %}
     </div>
 </div>
 
 
 <!-- Data title row -->
-
+{% if features.paginator.count != 0 %}
 <div class="container-fluid table-titles">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row border-top-2">
@@ -92,6 +96,7 @@
     </div>
     <div class="row mb-4 mt-4 "></div>
 </div>
+{% endif %}
 
 <!-- SHOW ALL FEATURES -->
 <!-- IF FEATURE IS NOT PAYMENT PENDING -->

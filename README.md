@@ -78,7 +78,7 @@ Final version deployed to Heroku
             *   Other installations and setup
         *   [Version Control](#version)
         *   [Development](#devtest)
-        *   [Testing documentation](#testing)
+        *   [Testing](#testing)
         *   [Deployment](#deployment)
 *  [Credit](#external)
 
@@ -106,6 +106,7 @@ For a customer to request a new feature they must commit a minimum of €100 to 
 1)  admin pages where an admin and not superuser has access to moderate comments.
 2)  ability to assign development to other developers as the site grows
 3)  app to log development hours against a feature or bug
+4)  add rich text editor to Blog
 
 <a id="strategy"></a>
 
@@ -244,7 +245,7 @@ The issue tracking application will be optimised for latest version of Chrome, F
 
 ### Functional Flow
 
-![Functional flow](media/readme/ffuncflow.png)
+![Functional flow](/media/readme/ffuncflow.png)
 
 
 [Top of page](#top)
@@ -423,7 +424,7 @@ The application directories and files will be organised in the following way;
 
 ##  Database design
 
-![Database design scheme](media/readme/issues_db.png)
+![Database design scheme](/media/readme/issues_db.png)
 
 Database is SQLite in development and Postgres in production.
 The tables below are the tables I have added and do not include the Django tables (except the auth_user)
@@ -434,28 +435,28 @@ The tables below are the tables I have added and do not include the Django table
 ##  Wireframes
 
 ## Home Page (‘/’ index.html) <a id="homewf"></a>
-![home page](media/readme/home.png)
+![home page](/media/readme/home.png)
 
 ## Registration Page (‘/register/) <a id="signwf"></a>
-![registration page](media/readme/sign_up.png)
+![registration page](/media/readme/sign_up.png)
 
 ## Login (‘/login/) <a id="lloginwf"></a>
-![login page](media/readme/login.png)
+![login page](/media/readme/login.png)
 
 ## Profile  (‘/profile/) <a id="mywf"></a>
-![profile page](media/readme/dashboard.png)
+![profile page](/media/readme/dashboard.png)
 
 ## New Feature (/issues/newfeature/) <a id="recipewf"></a>
-![New feature](media/readme/request_feature.png)
+![New feature](/media/readme/request_feature.png)
 
 ## Submit Bug (/issues/new/) <a id="addwf"></a>
-![Submit Bug](media/readme/add_issue.png)
+![Submit Bug](/media/readme/add_issue.png)
 
 ## Bug/Feature Detail (/issues/<bug_id>)(/issues/<feature_id>/features) <a id="addwf"></a>
-![Bug/Feature detail](media/readme/issue_page.png)
+![Bug/Feature detail](/media/readme/issue_page.png)
 
 ## Search results (/search/?q=<searchparam>) <a id="wfsearch"></a>
-![Search](media/readme/search.png)
+![Search](/media/readme/search.png)
 
 
 [Top of page](#top)
@@ -616,7 +617,7 @@ This site is a tool that helps to detect errors and potential problems in your J
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
 As per the Defensive Design Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a submit button without providing text.
 
-![Username taken](media/readme/un.jpg)
+![Username taken](/media/readme/un.jpg)
 
 
 <a id="ongoing"></a>
@@ -635,6 +636,22 @@ As per the Defensive Design Strategy described in the Strategy Plan, all form in
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |Pages with buttons|Buttons too wide|Buttons too wide|Passed|Buttons too wide|Buttons too wide|Buttons too wide|Buttons too wide|Passed
 |Styling|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|
+
+
+### User Testing
+
+**Issues and Resolution**
+
+1) After editing a bug the screen redirects to all bugs view<br>
+    -  This was changed to redirect back to the bug details screen
+2) yellow debug screen for a 404
+    -  I set debug to False on settings.py
+3) View feature details button overflows on a mobile
+    -  I shortened the button text
+4) Burger menu off screen on mobile
+    -  This was related to the issue 5. The button was pushing the burger off screen
+5) Don't know what status user filtered by
+    -  Change the view code to get the request status and passed it back to the page as a variable.
 
 
 ### Unit Testing

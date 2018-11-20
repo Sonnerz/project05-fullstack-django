@@ -73,14 +73,18 @@
 <!-- Reults Info -->
 <div class="row">
     <div class="col-12 text-center">
-        <span class="boldtext">{{ bugs.paginator.count }} </span> Results in total.
+        <span class="boldtext">{{ bugs.paginator.count }} </span>
+        Results {% if statusvalue == '' %} in total. {% else %} for <span class="text-warning boldtext">{{statusvalue}}</span>.
+        {% endif %}
+        {% if bugs.paginator.count %}
         Viewing Bugs {{ bugs.start_index }} to {{ bugs.end_index }}
+        {% endif %}
     </div>
 </div>
 
 
 <!-- Data title row -->
-
+{% if bugs.paginator.count != 0 %}
 <div class="container-fluid table-titles">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row border-top-2">
@@ -93,6 +97,7 @@
     </div>
     <div class="row mb-4 mt-4 "></div>
 </div>
+{% endif %}
 
 <!-- SHOW ALL BUGS  -->
 {% for bug in bugs.object_list %}
