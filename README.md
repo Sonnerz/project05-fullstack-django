@@ -1,9 +1,8 @@
 # Welcome to Project 5 - Fullstack Django 
 [![Build Status](https://travis-ci.org/Sonnerz/project05-fullstack-django.svg?branch=master)](https://travis-ci.org/Sonnerz/project05-fullstack-django)
 
-[![Coverage Status](https://coveralls.io/repos/github/Sonnerz/project05-fullstack-django/badge.svg?branch=master)](https://coveralls.io/github/Sonnerz/project05-fullstack-django?branch=master)
 
-# The Cookbook Online recipe application
+# The CAM-PAL Issue Tracker
 
 Heroku App: https://fullstack-django-issuetracker.herokuapp.com<br>
 GitHub: https://github.com/Sonnerz/project05-fullstack-django<br>
@@ -600,18 +599,18 @@ jQuery is implemented on the registration form and password reset form.
 ## Testing
 
 The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were the primary browser and tool used for testing. However, the site was also tested using Firefox and Internet Explorer.
-•	CSS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
-•	Pep8 was used to apply a standard coding convention to the Python code
-•	PyLint was also installed and used
-•	All the functions in custom_scripts.js were tested on http://jshint.com/
+*   SS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
+*   Pep8 was used to apply a standard coding convention to the Python code
+*   PyLint was also installed and used
+*   All the functions in custom_scripts.js were tested on http://jshint.com/
 This site is a tool that helps to detect errors and potential problems in your JavaScript code.
 
 #### During development:
-•	print() was used extensively for viewing returned data and testing. 
-•	Console.log() was used viewing the ajax response and testing. 
-•	Div’s had vibrant background colours so that the developer was easily able to identify them
-•	Each change was viewed in a chrome browser and tested using developer tools at full width resolution and using a variety of device emulators; Galaxy SIII, Galaxy 5, Laptop touch screen, iPhone 5/SE, iPhone 6/7/8, iPhone 6/7/8 Plus, iPhone X, iPad.
-•	The site was pushed to Heroku and tested on mobile devices.
+*   print() was used extensively for viewing returned data and testing. 
+*   Console.log() was used viewing the ajax response and testing. 
+*   Div’s had vibrant background colours so that the developer was easily able to identify them
+*   Each change was viewed in a chrome browser and tested using developer tools at full width resolution and using a variety of device emulators; Galaxy SIII, Galaxy 5, Laptop touch screen, iPhone 5/SE, iPhone 6/7/8, iPhone 6/7/8 Plus, iPhone X, iPad.
+*   The site was pushed to Heroku and tested on mobile devices.
 
 #### Development/Defensive Design Testing
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
