@@ -6,6 +6,7 @@ from django.test.client import Client
 from django.urls import resolve
 from django.core.urlresolvers import reverse
 from issues.models import Bug, BugComment, Feature
+from django.utils import timezone
 
 
 class BugsTest(TestCase):

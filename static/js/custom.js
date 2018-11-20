@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
 
     // #region set form fields to readonly - New bug
 
@@ -20,14 +20,14 @@ $(document).ready(function () {
     // #region show/hide donate form - Feature details page
 
     $(".donate_feature_button").click(function () {
-        $('#donate_feature_form').show()
+        $('#donate_feature_form').show();
 
         $('html, body').animate({
             scrollTop: $("#donate_feature_form").offset().top - 50
         }, 'slow');
     });
     $(".donate_feature_cancel").click(function () {
-        $('#donate_feature_form').hide()
+        $('#donate_feature_form').hide();
     });
 
     // #endregion

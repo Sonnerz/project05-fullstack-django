@@ -12,7 +12,8 @@ from django.db.models import Q
 def donor_check(user):
     """
     User needs to be logged in and have made a purchase on the site
-    to be able to view the Blog
+    to be able to view the Blog.
+    This is a custom decorator.
     """
     if user.is_authenticated and user.profile.is_donor == 1:
         return 1

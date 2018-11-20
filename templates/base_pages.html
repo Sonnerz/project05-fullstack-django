@@ -16,7 +16,7 @@
 </head>
 
 <body id="top">
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark pl-5">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <!-- if logged in go to logged in home page -->
         {% if user.is_authenticated %}
         <a class="navbar-brand" href="{% url 'acc_index' %}">
@@ -34,23 +34,27 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <!-- links-->
             {% if user.is_authenticated %}
-            <div class="navbar-nav mr-auto move-right">
-                <span class="nav-item nav-link">Logged in: {{ user.username }}</span>
-                <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}">Profile</a></li>
-                {% if user.profile.is_donor %}
-                <li class="nav-item"><a class="nav-link" id="blog-nav-link" href="{% url 'get_posts' %}">Blog</a></li>
+            <div class="navbar-nav ml-auto">
+                {% if user.is_superuser %}
+                <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="/admin/"><i class="fas fa-lock"></i>
+                        Admin</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
+                <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}"><i class="far fa-user"></i>
+                        Profile</a></li>
+                {% if user.profile.is_donor %}
+                <li class="nav-item"><a class="nav-link" id="blog-nav-link" href="{% url 'get_posts' %}"><i class="fab fa-blogger"></i>
+                        Blog</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>
+                        Log out ({{ user.username }})</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'view_cart' %}"><i class="fa fa-shopping-cart pr-1" aria-hidden="true"></i>Cart
-                        {% if feature_count > 0 %}
+                    <a class="nav-link mr-5" href="{% url 'view_cart' %}">
+                        <i class="fa fa-shopping-cart pr-1" aria-hidden="true"></i>Cart {% if feature_count > 0 %}
                         <label class="badge badge-warning">{{ feature_count }}</label>
                         {% endif %}
                     </a>
                 </li>
-            </div>
-            <!-- search -->
-            <div class="navbar-nav ml-auto">
+                <!-- search -->
                 <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="q"
                         minlength="4">
@@ -58,10 +62,12 @@
                         Search</button>
                 </form>
             </div>
+
             {% else %}
             <!-- not logged in -->
             <div class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log in</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>
+                        Log in</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'registration' %}">Register</a></li>
             </div>
 

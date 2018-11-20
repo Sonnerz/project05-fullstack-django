@@ -3,10 +3,11 @@ from django.db.models import Q
 from issues.models import Bug, Feature
 from blog.models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-
+@login_required
 def do_search(request):
     lookup_fields = Q(title__icontains=request.GET['q']) | Q(
         ref__icontains=request.GET['q'])
@@ -38,7 +39,7 @@ def do_search(request):
 
     return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
 
-
+@login_required
 def do_search_ref(request):
     lookup_fields = Q(ref__icontains=request.GET['q'])
     bugs = Bug.objects.filter(lookup_fields).distinct()
@@ -46,7 +47,7 @@ def do_search_ref(request):
     searchparam = request.GET['q']
     return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
 
-
+@login_required
 def do_search_blog(request):
     lookup_fields = Q(title__icontains=request.GET['b'])
     posts = Post.objects.filter(lookup_fields).distinct()

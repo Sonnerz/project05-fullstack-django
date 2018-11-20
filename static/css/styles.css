@@ -3,7 +3,7 @@ html {
     height: 100%;
 }
 
-/* GENERAL */
+/* GLOBAL */
 
 .hide-first {
     display: none;
@@ -11,10 +11,6 @@ html {
 
 .boldtext {
     font-weight: 900;
-}
-
-.move-right {
-    margin-left: 50px;
 }
 
 .active-link {
@@ -66,7 +62,6 @@ html {
 }
 
 .table-titles {
-    /* background: -webkit-gradient(linear, left top, left bottom, from(#4E5D6C), color-stop(75%, rgba(78, 93, 108, 0.8)), to(rgba(22, 22, 22, 0.9))); */
     background: linear-gradient(#333, #4E5D6C);
 }
 
@@ -100,7 +95,7 @@ html {
     margin-top: 8rem;
 }
 
-/* ABOUT SECTION */
+/* SECTIONS */
 
 .about-section,
 .info-section {
@@ -169,9 +164,6 @@ footer {
     line-height: 2.5rem;
     letter-spacing: 0.8rem;
     color: #fff;
-    /* background: -webkit-linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text; */
 }
 
 .masthead h2 {
