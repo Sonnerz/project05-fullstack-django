@@ -5,15 +5,16 @@
 
 {% block content %}
 <!-- Header -->
-<header class="masthead">
+<header class="masthead page500">
     <div class="container-fluid h-100 align-items-center">
         <div class="row">
             <div class="col-md-6 my-auto text-center">
                 <h1 class="my-0 text-uppercase">500 Error</h1>
-                <h2 class="text-white mt-2 mb-5 text-center nowrap">Error go back</h2>
+                <h3 class="section-subheading text-muted mb-5">We apologise for the error.</h3>
+
+                <br>
+                <button type="button" class="btn btn-primary" id="goback" ONCLICK="goPrev()">Go Back </button>
             </div>
-            <div class="col-md-6 mx-auto"><img src="{% static 'img/img-masthead.png' %}" alt="Image of camera and phone"></div>
         </div>
-    </div>
 </header>
 {% endblock %}

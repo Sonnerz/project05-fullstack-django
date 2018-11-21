@@ -36,7 +36,7 @@
             {% if user.is_authenticated %}
             <div class="navbar-nav ml-auto">
                 {% if user.is_superuser %}
-                <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="/admin/"><i class="fas fa-lock"></i>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-link" href="/admin/"><i class="fas fa-lock"></i>
                         Admin</a></li>
                 {% endif %}
                 <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}"><i class="far fa-user"></i>
@@ -85,6 +85,7 @@
     <!-- Block for two column pages -->
     <div class="container-fluid pt-5">
         <div class="row">
+
             <div class="col-12 col-md-3 col-lg-2 links-col">
                 <ul class="list-group mt-5 mb-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -119,6 +120,7 @@
             </div>
         </div>
     </div>
+
 
 
 

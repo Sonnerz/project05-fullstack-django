@@ -2,8 +2,6 @@
 [![Build Status](https://travis-ci.org/Sonnerz/project05-fullstack-django.svg?branch=master)](https://travis-ci.org/Sonnerz/project05-fullstack-django)
 
 
-[![Coverage Status](https://coveralls.io/repos/github/Sonnerz/project05-fullstack-django/badge.svg)](https://coveralls.io/github/Sonnerz/project05-fullstack-django)
-
 # The CAM-PAL Issue Tracker
 
 Heroku App: https://fullstack-django-issuetracker.herokuapp.com<br>
@@ -619,7 +617,7 @@ This site is a tool that helps to detect errors and potential problems in your J
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
 As per the Defensive Design Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a submit button without providing text.
 
-![Username taken](/readme/un.jpg)
+![Username taken](/readme/un.png)
 
 
 <a id="ongoing"></a>

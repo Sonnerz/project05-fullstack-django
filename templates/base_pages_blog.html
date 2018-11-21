@@ -36,7 +36,7 @@
             {% if user.is_authenticated %}
             <div class="navbar-nav ml-auto">
                 {% if user.is_superuser %}
-                <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="/admin/"><i class="fas fa-lock"></i>
+                <li class="nav-item"><a class="nav-link" id="admin-nav-link" href="/admin/"><i class="fas fa-lock"></i>
                         Admin</a></li>
                 {% endif %}
                 <li class="nav-item"><a class="nav-link" id="profile-nav-link" href="{% url 'user_profile' %}"><i class="far fa-user"></i>

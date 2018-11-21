@@ -55,6 +55,15 @@ $(document).ready(function () {
     // #endregion
 
 
+    // #region GO BACK TO PREVIOUS PAGE
+
+    function goPrev() {
+        window.history.back();
+    }
+
+    // #endregion
+
+
 }); // close document.ready
 
 
