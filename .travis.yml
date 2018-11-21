@@ -5,10 +5,8 @@ python:
 - "3.6"
 install: 
 - "pip install -r requirements.txt"
-- "pip install coveralls"
 script:
 - SECRET_KEY="something" ./manage.py test
-- coverage run --source=accounts,blog,cart,checkout,issues,search manage.py test 
-after_success: coveralls
+
 
 
