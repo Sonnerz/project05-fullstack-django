@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/Sonnerz/project05-fullstack-django.svg?branch=master)](https://travis-ci.org/Sonnerz/project05-fullstack-django)
 
 
+[![Coverage Status](https://coveralls.io/repos/github/Sonnerz/project05-fullstack-django/badge.svg)](https://coveralls.io/github/Sonnerz/project05-fullstack-django)
+
 # The CAM-PAL Issue Tracker
 
 Heroku App: https://fullstack-django-issuetracker.herokuapp.com<br>
@@ -245,7 +247,7 @@ The issue tracking application will be optimised for latest version of Chrome, F
 
 ### Functional Flow
 
-![Functional flow](/media/readme/ffuncflow.png)
+![Functional flow](/readme/ffuncflow.png)
 
 
 [Top of page](#top)
@@ -424,7 +426,7 @@ The application directories and files will be organised in the following way;
 
 ##  Database design
 
-![Database design scheme](/media/readme/issues_db.png)
+![Database design scheme](/readme/issues_db.png)
 
 Database is SQLite in development and Postgres in production.
 The tables below are the tables I have added and do not include the Django tables (except the auth_user)
@@ -435,28 +437,28 @@ The tables below are the tables I have added and do not include the Django table
 ##  Wireframes
 
 ## Home Page (‘/’ index.html) <a id="homewf"></a>
-![home page](/media/readme/home.png)
+![home page](/readme/home.png)
 
 ## Registration Page (‘/register/) <a id="signwf"></a>
-![registration page](/media/readme/sign_up.png)
+![registration page](/readme/sign_up.png)
 
 ## Login (‘/login/) <a id="lloginwf"></a>
-![login page](/media/readme/login.png)
+![login page](/readme/login.png)
 
 ## Profile  (‘/profile/) <a id="mywf"></a>
-![profile page](/media/readme/dashboard.png)
+![profile page](/readme/dashboard.png)
 
 ## New Feature (/issues/newfeature/) <a id="recipewf"></a>
-![New feature](/media/readme/request_feature.png)
+![New feature](/readme/request_feature.png)
 
 ## Submit Bug (/issues/new/) <a id="addwf"></a>
-![Submit Bug](/media/readme/add_issue.png)
+![Submit Bug](/readme/add_issue.png)
 
 ## Bug/Feature Detail (/issues/<bug_id>)(/issues/<feature_id>/features) <a id="addwf"></a>
-![Bug/Feature detail](/media/readme/issue_page.png)
+![Bug/Feature detail](/readme/issue_page.png)
 
 ## Search results (/search/?q=<searchparam>) <a id="wfsearch"></a>
-![Search](/media/readme/search.png)
+![Search](/readme/search.png)
 
 
 [Top of page](#top)
@@ -617,7 +619,7 @@ This site is a tool that helps to detect errors and potential problems in your J
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
 As per the Defensive Design Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a submit button without providing text.
 
-![Username taken](/media/readme/un.jpg)
+![Username taken](/readme/un.jpg)
 
 
 <a id="ongoing"></a>
