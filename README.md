@@ -80,6 +80,7 @@ Final version deployed to Heroku
         *   [Development](#devtest)
         *   [Testing](#testing)
         *   [Deployment](#deployment)
+        *   [Local Deployment](#localdeployment)
 *  [Credit](#external)
 
 
@@ -659,6 +660,7 @@ As per the Defensive Design Strategy described in the Strategy Plan, all form in
 Each app has its own python test file for app, forms and views.
 Currently Coverage shows 81% complete.
 
+[Top of page](#top)
 
 <a id="deployment"></a>
 
@@ -737,6 +739,22 @@ I tried codecov and then coveralls.
 
 
 [Top of page](#top)
+
+<a id="localdeployment"></a>
+
+## Local Deployment
+
+To deploy this project locally;
+1) Download the project from GitHub
+2) Create a local virtual environment and install the packages listed in the requirements.txt
+3) This should create a local SQLite database
+4) Create a superuser account
+5) Run makemigrations
+6) Run migrate
+7) Create a local env.py file in the root of your site
+8) Create a local env var for; SECRET_KEY, STRIPE_PUBLISHABLE, STRIPE_SECRET, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, EMAIL_ADDRESS, EMAIL_PASSWORD
+9) Your project should run on 127.0.0.1/8000. This is the Django default local url.
+10) Note, this database will be empty of content.
 
 <a id="external"></a>
 

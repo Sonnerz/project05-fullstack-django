@@ -24,7 +24,15 @@ def acc_index(request):
     # get 5 latest features requested
     features = Feature.objects.filter(published_date__lte=timezone.now
                                       ()).order_by('-published_date')[:5]
-    return render(request, 'acc_index.html', {"bugs": bugs, 'features': features})
+
+    user_bugs = Bug.objects.filter(
+        author_id=user.id).order_by('-published_date')[:5]
+    user_features = Feature.objects.filter(
+        author_id=user.id).order_by('-published_date')[:5]
+    return render(request, 'acc_index.html', {'bugs': bugs,
+                                              'features': features,
+                                              'user_bugs': user_bugs,
+                                              'user_features': user_features})
 
 
 @login_required

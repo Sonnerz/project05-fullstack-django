@@ -10,9 +10,11 @@ from checkout.models import OrderLineItem
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .filters import BugsFilter, FeaturesFilter
 from django.db.models import Q
+from django.contrib import messages
 
 
 # Create your views here.
+
 
 @login_required
 def get_all_bugs(request):

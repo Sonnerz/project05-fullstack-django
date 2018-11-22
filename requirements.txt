@@ -28,9 +28,6 @@ jedi==0.13.1
 Jinja2==2.10
 jmespath==0.9.3
 jsonschema==2.6.0
-jupyter-client==5.2.3
-jupyter-console==6.0.0
-jupyter-core==4.4.0
 MarkupSafe==1.0
 mistune==0.8.4
 nbconvert==5.4.0

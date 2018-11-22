@@ -3,10 +3,8 @@
 {% block page_title %}Most Recent Bugs and Features{% endblock %}
 {% block page_heading %}Recent Bugs and Features{% endblock %}
 {% block page_heading_sub %}List of the most Recent Bugs and Features{% endblock %}
-
-
-
 {% block content %}
+<!-- 3rd party package - Simple Poll -->
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
 <div class="container-fluid">
     <div class="row">
@@ -15,48 +13,64 @@
         </div>
     </div>
 </div>
-
 <!-- Internal home page showing most recent bugs and features -->
 <div class="row mb-4 mt-4 border-bottom border-success"></div>
-<div id="issueform">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-6 col-md-6 my-auto">
-                <h4>Title</h4>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="row mb-4">
+                <div class="col-6 col-md-6 my-auto">
+                    <h4>Title</h4>
+                </div>
+                <div class="col-6 col-md-6 d-none d-lg-block my-auto"></div>
             </div>
-            <div class="col-3 col-md-3 d-none d-lg-block my-auto">
-                <h4>Reference Number</h4>
+            <!-- Most recent 5 BUGS -->
+            {% for bug in bugs %}
+            <div class="row mb-4">
+                <div class="col-6 col-md-6">{{ bug.title|truncatewords:10 }}</div>
+                <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'bug_detail' bug.id %}"
+                        class="mt-2">View details</a></div>
             </div>
-            <div class="col-6 col-md-3 d-none d-lg-block my-auto"></div>
+            {% endfor %}
+            <!-- Most recent 5 FEATURES -->
+            {% for feature in features %}
+            <div class="row mb-4">
+                <div class="col-6 col-md-6">{{ feature.title|truncatewords:10 }}</div>
+                <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'feature_detail' feature.id %}"
+                        class="mt-2">View details</a></div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-12 col-md-6">
+            <div class="row mb-4">
+                <div class="col-12 col-md-6 my-auto">
+                    <h4>My Bugs/Features</h4>
+                </div>
+                <div class="col-6 col-md-6 d-none d-lg-block my-auto"></div>
+            </div>
+            <!-- User Most recent 5 BUGS -->
+            {% if user_bugs or user_features %}
+            {% for user_bug in user_bugs %}
+            <div class="row mb-4">
+                <div class="col-6 col-md-6">{{ user_bug.title|truncatewords:10 }}</div>
+                <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'bug_detail' user_bug.id %}"
+                        class="mt-2">View details</a></div>
+            </div>
+            {% endfor %}
+            <!-- User Most recent 5 FEATURES -->
+            {% for user_feature in user_features %}
+            <div class="row mb-4">
+                <div class="col-6 col-md-6">{{ user_feature.title|truncatewords:10 }}</div>
+                <div class="col-6 col-md-6 col-lg-6"><i class="fas fa-book-reader"></i> <a href="{% url 'feature_detail' user_feature.id %}"
+                        class="mt-2">View details</a></div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="row mb-4">
+                <div class="col-12">You have not submitted any bugs or requested any features.</div>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>
-<!-- BUGS -->
-{% for bug in bugs %}
-<div id="issueform">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-6 col-md-6">{{ bug.title|truncatewords:10 }}</div>
-            <div class="col-3 col-md-3 d-none d-lg-block">{{ bug.ref }}</div>
-            <div class="col-6 col-md-3 col-lg-3"><i class="fas fa-book-reader"></i> <a href="{% url 'bug_detail' bug.id %}"
-                    class="mt-2">View bug details</a></div>
-        </div>
-    </div>
-</div>
-{% endfor %}
-
-<!-- FEATURES -->
-{% for feature in features %}
-<div id="issueform">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col-6 col-md-6">{{ feature.title|truncatewords:10 }}</div>
-            <div class="col-3 col-md-3 d-none d-lg-block">{{ feature.ref }}</div>
-            <div class="col-6 col-md-3 col-lg-3"><i class="fas fa-book-reader"></i> <a href="{% url 'feature_detail' feature.id %}"
-                    class="mt-2">View feature details</a></div>
-        </div>
-    </div>
-</div>
-{% endfor %}
-
 {% endblock %}

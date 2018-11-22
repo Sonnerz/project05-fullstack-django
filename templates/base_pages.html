@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load user_tags %}
 <!doctype html>
 <html lang="en">
 
@@ -85,7 +86,6 @@
     <!-- Block for two column pages -->
     <div class="container-fluid pt-5">
         <div class="row">
-
             <div class="col-12 col-md-3 col-lg-2 links-col">
                 <ul class="list-group mt-5 mb-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -104,10 +104,10 @@
                         <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
                             Request a Feature</a>
                     </li>
-                    {% if user.is_superuser %}
+                    {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'super_admin' %}" class="btn btn-primary issues-button"><i class="fas fa-lock"></i></i>
-                            Superuser admin</a>
+                            Admin</a>
                     </li>
                     {% endif %}
                 </ul>
