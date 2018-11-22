@@ -71,7 +71,21 @@ def post_detail(request, pk):
     except EmptyPage:
         postcomments = paginator.page(paginator.num_pages)
 
-    return render(request, "postdetail.html", {'post': post, 'postcomments': postcomments})
+    # Post comment
+    if request.method == "POST":
+        if "cancel" in request.POST:
+            return redirect(post_detail, pk=pk)
+        form = PostCommentForm(request.POST)
+        if form.is_valid():
+            postcomment = form.save(commit=False)
+            postcomment.author = request.user
+            postcomment.post = post
+            postcomment.save()
+            return redirect(post_detail, post.pk)
+    else:
+        form = PostCommentForm()
+
+    return render(request, "postdetail.html", {'post': post, 'postcomments': postcomments, 'comment_form': form})
 
 
 @user_passes_test(donor_check, login_url='/accounts/login/')
@@ -110,26 +124,6 @@ def delete_post(request, pk):
     return redirect(get_posts)
 
 
-@user_passes_test(donor_check, login_url='/accounts/login/')
-def create_post_comment(request, pk):
-    """
-    Create a post comment and associate with its Blog Post
-    """
-    post = get_object_or_404(Post, pk=pk)
-    if request.method == "POST":
-        if "cancel" in request.POST:
-            return redirect(post_detail, pk=pk)
-        form = PostCommentForm(request.POST)
-        if form.is_valid():
-            postcomment = form.save(commit=False)
-            postcomment.author = request.user
-            postcomment.post = post
-            postcomment.save()
-            return redirect(post_detail, post.pk)
-    else:
-        form = PostCommentForm()
-    return render(request, "postcommentform.html", {'post': post, 'comment_form': form})
-
 
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def blogpost_comment_report(request, pk):
@@ -150,7 +144,7 @@ def super_admin_blog(request):
     to hide or un-report.
     """
     postcomments = PostComment.objects.filter(
-        is_reported=True).order_by('-created_date')
+        is_reported = True).order_by('-created_date')
 
     return render(request, "superadminblog.html", {'postcomments': postcomments})
 
@@ -158,13 +152,13 @@ def super_admin_blog(request):
 @login_required
 def post_toggle_hide(request, pk):
     """
-    Create a view that allows superadmin to hide and/ 
+    Create a view that allows superadmin to hide and/
     or un-report a reported bug comment.
     """
-    reported_comment = get_object_or_404(PostComment, pk=pk)
-    reported_comment.is_hidden = not reported_comment.is_hidden
+    reported_comment=get_object_or_404(PostComment, pk = pk)
+    reported_comment.is_hidden=not reported_comment.is_hidden
     if not reported_comment.is_hidden:
-        reported_comment.is_reported = not reported_comment.is_reported
+        reported_comment.is_reported=not reported_comment.is_reported
     reported_comment.save()
 
     return redirect(super_admin_blog)

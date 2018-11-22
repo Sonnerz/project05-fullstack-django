@@ -69,17 +69,7 @@ def bug_detail(request, pk):
     except EmptyPage:
         bugcomments = paginator.page(paginator.num_pages)
 
-    return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments})
-
-
-@login_required
-def bug_comment(request, pk):
-    """
-    Create a view that allows us to create
-    a bug comment associated with a bug by id
-    """
-    bug = get_object_or_404(Bug, pk=pk)
-
+    # Comment form
     if request.method == "POST":
         if "cancel" in request.POST:
             return redirect(bug_detail, pk=pk)
@@ -92,7 +82,8 @@ def bug_comment(request, pk):
             return redirect(bug_detail, bug.pk)
     else:
         form = BugCommentForm()
-    return render(request, "bugcommentform.html", {'bug': bug, 'comment_form': form})
+
+    return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments, 'comment_form': form})
 
 
 def create_ref():

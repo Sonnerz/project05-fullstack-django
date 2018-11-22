@@ -27,6 +27,14 @@ html {
     padding: 10px;
 }
 
+.commentform textarea {
+    height: 5rem;
+}
+
+#div_id_comment label {
+    font-size: 1.2rem;
+}
+
 .comment-box {
     background-color: #4E5D6C;
 }

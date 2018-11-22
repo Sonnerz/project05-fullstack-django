@@ -1,7 +1,7 @@
 
 from django.conf.urls import url
 
-from issues.views import get_all_bugs, bug_detail, bug_comment,\
+from issues.views import get_all_bugs, bug_detail,\
     create_or_edit_bug, vote_bug,\
     get_all_features, feature_detail,\
     new_feature, edit_feature, bug_comment_report,\
@@ -20,7 +20,6 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/editfeature/$', edit_feature, name='edit_feature'),
     url(r'^newfeature/$', new_feature, name='new_feature'),
 
-    url(r'^(?P<pk>\d+)/bugcomment/$', bug_comment, name='bug_comment'),
     url(r'^(?P<pk>\d+)/bugcommentreport/$',
         bug_comment_report, name='bug_comment_report'),
 

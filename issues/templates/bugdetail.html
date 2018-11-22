@@ -1,4 +1,5 @@
 {% extends 'base_pages.html' %}
+{% load bootstrap_tags %}
 {% block page_title %}Bug details{% endblock %}
 
 {% block page_heading %}Bug Details{% endblock %}
@@ -74,17 +75,31 @@
             <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
         </div>
         {% endif %}{% endif %}
-        <div class="col-12 col-md-3 pt-2"><a href="{% url 'bug_comment' bug.id %}" class="btn btn-info"><i class="far fa-comment-dots"></i>
-                Comment</a></div>
         {% if user.is_superuser %}
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' bug.id %}?type=b" class="btn btn-danger"><i
                     class="far fa-edit"></i>
                 Admin Edit</a></div>
         {% endif %}
     </div>
+    <div class="row mb-4 mt-4 border-bottom border-success"></div>
 </div>
-
-
+<!-- Comment -->
+<div class="container-fluid commentform">
+    <div class="row">
+        <div class="col-12">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ comment_form | as_bootstrap }}
+                <div class="text-center mb-2">
+                    <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Add Comment</button>
+                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
+                            class="fas fa-arrow-left"></i>
+                        Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- PAGINATION -->
 <div class="container-fluid mt-5">
     <div class="row">
