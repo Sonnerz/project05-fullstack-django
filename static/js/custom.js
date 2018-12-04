@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     // #endregion
 
+
     // #region NEW BUG :: SET FORM FIELDS TO READONLY
 
     $("#id_published_date").prop("readonly", true);

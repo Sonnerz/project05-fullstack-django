@@ -125,6 +125,7 @@ def validate_username(request):
     }
     if data['is_taken']:
         data['error_message'] = 'A user with this username already exists.'
+
     return JsonResponse(data)
 
 
