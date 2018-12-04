@@ -13,16 +13,12 @@
         <div class="container-fluid">
             <div class="row mb-4">
                 <div class="col-12">
+                    <!-- COMMENT DETAILS -->
                     {% for postcomment in postcomments %}
                     <div class="row">
                         <div class="col-12">
                             <h4>Post : <a href="{% url 'post_detail' postcomment.post.id %}">
                                     {{ postcomment.post | truncatewords:10 }}</a></h4>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p>Is comment hidden: {{ postcomment.is_hidden }}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -34,7 +30,17 @@
                             </div>
                         </div>
                     </div>
-
+                    <!-- COMMENTS HIDDEN STATUS -->
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            {% if postcomment.is_hidden %}
+                            <p>Post Comment is hidden from users.</p>
+                            {% else %}
+                            <p>Post Comment is visible to users.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- SHOW/HIDE COMMENT TO USERS -->
                     <div class="row">
                         <div class="col-12">
                             {% if not postcomment.is_hidden %}

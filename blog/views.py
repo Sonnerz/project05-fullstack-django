@@ -13,9 +13,9 @@ from django.db.models import Q
 
 def donor_check(user):
     """
+    This is a custom decorator.
     User needs to be logged in and have made a purchase on the site
     to be able to view the Blog.
-    This is a custom decorator.
     """
     if user.is_authenticated and user.profile.is_donor == 1:
         return 1
@@ -124,7 +124,6 @@ def delete_post(request, pk):
     return redirect(get_posts)
 
 
-
 @user_passes_test(donor_check, login_url='/accounts/login/')
 def blogpost_comment_report(request, pk):
     """
@@ -144,7 +143,7 @@ def super_admin_blog(request):
     to hide or un-report.
     """
     postcomments = PostComment.objects.filter(
-        is_reported = True).order_by('-created_date')
+        is_reported=True).order_by('-created_date')
 
     return render(request, "superadminblog.html", {'postcomments': postcomments})
 
@@ -155,10 +154,10 @@ def post_toggle_hide(request, pk):
     Create a view that allows superadmin to hide and/
     or un-report a reported bug comment.
     """
-    reported_comment=get_object_or_404(PostComment, pk = pk)
-    reported_comment.is_hidden=not reported_comment.is_hidden
+    reported_comment = get_object_or_404(PostComment, pk=pk)
+    reported_comment.is_hidden = not reported_comment.is_hidden
     if not reported_comment.is_hidden:
-        reported_comment.is_reported=not reported_comment.is_reported
+        reported_comment.is_reported = not reported_comment.is_reported
     reported_comment.save()
 
     return redirect(super_admin_blog)

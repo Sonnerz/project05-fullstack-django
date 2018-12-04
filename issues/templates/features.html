@@ -2,15 +2,15 @@
 {% block page_title %}All Features{% endblock %}
 
 {% block page_heading %}All Features {% endblock %}
-{% block page_heading_sub %}View all the features requested{% endblock %}
+{% block page_heading_sub %}View all requested features{% endblock %}
 
 {% block content %}
-<!-- Filter data -->
+<!-- FILTER DATA -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <form method="get" id="bugfilter">
-            Filter by status
+            Filter by Status
             {{ filter.form }}
         </form>
     </div>
@@ -69,20 +69,20 @@
     </div>
 </div>
 
-<!-- Reults Info -->
+<!-- RESULTS INFO -->
 <div class="row">
     <div class="col-12 text-center">
         <span class="boldtext">{{ features.paginator.count }} </span>
-        Results {% if statusvalue == '' %} in total. {% else %} for <span class="text-warning boldtext">{{statusvalue}}</span>.
+        features {% if statusvalue == '' %} in total. {% else %} are <span class="text-warning boldtext">{{statusvalue}}</span>.
         {% endif %}
         {% if features.paginator.count %}
-        Viewing Bugs {{ features.start_index }} to {{ features.end_index }}
+        You are viewing Features {{ features.start_index }} to {{ features.end_index }}
         {% endif %}
     </div>
 </div>
 
 
-<!-- Data title row -->
+<!-- DATA TITLE ROW -->
 {% if features.paginator.count != 0 %}
 <div class="container-fluid table-titles">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
@@ -101,12 +101,10 @@
 <!-- SHOW ALL FEATURES -->
 <!-- IF FEATURE IS NOT PAYMENT PENDING -->
 {% for feature in features.object_list %}
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 text-success">
-            <h5>{{ feature.title|truncatewords:10 }}</h5>
+            <h5><a href="{% url 'feature_detail' feature.id %}">{{ feature.title|truncatewords:10 }}</a></h5>
         </div>
     </div>
     <div class="row">
@@ -176,5 +174,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

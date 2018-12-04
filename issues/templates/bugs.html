@@ -2,15 +2,15 @@
 {% block page_title %}All Bugs{% endblock %}
 
 {% block page_heading %}All Bugs{% endblock %}
-{% block page_heading_sub %}View all the bugs submitted{% endblock %}
+{% block page_heading_sub %}View all submitted bugs{% endblock %}
 
 {% block content %}
-<!-- Filter data -->
+<!-- FILTER DATA DROPDOWN -->
 <div class="container-fluid">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
     <div class="row">
         <form method="get" id="bugfilter">
-            Filter by status
+            Filter by Status
             {{ filter.form }}
         </form>
     </div>
@@ -70,20 +70,20 @@
     </div>
 </div>
 
-<!-- Reults Info -->
+<!-- RESULTS INFO -->
 <div class="row">
     <div class="col-12 text-center">
         <span class="boldtext">{{ bugs.paginator.count }} </span>
-        Results {% if statusvalue == '' %} in total. {% else %} for <span class="text-warning boldtext">{{statusvalue}}</span>.
+        Bugs {% if statusvalue == '' %} in total. {% else %} are <span class="text-warning boldtext">{{statusvalue}}</span>.
         {% endif %}
         {% if bugs.paginator.count %}
-        Viewing Bugs {{ bugs.start_index }} to {{ bugs.end_index }}
+        You are viewing Bugs {{ bugs.start_index }} to {{ bugs.end_index }}
         {% endif %}
     </div>
 </div>
 
 
-<!-- Data title row -->
+<!-- DATA TITLE ROW -->
 {% if bugs.paginator.count != 0 %}
 <div class="container-fluid table-titles">
     <div class="row mb-4 mt-4 border-bottom border-success"></div>
@@ -105,7 +105,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 text-success">
-            <h5>{{ bug.title|truncatewords:10 }}</h5>
+            <h5><a href="{% url 'bug_detail' bug.id %}">{{ bug.title|truncatewords:10 }}</a></h5>
         </div>
     </div>
     <div class="row">

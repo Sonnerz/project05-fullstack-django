@@ -1,8 +1,12 @@
 $(document).ready(function () {
 
+    // #region ENABLE BS TOOLTIP
+
     $('[data-toggle="tooltip"]').tooltip();
 
-    // #region set form fields to readonly - New bug
+    // #endregion
+
+    // #region NEW BUG :: SET FORM FIELDS TO READONLY
 
     $("#id_published_date").prop("readonly", true);
     $("#id_cost_per_hour").prop("readonly", true);
@@ -10,14 +14,14 @@ $(document).ready(function () {
     // #endregion
 
 
-    // #region reset email input length
+    // #region PASSWORD RESET :: RESET EMAIL INPUT LENGTH
 
     $('#id_email').attr('size', 60);
 
     // #endregion
 
 
-    // #region show/hide donate form - Feature details page
+    // #region FEATURE DETAILS :: SHOW/HIDE DONATE FORM
 
     $(".donate_feature_button").click(function () {
         $('#donate_feature_form').show();
@@ -33,7 +37,7 @@ $(document).ready(function () {
     // #endregion
 
 
-    // #region Add class to NAVBAR LINK depending on the page displayed  
+    // #region NAVBAR LINK :: ADD CLASS TO ACTIVE LINK
 
     var current_path = $(location).attr('pathname');
     if (current_path == "/accounts/profile/") {
@@ -46,7 +50,7 @@ $(document).ready(function () {
     // #endregion
 
 
-    // #region move search button to beside Bug filter
+    // #region BUG/FEATURE FILTER :: ALIGN BUTTON WITH SELECT
 
     $("#bugfilter").append("<button type='submit'>Search</button>");
     $("#bugfilter select").addClass("custom-select");
@@ -55,19 +59,28 @@ $(document).ready(function () {
     // #endregion
 
 
-    // #region GO BACK TO PREVIOUS PAGE
-
-    function goPrev() {
-        window.history.back();
-    }
-
+    // #region CLOSE MESSAGE DIV
+    $('.close-message').on('click', function (c) {
+        $('.messages-wrapper').fadeOut('slow', function (c) {
+            $('.messages-wrapper').remove();
+        });
+    });
     // #endregion
 
 
 }); // close document.ready
 
 
-// #region Smooth scrolling from nav
+// #region GO BACK TO PREVIOUS PAGE
+
+function goPrev() {
+    window.history.back();
+}
+
+// #endregion
+
+
+// #region SMOOTH SCROLLING
 
 (function ($) {
     "use strict"; // Start of use strict
@@ -97,7 +110,7 @@ $(document).ready(function () {
         offset: 100
     });
 
-})(jQuery); // End of use strict
+})(jQuery);
 
 
-// #endregion Smooth scrolling from nav
+// #endregion

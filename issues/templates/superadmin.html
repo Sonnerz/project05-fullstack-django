@@ -12,19 +12,15 @@
         <div class="container-fluid">
             <div class="row mb-4">
                 <div class="col-12">
+                    <!-- SHOW REPORTED COMMENTS -->
                     {% for bugcomment in bugcomments %}
                     <div class="row">
                         <div class="col-12">
                             <h4>Bug : <a href="{% url 'bug_detail' bugcomment.bug.id %}">
                                     {{ bugcomment.bug | truncatewords:10 }}</a></h4>
-
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <p>Is comment hidden: {{ bugcomment.is_hidden }}</p>
-                        </div>
-                    </div>
+                    <!-- COMMENT DETAILS -->
                     <div class="row">
                         <div class="col-12">
                             <div class="comment-box">
@@ -34,14 +30,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row mt-3">
+                    <!-- COMMENTS HIDDEN STATUS -->
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            {% if bugcomment.is_hidden %}
+                            <p>Comment is hidden from users.</p>
+                            {% else %}
+                            <p>Comment is visible to users.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- HIDE REPORTED COMMENT FROM USERS / SHOW REPORTED COMMENT and MARK AS UNREPORTED -->
+                    <div class="row mt-1">
                         <div class="col-12">
                             {% if not bugcomment.is_hidden %}
-                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">Hide Bug
+                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-success">Hide Bug
                                 Comment</a>
                             {% else %}
-                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-info">UnReport and
+                            <a href="{% url 'comment_toggle_hide' bugcomment.id %}" class="btn btn-success">UnReport
+                                and
                                 Show Bug Comment</a>
                             {% endif %}
                         </div>
@@ -54,6 +61,4 @@
         </div>
     </div>
 </div>
-
-
 {% endblock %}

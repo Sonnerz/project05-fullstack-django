@@ -123,7 +123,6 @@ def vote_bug(request, pk):
     """
     Vote up a bug
     """
-
     bug = get_object_or_404(Bug, pk=pk)
     bug.votes += 1
     bug.save()

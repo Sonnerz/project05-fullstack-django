@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+
 @login_required
 def do_search(request):
     lookup_fields = Q(title__icontains=request.GET['q']) | Q(
         ref__icontains=request.GET['q'])
-    bugs = Bug.objects.filter(lookup_fields).distinct()
-    features = Feature.objects.filter(lookup_fields).distinct()
+    bugs = Bug.objects.filter(lookup_fields).distinct().order_by('-id')
+    features = Feature.objects.filter(lookup_fields).distinct().order_by('-id')
     searchparam = request.GET['q']
 
     # Page the bugs queryset
@@ -39,6 +40,7 @@ def do_search(request):
 
     return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
 
+
 @login_required
 def do_search_ref(request):
     lookup_fields = Q(ref__icontains=request.GET['q'])
@@ -46,6 +48,7 @@ def do_search_ref(request):
     features = Feature.objects.filter(lookup_fields).distinct()
     searchparam = request.GET['q']
     return render(request, "results.html", {"bugs": bugs, "features": features, "q": searchparam})
+
 
 @login_required
 def do_search_blog(request):
