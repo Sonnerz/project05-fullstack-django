@@ -16,15 +16,6 @@ class TestViews(TestCase):
         self.user = User.objects.create_user(
             username="test", email="test@test.com", password="test")
 
-    # INTERNAL HOME
-    def test_get_internal_home_page(self):
-        response = self.client.get(reverse('acc_index'))
-        self.assertEqual(response.status_code, 302)
-        self.client.login(username='test', password='test')
-        response = self.client.get(reverse('acc_index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "acc_index.html")
-
     # GET ORDERS
     def test_get_order_details_page(self):
         page = self.client.get('/accounts/29/orders/')
