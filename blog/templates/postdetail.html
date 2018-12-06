@@ -1,5 +1,6 @@
 {% extends 'base_pages_blog.html' %}
 {% load bootstrap_tags %}
+{% load user_tags %}
 {% block page_title %}Blog post{% endblock %}
 
 {% block page_heading %}Blog Post{% endblock %}
@@ -52,8 +53,8 @@
                     <a href="{% url 'delete_post' post.id %}" class="btn btn-primary mt-2"><i class="far fa-edit"></i>Delete
                         Post</a>
                     {% endif %}
-                    <!-- IF USER IS AN ADMIN -->
-                    {% if user.is_superuser %}
+                    <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->
+                    {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
                     <a href="{% url 'admin_blogpost_edit' post.id %}" class="btn btn-danger mt-2"><i class="far fa-edit"></i>
                         Admin Edit</a>
                     {% endif %}

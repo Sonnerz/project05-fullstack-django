@@ -3,7 +3,7 @@ html {
     height: 100%;
 }
 
-/* GLOBAL */
+/* GLOBAL CSS */
 
 .hide-first {
     display: none;
@@ -73,7 +73,7 @@ html {
     background: linear-gradient(#333, #4E5D6C);
 }
 
-/* LAYOUT */
+/* LAYOUT CSS */
 
 .links-col {
     background-color: #4E5D6C;
@@ -105,7 +105,7 @@ html {
     margin-top: 8rem;
 }
 
-/* SECTIONS */
+/* SECTIONS FOR HOME PAGE */
 
 .about-section,
 .info-section {
@@ -208,7 +208,7 @@ footer {
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-/* Bugs & Features */
+/* BUGS & FEATURES */
 
 .list-group-item {
     padding: 0;
@@ -220,9 +220,34 @@ footer {
     opacity: 1;
 }
 
-.page404,
-.page500 {
-    margin-top: 14rem;
+/* 404 & 500 STYLING */
+
+.masthead404 {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 8rem 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.1)), color-stop(75%, rgba(22, 22, 22, 0.5)), to(#161616)), url("/static/img/404_img.jpg");
+    background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 40%, #161616 100%), url("/static/img/404_img.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.masthead500 {
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 35rem;
+    padding: 8rem 0;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(22, 22, 22, 0.1)), color-stop(75%, rgba(22, 22, 22, 0.5)), to(#161616)), url("/static/img/500_img.jpg");
+    background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 40%, #161616 100%), url("/static/img/500_img.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
 }
 
 /* MEDIA QUERIES */

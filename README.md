@@ -51,6 +51,7 @@ The final version is deployed to Heroku using AWS to host static and media files
 # Table of Contents
 
 *   [PREFACE](#preface)
+*   [Testing Accounts](#acc)
 *   [Strategy Plane](#strategy)
     *   [Define roles and responsibilities](#randr)
     *   [Project Charter](#charter)
@@ -103,6 +104,14 @@ To complete the customer experience, we also provide a blog area paying customer
 When a customer submits an issue, that issue is given a unique reference number. Using this number as a form of identity, the customer can follow the progress of that issue from submission, through to issuing a solution.
 
 For a customer to request a new feature they must commit a minimum of €100 to pay for two hours of work reviewing the new feature request. The Developer then updates the feature with the number of hours required to fully develop, test and deploy the new feature. Users can contribute to the development of the feature by buying hours. When the required number of hours specified by the developer has been funded, the feature is then developed.
+
+<a id="acc"></a>
+**Accounts**<br>
+The assessor can sign up for an account and view the site as a regular user, make purchases and add content.<br>
+Alternatively, the assessor can log in using a pre-created account.
+This account is a member of a group that can edit/delete other users content and manage reported comments.<br>
+Username: assessor<br>
+Password: $taticCollect
 
 [Top of page](#top)
 
@@ -576,19 +585,23 @@ Following the initial commit to Git, each major update was followed by a Git add
 ### Development
 
 ##  HTML
+HTML5 is used throughout and the following themes were implemented.
 https://bootswatch.com/superhero/	: is used for the issues site<br>
 https://bootswatch.com/spacelab/	: is used for the blog app<br>
 
+
 ##  CSS
-Custom css and bootstrap overrides : static/css/custom.css
+Custom css and bootstrap overrides can be found at static/css/styles.css
+The css has been validated.
 
 
 ##  Python
 The web app follows the standard Django pattern; forms, models and views.
 The following apps are based on apps created during course lessons: accounts, cart, checkout and search. I have used them as a starting point and customised them for my project.
 
+
 ##  jQuery
-jQuery is implemented on the registration form and password reset form.
+jQuery is implemented on the registration form and password reset form. It has been validated.
 *   The jquery on the registration form checks the database for the username and ensures that the username entered is unique.
 *   The jquery on the password reset form checks the database for the email and ensures that the email exists in the database.
 *   jQuery is used to set some form fields to readonly.
@@ -608,8 +621,8 @@ The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were t
 *   CSS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
 *   Pep8 was used to apply a standard coding convention to the Python code
 *   PyLint was also installed and used
-*   All the functions in custom_scripts.js were tested on http://jshint.com/
-This site is a tool that helps to detect errors and potential problems in your JavaScript code.
+*   All the functions in custom_scripts.js were validated on http://jshint.com/
+This site is a tool that helps to detect errors and potential problems in JavaScript code.
 
 #### During development:
 *   print() was used extensively for viewing returned data and testing. 
@@ -637,13 +650,15 @@ Debug mode was set to False to test 500 and 404 errors.
 |All html pages|General formatting issues|General formatting issues|General formatting issues|General formatting issues|
 |Responsive Design|Styling issues|Styling issues|Styling issues|Styling issues|
 |Feedback messages appear|Passed|Passed|Passed|Passed|
+|Admin Buttons hidden|Regularly tested under different access levels|Regularly tested under different access levels|Regularly tested under different access levels|Regularly tested under different access levels|
 
 <br><br>
 
 |Device/Test|Galaxy SIII|Galaxy 5|Laptop touch screen|iPhone 5/SE|iPhone 6/7/8|iPhone 6/7/8 Plus|iPhone X|iPad|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|Pages with buttons|Buttons too wide|Buttons too wide|Passed|Buttons too wide|Buttons too wide|Buttons too wide|Buttons too wide|Passed
+|Pages with buttons|Buttons too wide|Buttons too wide|N/A|Buttons too wide|Buttons too wide|Buttons too wide|Buttons too wide|N/A
 |Styling|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|Ongoing development|
+|Left Nav buttons|not wrapping|not wrapping|N/A|not wrapping|not wrapping|not wrapping|not wrapping|not wrapping
 
 
 ### User Testing
@@ -791,6 +806,7 @@ The following sites were used as resources to get sample css and debugging css.
 |:---|:---|:--|
 |Images|Canon owns the camera image. Samsung owns the mobile image
 |Images|Fireworks and Joshua tree owned by developer
+|Images|Other images used are credited
 
 
 [Top of page](#top)

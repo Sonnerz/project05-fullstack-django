@@ -79,7 +79,7 @@
             <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
         </div>
         {% endif %}{% endif %}
-        <!-- IF USER IS AN ADMIN -->
+        <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->
         {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' bug.id %}?type=b" class="btn btn-danger"><i
                     class="far fa-edit"></i>

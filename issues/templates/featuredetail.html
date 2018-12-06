@@ -1,4 +1,5 @@
 {% extends 'base_pages.html' %}
+{% load user_tags %}
 {% block page_title %}Feature Details{% endblock %}
 
 {% block page_heading %}Feature Details{% endblock %}
@@ -94,8 +95,8 @@
     <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info"><i class="far fa-edit"></i>
             Edit feature</a></div>
     {% endif %}
-    <!-- IF YOU ARE A SUPERADMIN -->
-    {% if user.is_superuser %}
+    <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->
+    {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
     <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' feature.id %}?type=f" class="btn btn-danger"><i
                 class="far fa-edit"></i>
             Admin Edit</a></div>

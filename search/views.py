@@ -52,7 +52,8 @@ def do_search_ref(request):
 
 @login_required
 def do_search_blog(request):
-    lookup_fields = Q(title__icontains=request.GET['b'])
+    lookup_fields = Q(title__icontains=request.GET['b']) | Q(
+        tag__icontains=request.GET['b'])
     posts = Post.objects.filter(lookup_fields).distinct()
     searchparam = request.GET['b']
 
