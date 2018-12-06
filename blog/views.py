@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.utils import timezone
 from .models import Post, PostComment
-from .forms import BlogPostForm, PostCommentForm
+from .forms import BlogPostForm, PostCommentForm, AdminPostForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
@@ -73,8 +73,6 @@ def post_detail(request, pk):
 
     # Post comment
     if request.method == "POST":
-        if "cancel" in request.POST:
-            return redirect(post_detail, pk=pk)
         form = PostCommentForm(request.POST)
         if form.is_valid():
             postcomment = form.save(commit=False)
@@ -161,3 +159,23 @@ def post_toggle_hide(request, pk):
     reported_comment.save()
 
     return redirect(super_admin_blog)
+
+
+@login_required
+def admin_blogpost_edit(request, pk):
+    """
+    Create a view that will allow an admin
+    to edit all details of an blog post
+    """
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == "POST":
+        if "cancel" in request.POST:
+            return redirect(post_detail, post.pk)
+        form = AdminPostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect(post_detail, post.pk)
+    else:
+        form = AdminPostForm(instance=post)
+    return render(request, 'admin_blogpost_edit.html', {'form': form})

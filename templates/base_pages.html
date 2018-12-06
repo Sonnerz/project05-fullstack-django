@@ -106,6 +106,8 @@
                         <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
                             Request a Feature</a>
                     </li>
+                    <!-- IF USER IS A MEMBER OF SITECONTENTADMIN GROUP -->
+                    <!-- IF USER IS A SUPERUSER -->
                     {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <a href="{% url 'super_admin' %}" class="btn btn-primary issues-button"><i class="fas fa-lock"></i></i>

@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def do_search(request):
     lookup_fields = Q(title__icontains=request.GET['q']) | Q(
-        ref__icontains=request.GET['q'])
+        ref__icontains=request.GET['q']) | Q(tag__icontains=request.GET['q'])
     bugs = Bug.objects.filter(lookup_fields).distinct().order_by('-id')
     features = Feature.objects.filter(lookup_fields).distinct().order_by('-id')
     searchparam = request.GET['q']

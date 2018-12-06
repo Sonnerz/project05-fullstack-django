@@ -7,6 +7,7 @@ certifi==2018.10.15
 chardet==3.0.4
 colorama==0.4.0
 coverage==4.0.3
+coveralls==1.5.1
 decorator==4.3.0
 defusedxml==0.5.0
 dj-database-url==0.5.0
@@ -21,6 +22,7 @@ entrypoints==0.2.3
 gunicorn==19.9.0
 idna==2.7
 ipykernel==5.1.0
+ipython-genutils==0.2.0
 ipywidgets==7.4.2
 jedi==0.13.1
 Jinja2==2.10

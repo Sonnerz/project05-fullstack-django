@@ -1,5 +1,6 @@
 {% extends 'base_pages.html' %}
 {% load bootstrap_tags %}
+{% load user_tags %}
 {% block page_title %}Bug details{% endblock %}
 
 {% block page_heading %}Bug Details{% endblock %}
@@ -65,17 +66,21 @@
     <div class="row text-center mb-4">
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'get_all_bugs' %}" class="btn btn-primary"><i class="fas fa-arrow-left"></i>
                 Back to Bugs</a></div>
+        <!-- IF USER IS THE AUTHOR -->
         {% if user.username == bug.author.username %}
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info"><i class="far fa-edit"></i>
                 Edit bug</a></div>
         {% endif %}
+        <!-- IF USER IS NOT THE AUTHOR -->
+        <!-- IF BUG STATUS IS NOT CLOSED -->
         {% if user.username != bug.author.username %}
         {% if bug.status != 'Closed' %}
         <div class="col-12 col-md-3 pt-2">
             <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
         </div>
         {% endif %}{% endif %}
-        {% if user.is_superuser %}
+        <!-- IF USER IS AN ADMIN -->
+        {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' bug.id %}?type=b" class="btn btn-danger"><i
                     class="far fa-edit"></i>
                 Admin Edit</a></div>
@@ -91,10 +96,7 @@
                 {% csrf_token %}
                 {{ comment_form | as_bootstrap }}
                 <div class="text-center mb-2">
-                    <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Add Comment</button>
-                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
-                            class="fas fa-arrow-left"></i>
-                        Cancel</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i> Add Comment</button>
                 </div>
             </form>
         </div>
@@ -136,7 +138,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-6 text-center">
-            <span class="boldtext">{{ bugcomments.paginator.count }} </span> Comment in total.
+            <span class="boldtext">{{ bugcomments.paginator.count }} </span> Comments in total.
         </div>
         <div class="col-12 col-md-6 text-center">
             Viewing Bug Comments {{ bugcomments.start_index }} to {{ bugcomments.end_index }}

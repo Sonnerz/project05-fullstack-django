@@ -2,6 +2,9 @@
 [![Build Status](https://travis-ci.org/Sonnerz/project05-fullstack-django.svg?branch=master)](https://travis-ci.org/Sonnerz/project05-fullstack-django)
 
 
+[![Coverage Status](https://coveralls.io/repos/github/Sonnerz/project05-fullstack-django/badge.svg)](https://coveralls.io/github/Sonnerz/project05-fullstack-django)
+
+
 # The CAM-PAL Issue Tracker
 
 Heroku App: https://fullstack-django-issuetracker.herokuapp.com<br>
@@ -17,11 +20,11 @@ Readme supplied
 3.	**The project must be a brand-new Django project, composed of multiple apps (an app for each reusable component in your project).**<br>
 This is a new Django project composed of seven apps; accounts, blog, cart, checkout, issues, pages & search
 4.	**The project should include an authentication mechanism, allowing a user to register and log in, and there should be a good reason as to why the users would need to do so. e.g., a user would have to register to persist their shopping cart between sessions (otherwise it would be lost).**<br>
-There is an authentication system allowing users to register and log in. It is needed to persist users shopping cart, allow users track their orders and decide if the user should have access to the Blog app. <br>
+There is an authentication system allowing users to register and log in. It is needed to persist users shopping cart, allow users view their orders and track if the user should have access to the Blog app. <br>
 5.	**At least one of your Django apps should contain some e-commerce functionality using Stripe. This may be a shopping cart checkout, subscription-based payments or single payments, etc.**<br>
 Users can pay for Feature development and they must do this by purchasing development hours. The purchase of hours is tracked using a cart app and checkout app. Purchases are processed using Stripe.
 6.	**Include at least one form with validation that will allow users to create and edit models in the backend (in addition to the authentication mechanism).**<br>
-Users are able to create bugs and edit their own bugs. Users are able to create features and edit their own features. All users can comment on bugs, and some users can comment on blog posts. Admins can edit reported comments and edit all bugs and features.<br>
+Users are able to create bugs and edit their own bugs. Users are able to create features and edit their own features. All users can create comments about bugs, and some users can comment on blog posts. Admins can update reported comments and edit all bugs and features.<br>
 7.	**The project will need to connect to a database (e.g., SQLite or Postgres) using Django’s ORM**<br>
 The project connected to a SQLite database during development and a Postgres database when hosted on Heroku.<br>
 8.	**The UI should be responsive, use either media queries or a responsive framework such as Bootstrap to make sure that the site looks well on all commonly-used devices.**<br>
@@ -34,11 +37,12 @@ The frontend has AJAX incorporated, to enhance the user experience completing fo
 Third-Party packages used: 
 django-forms-bootstrap, Pillow, dj-database-url, psycopg2, gunicorn, stripe, coverage, codecov, django-filter, django-simple-poll, django-storages, boto3
 12.	**Make sure to test your project extensively. In particular, make sure that no unhandled exceptions are visible to the users, under any circumstances. Use automated Django tests wherever possible. For your JavaScript code, consider using Jasmine tests.**<br>
-Browser testing used and unit testing implemented.
+Browser testing using Chrome dev tools was used continuously throughout development. Unit testing  is implemented into each app. As of the deployment date, coverage is at 76%.
+CSS and JS was validated using standard online tools. See [Testing](#testing) section.
 13.	**Use Git & GitHub for version control. Each new piece of functionality should be in a separate commit.**<br>
-Git and GitHub used.
+Git and GitHub used throughout development with each major update committed.
 14.	**Deploy the final version of your code to a hosting platform such as Heroku.**<br>
-Final version deployed to Heroku
+The final version is deployed to Heroku using AWS to host static and media files.
 
 
 <hr>
@@ -93,21 +97,20 @@ After purchasing the software, the user installs the app on their iOS or Android
 By either Bluetooth or WIFI, the phone can connect to the camera, and configure the camera settings to take the best photograph for that environment.
 The app can adjust all the standard camera settings such as, ISO, WB, and Focal Point.
 
-I have created a website where customers who register can submit software bugs or request new features for a fee.
+I have created a website where customers who register can submit software bugs or request new features to be developed for a fee.
 To complete the customer experience, we also provide a blog area paying customers can access.
 
 When a customer submits an issue, that issue is given a unique reference number. Using this number as a form of identity, the customer can follow the progress of that issue from submission, through to issuing a solution.
 
-For a customer to request a new feature they must commit a minimum of €100 to pay for two hours of work reviewing the new feature request. The Developer then updates the feature with the number of hours required to fully develop and test the new feature. Users can contribute to the development of the feature by paying for hours. When the required number of hours have been funded, the feature is then developed.
+For a customer to request a new feature they must commit a minimum of €100 to pay for two hours of work reviewing the new feature request. The Developer then updates the feature with the number of hours required to fully develop, test and deploy the new feature. Users can contribute to the development of the feature by buying hours. When the required number of hours specified by the developer has been funded, the feature is then developed.
 
 [Top of page](#top)
 
 
 # Future updates
-1)  admin pages where an admin and not superuser has access to moderate comments.
-2)  ability to assign development to other developers as the site grows
-3)  app to log development hours against a feature or bug
-4)  add rich text editor to Blog
+1)  ability to assign development to other developers as the site grows
+2)  app to log and track development hours against a feature or bug
+3)  add rich text editor to Blog
 
 <a id="strategy"></a>
 
@@ -265,8 +268,8 @@ The home page will present users with a welcoming information and the option to 
 The registration form will ask users for; 
 *	Email address
 *	Username
-*	a password
-*	password confirmation
+*	Password
+*	Password confirmation
 
 
 **PAGE :: Log in**
@@ -276,22 +279,23 @@ The login form will ask users for;
 *   a password
 
 
-**PAGE :: Issues home page  (/issues_acc)**
+**PAGE :: Issues home page  (/acc_index)**
 
-The page will list the five most recent submitted issues and requested features
+The page will list the five most recent submitted issues and requested features.
+The page also lists any bugs or features the user has submitted/requested.
 
 
 **PAGE :: View all bugs  (/issues/)**
 
 The page will display a paginated list of all submitted issues.
-Users can filter by bug status.
+Users can filter by the status of the bug.
 
 
 **PAGE :: Submit a bug  (/issues/new/)**
 
 The page will allow a user to submit a bug. 
 Menu options:
-*   title
+*   Title
 *   Details
 *   Image
 *   Tag
@@ -300,12 +304,13 @@ Menu options:
 **PAGE :: View all features (issues/all_features/)**
 
 The page displays a paginated list of all requested features.
-Users can filter by feature status.
+Users can filter by the status of the feature.
 
 
 **PAGE :: Request a feature  (/issues/newfeature/>**
 
-The page will allow a user to request a new feature for review 
+The page will allow a user to request a new feature for review.
+A minimum of 2 hours must be paid before a new feature request is reviewed.
 Menu options:
 *   Title
 *   Details
@@ -315,25 +320,24 @@ Menu options:
 *   Hours set to 2 (readonly)
 
 
-
 **PAGE :: Bug detail page (/issues/<bug-id>/)**
 
-The page will list all bug details.
-Display a paginated list of comments about this bug. 
+The page will list all a bugs details.
+It also displays a paginated list of comments added by users about this bug. 
 Menu options:
-*   Edit bug if I authored the bug
+*   Edit bug if the user authored the bug
 *   Comment on bug – everyone
-*   Vote up bug if I didn’t author the bug
-*   Admin Edit if I am a superadmin
+*   Vote up bug if user did not author the bug
+*   Admin Edit if the user is an admin
 
 
 **PAGE ::  Feature detail page (/issues/<feature-id>)**
 
 The page will list all feature details. 
 Menu options:
-*   Edit feature if I authored the feature
-*   If ‘Target not Reached’ a Donate button
-*   Admin Edit if I am a superadmin
+*   Edit feature if the user authored the feature
+*   If ‘Target not Reached’ status, a Donate button
+*   Admin Edit if the user is an admin
 
 
 **PAGE ::  Profile page (/accounts/profile/)**
@@ -342,7 +346,7 @@ The page will list all users’ orders.
 
 **PAGE ::  Search (/search/?q=)**
 
-The search results page displays a paginated list of results.
+The search results page displays a paginated list of search results.
 The search will allow users to; 
 *   search by bug or feature reference
 *   search words in the bug or feature title
@@ -386,15 +390,15 @@ The page displays a blog post contents.
 *   Published date (readonly)
 
 Menu options:
-*   Edit post if I authored the post
-*   Delete the post if I authored the post
+*   Edit post if the user authored the post
+*   Delete the post if the user authored the post
 *   Comment on post – everyone
 
 **Navigation**
 
-The navbar will be available to users at the top of the application on every page.
-Unregistered users will see links to Login, Register, About us, Examples, & About this site.
-Registered users will see links to Logout, Cart, & Profile.
+The navbar will be available to users at the top of the application on every page.<br>
+Unregistered users will see links to Login, Register, About us, Examples, & About this site.<br>
+Registered users will see links to Logout, Cart, & Profile.<br>
 Registered users who have contributed towards feature development will see links to Logout, Cart, Profile & Blog.
 
 
@@ -428,7 +432,7 @@ The application directories and files will be organised in the following way;
 ![Database design scheme](/readme/issues_db.png)
 
 Database is SQLite in development and Postgres in production.
-The tables below are the tables I have added and do not include the Django tables (except the auth_user)
+The tables shown are the tables I have added and do not include the default Django tables (except the auth_user)
 
 
 [Top of page](#top)
@@ -445,16 +449,16 @@ The tables below are the tables I have added and do not include the Django table
 ![login page](/readme/login.png)
 
 ## Profile  (‘/profile/) <a id="mywf"></a>
-![profile page](/readme/dashboard.png)
+![profile page](/readme/profile.png)
 
 ## New Feature (/issues/newfeature/) <a id="recipewf"></a>
-![New feature](/readme/request_feature.png)
+![New feature](/readme/add_feature.png)
 
 ## Submit Bug (/issues/new/) <a id="addwf"></a>
-![Submit Bug](/readme/add_issue.png)
+![Submit Bug](/readme/add_bug.png)
 
 ## Bug/Feature Detail (/issues/<bug_id>)(/issues/<feature_id>/features) <a id="addwf"></a>
-![Bug/Feature detail](/readme/issue_page.png)
+![Bug/Feature detail](/readme/bug_details.png)
 
 ## Search results (/search/?q=<searchparam>) <a id="wfsearch"></a>
 ![Search](/readme/search.png)
@@ -530,7 +534,7 @@ install: "pip install -r requirements.txt"
 script:
 - SECRET_KEY="something" ./manage.py test 
 ```
-18. Push to GitHub and ensured that status is build:passing
+18. Push to GitHub and ensured that Travis CI status is build:passing
 
 
 ### IDE - SETUP - DATABASE
@@ -549,7 +553,7 @@ script:
 *   **coverage for unittesting**:	pip3 install coverage
 *   **coveralls**:	pip install coveralls
 *   **django-filter for filtering search results**:	pip install django-filter
-*   **simple-poll for a user poll**:	django-simple-poll
+*   **simple-poll for a user poll**:	pip install django-simple-poll
 *   **django-storages for AWS**:	pip3 install django-storages
 *   **boto3 for AWS**:	pip3 install boto3
 *   **gunicorn for Heroku**:	pip3 install gunicorn
@@ -601,7 +605,7 @@ jQuery is implemented on the registration form and password reset form.
 ## Testing
 
 The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were the primary browser and tool used for testing. However, the site was also tested using Firefox and Internet Explorer.
-*   SS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
+*   CSS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
 *   Pep8 was used to apply a standard coding convention to the Python code
 *   PyLint was also installed and used
 *   All the functions in custom_scripts.js were tested on http://jshint.com/
@@ -616,7 +620,10 @@ This site is a tool that helps to detect errors and potential problems in your J
 
 #### Development/Defensive Design Testing
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
+
 As per the Defensive Design Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a submit button without providing text.
+
+Debug mode was set to False to test 500 and 404 errors.
 
 ![Username taken](/readme/un.png)
 
@@ -650,15 +657,15 @@ As per the Defensive Design Strategy described in the Strategy Plan, all form in
 3) View feature details button overflows on a mobile
     -  I shortened the button text
 4) Burger menu off screen on mobile
-    -  This was related to the issue 5. The button was pushing the burger off screen
+    -  This was related to the issue 3. The button was pushing the burger off screen
 5) Don't know what status user filtered by
-    -  Change the view code to get the request status and passed it back to the page as a variable.
+    -  Change the view code to get the request status and passed it back to the page as a variable. This gives user feedback.
 
 
 ### Unit Testing
 
 Each app has its own python test file for app, forms and views.
-Currently Coverage shows 81% complete.
+Currently Coverage shows 76% complete.
 
 [Top of page](#top)
 
@@ -747,7 +754,7 @@ I tried codecov and then coveralls.
 To deploy this project locally;
 1) Download the project from GitHub
 2) Create a local virtual environment and install the packages listed in the requirements.txt
-3) This should create a local SQLite database
+3) This should create a local SQLite database with the Django installation
 4) Create a superuser account
 5) Run makemigrations
 6) Run migrate

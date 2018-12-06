@@ -72,34 +72,3 @@ class FeaturesTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form", "title",
                              "This field is required.")
-
-
-class BugCommentTest(TestCase):
-
-    def setUp(self):
-        self.c = Client()
-        self.user = User.objects.create_user(
-            username="test", email="test@test.com", password="test")
-        url = '/issues/1/bugcomment/'
-        self.response = self.client.get(url)
-
-    def test_bugcomment_page(self):
-        response = self.c.get('/issues/1/bugcomment/')
-        self.assertEqual(response.status_code, 302)
-
-        page = self.c.get('/issues/1/bugcomment/', follow=True)
-        self.assertEqual(page.status_code, 200)
-        self.assertTemplateUsed(page, "login.html")
-
-    # def test_contains_form(self):
-    #     self.c.login(username='test', password='test')
-    #     response = self.c.get('/issues/1/bugcomment/')
-    #     form = self.response.context.get('form')
-    #     self.assertIsInstance(form, BugCommentForm)
-
-    # def test_bugcomment_create(self):
-    #     response = self.c.get('/issues/1/bugcomment/')
-    #     self.c.login(username='test', password='test')
-    #     data = {'comment': 'comment'}
-    #     response = self.c.get('/issues/1/bugcomment/', data)
-    #     self.assertEqual(response.status_code, 200)

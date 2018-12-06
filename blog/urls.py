@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from .views import get_posts, post_detail, create_or_edit_post, blogpost_comment_report,\
-    super_admin_blog, post_toggle_hide, delete_post
+    super_admin_blog, post_toggle_hide, delete_post, admin_blogpost_edit
 
 urlpatterns = [
     url(r'^$', get_posts, name='get_posts'),
@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^superadminblog/$', super_admin_blog, name='super_admin_blog'),
     url(r'^(?P<pk>\d+)/posttogglehide/$',
         post_toggle_hide, name='post_toggle_hide'),
+    url(r'^(?P<pk>\d+)/adminblogpostedit/$',
+        admin_blogpost_edit, name='admin_blogpost_edit'),
 ]

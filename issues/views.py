@@ -71,8 +71,6 @@ def bug_detail(request, pk):
 
     # Comment form
     if request.method == "POST":
-        if "cancel" in request.POST:
-            return redirect(bug_detail, pk=pk)
         form = BugCommentForm(request.POST)
         if form.is_valid():
             bugcomment = form.save(commit=False)

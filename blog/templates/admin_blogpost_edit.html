@@ -1,0 +1,27 @@
+{% extends 'base_pages_blog.html' %}
+{% load bootstrap_tags %}
+{% block page_title %}Admin Edit Blog Post{% endblock %}
+
+{% block page_heading %}Admin Edit Blog Post{% endblock %}
+{% block page_heading_sub %}Update Blog post details{% endblock %}
+
+{% block content %}
+<!-- ADMIN :: CREATE OR EDIT A BUG -->
+<div id="issueform">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form | as_bootstrap }}
+                    <div class="text-center mb-2">
+                        <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
+                        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
+                                class="fas fa-arrow-left"></i> Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

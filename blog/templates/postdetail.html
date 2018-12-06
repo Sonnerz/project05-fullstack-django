@@ -52,6 +52,11 @@
                     <a href="{% url 'delete_post' post.id %}" class="btn btn-primary mt-2"><i class="far fa-edit"></i>Delete
                         Post</a>
                     {% endif %}
+                    <!-- IF USER IS AN ADMIN -->
+                    {% if user.is_superuser %}
+                    <a href="{% url 'admin_blogpost_edit' post.id %}" class="btn btn-danger mt-2"><i class="far fa-edit"></i>
+                        Admin Edit</a>
+                    {% endif %}
                 </div>
             </div>
             <hr>
@@ -68,9 +73,6 @@
                 {{ comment_form | as_bootstrap }}
                 <div class="text-center mb-2">
                     <button type="submit" class="btn btn-primary"><i class="far fa-save"></i> Add Comment</button>
-                    <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-primary cancel"><i
-                            class="fas fa-arrow-left"></i>
-                        Cancel</button>
                 </div>
             </form>
         </div>

@@ -12,9 +12,27 @@ import datetime
 
 class TestViews(TestCase):
     def setUp(self):
-        self.c = Client()
+        self.client = Client()
         self.user = User.objects.create_user(
             username="test", email="test@test.com", password="test")
+
+    # INTERNAL HOME
+    def test_get_internal_home_page(self):
+        response = self.client.get(reverse('acc_index'))
+        self.assertEqual(response.status_code, 302)
+        self.client.login(username='test', password='test')
+        response = self.client.get(reverse('acc_index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "acc_index.html")
+
+    # GET ORDERS
+    def test_get_order_details_page(self):
+        page = self.client.get('/accounts/29/orders/')
+        self.assertEqual(page.status_code, 302)
+        self.client.login(username='test', password='test')
+        page = self.client.get('/accounts/29/orders/')
+        self.assertEqual(page.status_code, 200)
+        self.assertTemplateUsed(page, "orders.html")
 
     # HOME
     def test_get_home_page(self):
@@ -29,15 +47,15 @@ class TestViews(TestCase):
         self.assertTemplateUsed(page, "login.html")
 
         # test for CSRF
-        response = self.c.get(reverse('login'))
+        response = self.client.get(reverse('login'))
         self.assertContains(response, 'csrfmiddlewaretoken')
 
-        self.c.login(username='test', password='test')
-        # response = self.c.get(reverse('acc_index'))
+        self.client.login(username='test', password='test')
+        # response = self.client.get(reverse('acc_index'))
         self.assertEqual(response.status_code, 200)
 
-        self.assertTrue(self.c.login(username='test', password='test'))
-        response = self.c.get(reverse('login'))
+        self.assertTrue(self.client.login(username='test', password='test'))
+        response = self.client.get(reverse('login'))
 
     # LOGOUT
     def test_logout(self):
@@ -45,21 +63,21 @@ class TestViews(TestCase):
         self.assertEqual(page.status_code, 200)
         self.assertTemplateUsed(page, "login.html")
 
-        response = self.c.get(reverse('logout'))
+        response = self.client.get(reverse('logout'))
         # 302 error because @login_required
         self.assertEqual(response.status_code, 302)
-        self.c.login(username='test', password='test')
-        response = self.c.get(reverse('index'))
+        self.client.login(username='test', password='test')
+        response = self.client.get(reverse('index'))
         # user redirected to index after logout
         self.assertEqual(response.status_code, 200)
 
     # USER PROFILE
     def test_Userprofile_page(self):
-        response = self.c.get(reverse('user_profile'))
+        response = self.client.get(reverse('user_profile'))
         # 302 error because @login_required
         self.assertEqual(response.status_code, 302)
-        self.c.login(username='test', password='test')
-        response = self.c.get(reverse('user_profile'))
+        self.client.login(username='test', password='test')
+        response = self.client.get(reverse('user_profile'))
         self.assertEqual(response.status_code, 200)
 
     def test_register_template_context(self):
@@ -69,16 +87,16 @@ class TestViews(TestCase):
         User.objects.create(
             username='Test1', email='Test@test.com', password='test')
         # test for form existance
-        response = self.c.get(reverse('registration'))
+        response = self.client.get(reverse('registration'))
         form = response.context['form']
         self.assertIsInstance(form, UserRegistrationForm)
 
         # test for CSRF
-        response = self.c.get(reverse('registration'))
+        response = self.client.get(reverse('registration'))
         self.assertContains(response, 'csrfmiddlewaretoken')
 
-        self.assertTrue(self.c.login(username='test', password='test'))
-        response = self.c.get(reverse('login'))
+        self.assertTrue(self.client.login(username='test', password='test'))
+        response = self.client.get(reverse('login'))
 
 
 # https://simpleisbetterthancomplex.com/series/2017/09/25/a-complete-beginners-guide-to-django-part-4.html#testing-the-sign-up-view

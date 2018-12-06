@@ -17,7 +17,7 @@ register = template.Library()
 @register.filter('has_group')
 def has_group(user, group_name):
     """
-    Verifica se este usuário pertence a um grupo
+    Check if user is in a group
     """
     groups = user.groups.all().values_list('name', flat=True)
     return True if group_name in groups else False

@@ -14,8 +14,8 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
-                    <span>Minimum of 2 hours required before this feature will be reviewed <i class="fas fa-info-circle"
-                            data-toggle="tooltip" title="Minimum of 2 hours required before this feature will be reviewed"></i></span>
+                    <span>Minimum of 2 hours required before a new feature will be reviewed <i class="fas fa-info-circle"
+                            data-toggle="tooltip" title="Minimum of 2 hours required before a new feature will be reviewed"></i></span>
                     <input name="quantity" type="number" min="1" max="2" class="form-control" placeholder="Quantity"
                         value="2" readonly>
                     <div class="text-center">
