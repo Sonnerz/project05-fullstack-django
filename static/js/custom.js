@@ -38,13 +38,13 @@ $(document).ready(function () {
     // #endregion
 
 
-    // #region NAVBAR LINK :: ADD CLASS TO ACTIVE LINK
+    // #region NAVBAR LINK :: ADD CLASS TO ACTIVE NAV LINK
 
     var current_path = $(location).attr('pathname');
     if (current_path == "/accounts/profile/") {
         $("#profile-nav-link").addClass("active-link text-success");
     }
-    else if (current_path == "/blog/") {
+    else if (current_path.indexOf("/blog/") == 0) {
         $("#blog-nav-link").addClass("active-link text-primary");
     }
 

@@ -16,15 +16,15 @@ from django.db.models import Q
 @login_required
 def acc_index(request):
     """Return acc_index.html page. Logged in home page"""
-    # get user
+    # GET USER
     user = User.objects.get(email=request.user.email)
-    # get 5 latest bugs submitted
+    # GET 5 MOST RECENT SUBMITTED BUGS
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')[:5]
-    # get 5 latest features requested
+    # GET 5 MOST RECENT FEATURES REQUESTED
     features = Feature.objects.filter(published_date__lte=timezone.now
                                       ()).order_by('-published_date')[:5]
-
+    # GET CURRENT USERS SUBMITTED BUGS OR REQUESTED FEATURES
     user_bugs = Bug.objects.filter(
         author_id=user.id).order_by('-published_date')[:5]
     user_features = Feature.objects.filter(
@@ -97,7 +97,7 @@ def user_profile(request):
     """Profile page - shows users orders """
     user = User.objects.get(email=request.user.email)
 
-    # get users' purchase orders
+    # GET USERS' PURCHASE ORDERS
     user_orders = Order.objects.filter(
         buyer_id=user.id).order_by('-id')
 
@@ -108,7 +108,7 @@ def user_profile(request):
 @login_required
 def get_order_details(request, pk):
     """Shows users order line items """
-    # get the line items for each user order
+    # GET THE LINE ITEMS FOR EACH USER ORDER
     user_order_details = (OrderLineItem.objects.filter(
         order_id=pk))
     return render(request, 'orders.html', {'user_order_details': user_order_details, 'order_id': pk})
@@ -117,7 +117,7 @@ def get_order_details(request, pk):
 def validate_username(request):
     """
     View for ajax.
-    Checks that username is unique as person completes registration form
+    Checks that the username is unique as the user completes the registration form
     """
     username = request.GET.get('username', None)
     data = {
@@ -132,7 +132,7 @@ def validate_username(request):
 def validate_email(request):
     """
     View for ajax.
-    Checks that email exists in database for password reset
+    Checks that the email exists in database for password reset.
     """
     email = request.GET.get('email', None)
     data = {

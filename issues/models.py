@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 
 # Create your models here.
+
+# STATUS OPTIONS FOR A BUG
 STATUS_CHOICES = (
     ('Open', 'Open'),
     ('Under Review', 'Under Review'),
@@ -12,6 +14,7 @@ STATUS_CHOICES = (
     ('Closed', 'Closed'),
 )
 
+# STATUS OPTIONS FOR A FEATURE
 FEATURE_STATUS_CHOICES = (
     ('Pending Payment', 'Pending Payment'),
     ('Under Review', 'Under Review'),
