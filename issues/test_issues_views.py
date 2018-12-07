@@ -21,17 +21,17 @@ class BugsTest(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_bug_create(self):
-        response = self.c.get(reverse('new_bug'))
+        response = self.c.get(reverse('create_bug'))
         self.assertEqual(response.status_code, 302)
 
         self.c.login(username='test', password='test')
-        response = self.c.get(reverse('new_bug'))
+        response = self.c.get(reverse('create_bug'))
         self.assertEqual(response.status_code, 200)
 
     def test_invalid_bug_create(self):
         self.c.login(username='test', password='test')
         data = {'title': '', 'details': 'Test details'}
-        response = self.c.post(reverse('new_bug'), data)
+        response = self.c.post(reverse('create_bug'), data)
         self.assertEqual(response.status_code, 200)
         self.assertFormError(response, "form", "title",
                              "This field is required.")
@@ -41,7 +41,7 @@ class BugsTest(TestCase):
         data = {'details': 'Test details', 'title': 'Test title'}
         data['author'] = self.user.id
         self.assertEqual(Bug.objects.count(), 0)
-        response = self.c.post(reverse('new_bug'), data)
+        response = self.c.post(reverse('create_bug'), data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Bug.objects.count(), 1)
 
