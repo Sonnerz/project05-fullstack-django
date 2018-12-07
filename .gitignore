@@ -5,9 +5,8 @@ __pycache__
 venv
 *.code-workspace
 env.py
-*.jpg
 *.gif
-static/
 media/
+media/img/
 htmlcov/
 *.stackdump
