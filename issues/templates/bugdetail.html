@@ -18,7 +18,7 @@
     <div class="row mb-4">
         {% if bug.image %}
         <div class="col-12 col-md-3">
-            <img class="img-blogpost" src="{{ MEDIA_URL }}{{ bug.image }}">
+            <img class="img-blogpost" src="{{ MEDIA_URL }}{{ bug.image }}" alt="{{bug.title}}" title="{{bug.title}}">
         </div>
         {% endif %}
         <div class="col-12 col-md-9">
@@ -68,7 +68,7 @@
                 Back to Bugs</a></div>
         <!-- IF USER IS THE AUTHOR -->
         {% if user.username == bug.author.username %}
-        <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+        <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_bug' bug.id %}" class="btn btn-success"><i class="far fa-edit"></i>
                 Edit bug</a></div>
         {% endif %}
         <!-- IF USER IS NOT THE AUTHOR -->
@@ -85,7 +85,7 @@
         {% else %}
         <div class="col-12 col-md-3 pt-2">
             <a href="#" class="btn btn-light disabled">Vote <i class="fas fa-arrow-up"></i></a>
-            <span class="text-nowrap small">You have previously voted for this Bug</span>
+            <span class="text-nowrap small">You have voted for this Bug</span>
         </div>
         {% endif %}
         <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->

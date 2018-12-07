@@ -13,7 +13,7 @@
     <div class="row">
         {% if post.image %}
         <div class="col-12 col-md-3">
-            <img class="img-blogpost" src="{{ MEDIA_URL }}{{ post.image }}">
+            <img class="img-blogpost" src="{{ MEDIA_URL }}{{ post.image }}" alt="{{post.title}}" title="{{post.title}}">
         </div>
         {% endif %}
         <div class="col-12 col-md-9">

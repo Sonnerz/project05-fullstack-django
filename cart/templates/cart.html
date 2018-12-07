@@ -53,7 +53,9 @@
                         <div class="input-group-addon pl-4 pr-4">{{ item.quantity }}</div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="far fa-edit"></i>Update</button>
+                <button type="submit" class="btn btn-primary mr-2"><i class="far fa-edit"></i>Update</button>
+                <a href="{% url 'remove_from_cart' item.id %}" class="btn btn-primary" role="button">
+                    <i class="far fa-times-circle pr-2"></i>Remove</a>
             </form>
         </div>
     </div>

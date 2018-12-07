@@ -83,7 +83,7 @@
 <div class="row text-center mb-4">
     <!-- if you got to this page from orders view then go back to orders view -->
     {% if from_orders == True %}
-    <div class="col-12 col-md-3 pt-2"><a href="{{ refering_order }}" class=" btn btn-info"><i class="fas fa-arrow-left"></i>
+    <div class="col-12 col-md-3 pt-2"><a href="{{ refering_order }}" class=" btn btn-success"><i class="fas fa-arrow-left"></i>
             Back to Order Details</a></div>
     {% else %}
     <!-- ELSE GO BACK TO ALL FEATURES VIEW -->
@@ -92,7 +92,7 @@
     {% endif %}
     <!-- IF YOU ARE THE AUTHOR YOU CAN EDIT THE FEATURE -->
     {% if user.username == feature.author.username %}
-    <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-info"><i class="far fa-edit"></i>
+    <div class="col-12 col-md-3 pt-2"><a href="{% url 'edit_feature' feature.id %}" class="btn btn-success"><i class="far fa-edit"></i>
             Edit feature</a></div>
     {% endif %}
     <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->
@@ -104,10 +104,10 @@
     {% if feature.status == 'Target not Reached' %}
     <!-- IF YOU CREATED THE FEATURE YOU CAN DONATE 'MORE' MONEY -->
     <div class="col-12 col-md-3 pt-2">{% if user.username == feature.author.username %}
-        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate again</button>
+        <button type="button" class="btn btn-success donate_feature_button"><i class="fas fa-donate"></i> Donate again</button>
         {% else %}
         <!-- ELSE DONATE MONEY -->
-        <button type="button" class="btn btn-info donate_feature_button"><i class="fas fa-donate"></i> Donate</button>
+        <button type="button" class="btn btn-success donate_feature_button"><i class="fas fa-donate"></i> Donate</button>
         {% endif %}
     </div>
     {% endif %}

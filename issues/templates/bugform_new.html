@@ -2,7 +2,7 @@
 {% load bootstrap_tags %}
 {% block page_title %}Submit Bug{% endblock %}
 
-{% block page_heading %}Bug{% endblock %}
+{% block page_heading %}New Bug{% endblock %}
 {% block page_heading_sub %}Submit a Bug for investigation{% endblock %}
 
 {% block content %}
@@ -11,23 +11,13 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                {% if request.path == '/issues/new/' %}
-                <h1>New bug</h1>
-                {% else %}
-                <h1>Edit bug</h1>
-                {% endif %}
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form | as_bootstrap }}
                     <div class="text-center mb-2">
                         <button type="submit" class="btn btn-success"><i class="far fa-save"></i> Save</button>
-                        {% if request.path != '/issues/new/' %}
-                        <button type="submit" name="cancel" value="Cancel" formnovalidate class="btn btn-success cancel"><i
-                                class="fas fa-arrow-left"></i> Cancel</button>
-                        {% else %}
                         <button type="button" class="btn btn-success cancel" id="goback" ONCLICK="goPrev()"><i class="fas fa-arrow-left"></i>
                             Cancel</button>
-                        {% endif %}
                     </div>
                 </form>
             </div>

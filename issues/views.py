@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import Bug, Feature, BugComment, BugVotes
@@ -10,25 +11,21 @@ from checkout.models import OrderLineItem
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .filters import BugsFilter, FeaturesFilter
 from django.db.models import Q
-from django.contrib import messages
 
 
 # Create your views here.
 
-def create_feature_ref():
+def create_ref(item_type):
     """
-    Create custom reference number for Features using random letters and numbers
+    Create custom reference number for Bugs & Features using random letters and numbers
+    Bug-xxxxx
     Feat-xxxxx
     """
-    return str("Feat-")+str(uuid4())[:5]
-
-
-def create_ref():
-    """
-    Create custom reference number for Bugs using random letters and numbers
-    Bug-xxxxx
-    """
-    return str("Bug-")+str(uuid4())[:5]
+    # GET ITEM TYPE
+    if item_type == 'b':
+        return str("Bug-")+str(uuid4())[:5]
+    elif item_type == 'f':
+        return str("Feat-")+str(uuid4())[:5]
 
 
 @login_required
@@ -121,30 +118,54 @@ def bug_detail(request, pk):
 
 
 @login_required
-def create_or_edit_bug(request, pk=None):
+def create_bug(request, pk=None):
     """
-    Create a view that allows us to create
-    or edit a bug depending if the Bug ID
-    is null or not
+    Create a view that allows us to create a bug
     """
-    # GET BUG BY ID (PK) FOR EDIT MODE
-    bug = get_object_or_404(Bug, pk=pk) if pk else None
     if request.method == "POST":
-        if "cancel" in request.POST:
-            return redirect(bug_detail, bug.pk)
         # POPULATE FORM WITH BUG DETAILS IF EDIT MODE
-        form = BugForm(request.POST, request.FILES, instance=bug)
+        form = BugForm(request.POST, request.FILES)
         if form.is_valid():
             bug = form.save(commit=False)
             # ADD CURRENT USER AS AUTHOR
             bug.author = request.user
             # ADD GENERATED CUSTOM REFERENCE
-            bug.ref = create_ref()
+            bug.ref = create_ref('b')
             bug.save()
-            return redirect(bug_detail, bug.pk)
+            return redirect(get_all_bugs)
     else:
-        form = BugForm(instance=bug)
-    return render(request, 'bugform.html', {'form': form})
+        form = BugForm()
+    return render(request, 'bugform_new.html', {'form': form})
+
+
+@login_required
+def edit_bug(request, pk=None):
+    """
+    Create a view that allows us to edit a bug
+    """
+    # GET BUG BY ID (PK) FOR EDIT MODE
+    bug = get_object_or_404(Bug, pk=pk) if pk else None
+    # CHECK THAT USER IS THE AUTHOR
+    # ONLY THE AUTHOR CAN EDIT THEIR OWN BUG
+    if bug.author == request.user:
+        if request.method == "POST":
+            # CANCEL BUTTON
+            if "cancel" in request.POST:
+                return redirect(bug_detail, bug.pk)
+            # POPULATE FORM WITH BUG DETAILS IF EDIT MODE
+            form = BugForm(request.POST, request.FILES, instance=bug)
+            if form.is_valid():
+                bug = form.save(commit=False)
+                # ADD GENERATED CUSTOM REFERENCE
+                bug.save()
+                return redirect(bug_detail, bug.pk)
+        else:
+            form = BugForm(instance=bug)
+    else:
+        messages.warning(
+            request, "You did not create this bug, so cannot edit it.")
+        return redirect(get_all_bugs)
+    return render(request, 'bugform_edit.html', {'form': form})
 
 
 @login_required
@@ -261,7 +282,7 @@ def new_feature(request):
             # NEW FEATURE SAVED WITH STATUS: 'Pending Payment'
             feature = form.save(commit=False)
             feature.author = request.user
-            feature.ref = create_feature_ref()
+            feature.ref = create_ref('f')
             feature.save()
             # GET THIS FEATURE ID BASED ON REF JUST CREATED - feature.ref = create_feature_ref()
             this_feature = Feature.objects.filter(ref=feature.ref)
@@ -280,20 +301,27 @@ def edit_feature(request, pk=None):
     Create a view that allows us to
     edit a feature depending if the Feature ID is null or not
     """
-
+    # GET FEATURE BY ID (PK) FOR EDIT MODE
     feature = get_object_or_404(Feature, pk=pk) if pk else None
-    if request.method == "POST":
-        # CANCEL BUTTON
-        if "cancel" in request.POST:
-            return redirect(feature_detail, feature.pk)
-        # EDIT AND SAVE FEATURE DETAILS BASED ON ID (PK)
-        form = FeatureForm(request.POST, request.FILES, instance=feature)
-        if form.is_valid():
-            feature = form.save(commit=False)
-            feature.save()
-            return redirect(feature_detail, feature.pk)
+    # CHECK THAT USER IS THE AUTHOR
+    # ONLY THE AUTHOR CAN EDIT THEIR OWN FEATURE
+    if feature.author == request.user:
+        if request.method == "POST":
+            # CANCEL BUTTON
+            if "cancel" in request.POST:
+                return redirect(feature_detail, feature.pk)
+            # EDIT AND SAVE FEATURE DETAILS BASED ON ID (PK)
+            form = FeatureForm(request.POST, request.FILES, instance=feature)
+            if form.is_valid():
+                feature = form.save(commit=False)
+                feature.save()
+                return redirect(feature_detail, feature.pk)
+        else:
+            form = FeatureForm(instance=feature)
     else:
-        form = FeatureForm(instance=feature)
+        messages.warning(
+            request, "You did not create this feature, so cannot edit it.")
+        return redirect(get_all_features)
     return render(request, 'featureform_edit.html', {'form': form})
 
 

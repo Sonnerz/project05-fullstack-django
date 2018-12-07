@@ -272,7 +272,7 @@ The application will have a fixed to top navbar always available to users.
 
 The home page will present users with a welcoming information and the option to log in or register.
 
-**PAGE :: Registration**
+**PAGE :: Registration (/accounts/register/)**
 
 The registration form will ask users for; 
 *	Email address
@@ -281,14 +281,14 @@ The registration form will ask users for;
 *	Password confirmation
 
 
-**PAGE :: Log in**
+**PAGE :: Log in (/accounts/login/)**
 
 The login form will ask users for; 
 *   their previously registered username
 *   a password
 
 
-**PAGE :: Issues home page  (/acc_index)**
+**PAGE :: Issues home page  (/accounts/acc_index/)**
 
 The page will list the five most recent submitted issues and requested features.
 The page also lists any bugs or features the user has submitted/requested.
@@ -331,16 +331,16 @@ Menu options:
 
 **PAGE :: Bug detail page (/issues/<bug-id>/)**
 
-The page will list all a bugs details.
+The page will list the bug details.
 It also displays a paginated list of comments added by users about this bug. 
 Menu options:
 *   Edit bug if the user authored the bug
 *   Comment on bug – everyone
-*   Vote up bug if user did not author the bug
+*   Vote up bug if user did not author the bug. A user is permitted to only vote once for a bug
 *   Admin Edit if the user is an admin
 
 
-**PAGE ::  Feature detail page (/issues/<feature-id>)**
+**PAGE ::  Feature detail page (/issues/<feature-id>/features/)**
 
 The page will list all feature details. 
 Menu options:
@@ -356,9 +356,11 @@ The page will list all users’ orders.
 **PAGE ::  Search (/search/?q=)**
 
 The search results page displays a paginated list of search results.
-The search will allow users to; 
-*   search by bug or feature reference
-*   search words in the bug or feature title
+The main search will allow users to; 
+*   search for a bug or feature by reference number
+*   search bugs or features by title or tag field
+The Blog search will allow users to; 
+*   search blog posts by title or tag field
 
 **PAGE ::  Cart (/cart/)**
 
@@ -366,6 +368,7 @@ The cart page;
 *   displays the feature details
 *   how many hours the user is buying
 *   allows the user to adjust these hours
+*   allows the user to remove items from the cart
 
 **PAGE ::  Checkout (/checkout/)**
 
@@ -377,7 +380,7 @@ The checkout page;
 
 **PAGE ::  Blog (/blog/)**
 
-Accessible by users who have made a contribution towards feature development.
+Accessible by users who have made a contribution towards feature development or requested a new feature.
 *   displays a paginated list of blog posts
 
 **PAGE ::  Blog (/blog/new/)**
@@ -441,7 +444,7 @@ The application directories and files will be organised in the following way;
 ![Database design scheme](/readme/issues_db.png)
 
 Database is SQLite in development and Postgres in production.
-The tables shown are the tables I have added and do not include the default Django tables (except the auth_user)
+The tables shown are the tables I have added and do not include the default Django tables (except the auth_user table)
 
 
 [Top of page](#top)
