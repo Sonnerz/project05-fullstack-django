@@ -73,12 +73,21 @@
         {% endif %}
         <!-- IF USER IS NOT THE AUTHOR -->
         <!-- IF BUG STATUS IS NOT CLOSED -->
+        <!-- IF USER HAS NOT PREVIOUSLY VOTED FOR THIS BUG -->
+        {% if novote != True %}
         {% if user.username != bug.author.username %}
         {% if bug.status != 'Closed' %}
         <div class="col-12 col-md-3 pt-2">
-            <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote up</a>
+            <a href="{% url 'vote_bug' bug.id %}" class="btn btn-info">Vote <i class="fas fa-arrow-up"></i></a>
         </div>
         {% endif %}{% endif %}
+        <!-- IF USER HAS PREVIOUSLY VOTED FOR THIS BUG -->
+        {% else %}
+        <div class="col-12 col-md-3 pt-2">
+            <a href="#" class="btn btn-light disabled">Vote <i class="fas fa-arrow-up"></i></a>
+            <span class="text-nowrap small">You have previously voted for this Bug</span>
+        </div>
+        {% endif %}
         <!-- IF YOU ARE A SUPERUSER OR MEMBER OF ADMIN GROUP-->
         {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
         <div class="col-12 col-md-3 pt-2"><a href="{% url 'admin_edit' bug.id %}?type=b" class="btn btn-danger"><i

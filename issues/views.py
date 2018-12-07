@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import Bug, Feature, BugComment
+from .models import Bug, Feature, BugComment, BugVotes
 from blog.models import PostComment
 from .forms import BugForm, FeatureForm, BugCommentForm, AdminBugForm, AdminFeatureForm
 from uuid import uuid4
@@ -14,6 +14,21 @@ from django.contrib import messages
 
 
 # Create your views here.
+
+def create_feature_ref():
+    """
+    Create custom reference number for Features using random letters and numbers
+    Feat-xxxxx
+    """
+    return str("Feat-")+str(uuid4())[:5]
+
+
+def create_ref():
+    """
+    Create custom reference number for Bugs using random letters and numbers
+    Bug-xxxxx
+    """
+    return str("Bug-")+str(uuid4())[:5]
 
 
 @login_required
@@ -50,7 +65,20 @@ def bug_detail(request, pk):
     """
     Create a view that returns a single Bug object based on the bug ID (pk) and
     render it to the bugdetail.html template or return a 404 error if bug is not found
+    CHECK THAT USER HAS NOT PREVIOUSLY VOTED FOR THIS BUG
+    USER CAN ONLY VOTE ONCE FOR EACH BUG
     """
+    # GET LIST OF BUGS THIS USER HAS VOTED FOR
+    user_votes = BugVotes.objects.filter(voter=request.user)
+    # GET THE CURRENT BUG ID
+    current_bug_id = int(pk)
+    # SET GLOBAL VAR TO SEND TO FRONT END
+    novote = False
+    # LOOP THROUGH LIST TO CHECK FOR CURRENT BUG
+    for bug in user_votes:
+        if bug.bug_id == current_bug_id:
+            novote = True
+
     # GET SPECIFIC BUGS BY ITS' ID
     bug = get_object_or_404(Bug, pk=pk)
     # INCREASE VIEW COUNT BY 1
@@ -86,15 +114,10 @@ def bug_detail(request, pk):
     else:
         form = BugCommentForm()
 
-    return render(request, "bugdetail.html", {'bug': bug, 'bugcomments': bugcomments, 'comment_form': form})
-
-
-def create_ref():
-    """
-    Create custom reference number for Bugs using random letters and numbers
-    Bug-xxxxx
-    """
-    return str("Bug-")+str(uuid4())[:5]
+    return render(request, "bugdetail.html", {'bug': bug,
+                                              'bugcomments': bugcomments,
+                                              'comment_form': form,
+                                              'novote': novote})
 
 
 @login_required
@@ -127,12 +150,21 @@ def create_or_edit_bug(request, pk=None):
 @login_required
 def vote_bug(request, pk):
     """
-    Vote up a bug
+    Vote up a bug.
+    Then record bug id and user id to track whether a user
+    has voted for a bug
+    User can only vote for a bug once
     """
-    # GET BUG BY ID (PK)
+    # USER HAS NOT ALREADY VOTED FOR THIS BUG
     bug = get_object_or_404(Bug, pk=pk)
     bug.votes += 1
     bug.save()
+    # RECORD BUG AND USER
+    bugvote = BugVotes(
+        voter=request.user,
+        bug=bug
+    )
+    bugvote.save()
 
     return redirect(bug_detail, bug.pk)
 
@@ -212,14 +244,6 @@ def feature_detail(request, pk):
               'total_hours_needed': total_hours_needed}
     return render(request, "featuredetail.html", {'feature': feature, 'feature_orders': feature_orders,
                                                   'totals': totals, 'from_orders': from_orders, 'refering_order': refering_order})
-
-
-def create_feature_ref():
-    """
-    Create custom reference number for Features using random letters and numbers
-    Feat-xxxxx
-    """
-    return str("Feat-")+str(uuid4())[:5]
 
 
 @login_required

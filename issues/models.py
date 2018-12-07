@@ -87,3 +87,14 @@ class Feature(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BugVotes(models.Model):
+    """
+    Tracking users who vote for bugs
+    """
+    bug = models.ForeignKey(Bug, default=None, on_delete=models.CASCADE)
+    voter = models.ForeignKey(User, default=None)
+
+    def __str__(self):
+        return self.bug
