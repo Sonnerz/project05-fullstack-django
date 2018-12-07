@@ -329,7 +329,7 @@ Menu options:
 *   Hours set to 2 (readonly)
 
 
-**PAGE :: Bug detail page (/issues/<bug-id>/)**
+**PAGE :: Bug detail page (/issues/&#60;bug-id&#62;/)**
 
 The page will list the bug details.
 It also displays a paginated list of comments added by users about this bug. 
@@ -340,7 +340,7 @@ Menu options:
 *   Admin Edit if the user is an admin
 
 
-**PAGE ::  Feature detail page (/issues/<feature-id>/features/)**
+**PAGE ::  Feature detail page (/issues/&#60;feature-id&#62;/features/)**
 
 The page will list all feature details. 
 Menu options:
@@ -392,7 +392,7 @@ The page will allow a user to add a blog post.
 *   Tag
 *   Published date (readonly)
 
-**PAGE ::  Blog (/blog/<blog_id>/)**
+**PAGE ::  Blog (/blog/&#60;blog_id&#62;/)**
 
 The page displays a blog post contents. 
 *   Title
