@@ -22,8 +22,9 @@ def acc_index(request):
     bugs = Bug.objects.filter(published_date__lte=timezone.now
                               ()).order_by('-published_date')[:5]
     # GET 5 MOST RECENT FEATURES REQUESTED
-    features = Feature.objects.filter(published_date__lte=timezone.now
-                                      ()).order_by('-published_date')[:5]
+    features = Feature.objects.filter(
+        ~Q(status='Pending Payment')).order_by('-published_date')[:5]
+
     # GET CURRENT USERS SUBMITTED BUGS OR REQUESTED FEATURES
     user_bugs = Bug.objects.filter(
         author_id=user.id).order_by('-published_date')[:5]
