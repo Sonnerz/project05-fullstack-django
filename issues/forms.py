@@ -37,7 +37,14 @@ class AdminFeatureForm(forms.ModelForm):
     class Meta:
         model = Feature
         fields = ('title', 'details', 'tag',
-                  'published_date', 'status', 'dev_hours_req')
+                  'published_date', 'status', 'dev_hours_req', 'is_new')
+        widgets = {
+            'dev_hours_req': forms.TextInput(attrs={'placeholder': 'Hours required to develop the feature'}),
+        }
+        labels = {
+            "is_new": ("Is this a new feature?"),
+            "dev_hours_req": ("Development hours required")
+        }
 
 
 class BugCommentForm(forms.ModelForm):

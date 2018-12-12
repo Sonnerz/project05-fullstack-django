@@ -80,7 +80,7 @@
     <div class="mt-3 mb-2 messages-wrapper">
         {% for message in messages %}
         <div class="text-right messages alert-danger boldtext pr-5">{{ message }}
-            <button type="button" class="close-message btn px-0 py-0 ml-2">&times;</button>
+            <button type="button" class="close-message alert-danger btn px-0 py-0 ml-2">X</button>
         </div>
         {% endfor %}
     </div>
@@ -106,7 +106,7 @@
                         <a href="{% url 'new_feature' %}" class="btn btn-primary issues-button"><i class="fas fa-plus-square"></i>
                             Request a Feature</a>
                     </li>
-                    <!-- IF USER IS A MEMBER OF SITECONTENTADMIN GROUP -->
+                    <!-- IF USER IS A MEMBER OF SITECONTENTADMIN GROUP OR -->
                     <!-- IF USER IS A SUPERUSER -->
                     {% if request.user|has_group:"SiteContentAdmin" or user.is_superuser %}
                     <li class="list-group-item d-flex justify-content-between align-items-center">

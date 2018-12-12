@@ -283,6 +283,7 @@ def new_feature(request):
             feature = form.save(commit=False)
             feature.author = request.user
             feature.ref = create_ref('f')
+            feature.is_new = True
             feature.save()
             # GET THIS FEATURE ID BASED ON REF JUST CREATED - feature.ref = create_feature_ref()
             this_feature = Feature.objects.filter(ref=feature.ref)

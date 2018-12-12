@@ -68,10 +68,19 @@ def checkout(request):
                     # if feature has past orders, total the hours
                     for orders in feature_orders:
                         total_hrs_bought += orders.quantity
+                        # if total hours bought are two
                         if total_hrs_bought == 2:
                             feature.status = "Under Review"
-                        elif total_hrs_bought >= feature.dev_hours_req:
+                        # in the event that a user buys more than 2 hours on new feature request form
+                        # if total hours bought >= dev hours required AND
+                        # the feature is new
+                        elif total_hrs_bought >= feature.dev_hours_req and feature.is_new == True:
+                            feature.status = "Under Review"
+                        # if total hours bought >= dev hours required AND
+                        # the feature is NOT new
+                        elif total_hrs_bought >= feature.dev_hours_req and feature.is_new == False:
                             feature.status = "Under Development"
+                            print("3")
                         else:
                             feature.status = "Target not Reached"
                     feature.save()

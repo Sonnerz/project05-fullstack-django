@@ -73,6 +73,13 @@ html {
     background: linear-gradient(#333, #4E5D6C);
 }
 
+.close-message {
+    background-color: transparent;
+    font-weight: bold;
+    vertical-align: top;
+    border: 0;
+}
+
 /* LAYOUT CSS */
 
 .links-col {

@@ -406,6 +406,32 @@ Menu options:
 *   Delete the post if the user authored the post
 *   Comment on post – everyone
 
+**PAGE ::  Admin Edit (/issues/&#60;_id&#62;/admin_edit/?type=)**
+
+The page displays a bug or feature contents. 
+It is determined by the param 'type' passed in the url.
+b = bug
+f = feature
+*   Title
+*   Content
+*   Image
+*   Tag
+*   Published date (readonly)
+*   Status
+*   Development hours required (feature form)
+*   Is this a new feature? (feature form)
+
+**PAGE ::  Super Admin Edit (/issues/superadmin)**
+
+The page displays a list of reported comments. 
+The admin can hide the comment from users or 'unreport' the comment.
+
+
+**PAGE ::  Super Admin Edit (/blog/superadmin)**
+
+The page displays a list of reported comments. 
+The admin can hide the comment from users or 'unreport' the comment.
+
 **Navigation**
 
 The navbar will be available to users at the top of the application on every page.<br>
