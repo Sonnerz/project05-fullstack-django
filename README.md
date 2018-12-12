@@ -152,7 +152,8 @@ Sonya has a Mentor available to her throughout the development of the applicatio
 
 ### Website development Roadmap
 The UXD will be driven by the API data and user needs.
-|**Define**|Requirements gathering, SEO, Research Competitors,  Content Strategy – Personas, Interesting Content.|
+
+|**Define**|Requirements gathering, SEO, Research Competitors, Content Strategy – Personas, Interesting Content.|
 |:---|:---|
 |**Design**|Information architecture, Functional & technical requirements, Navigation design, Wireframes, UX/UI, Pages, Branding, style guides, mock-ups.|
 |**Develop**|Look & feel, Design and Development, Build, Version control, Testing, Deploy, Read Me|
@@ -652,6 +653,7 @@ The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were t
 *   PyLint was also installed and used
 *   All the functions in custom_scripts.js were validated on http://jshint.com/
 This site is a tool that helps to detect errors and potential problems in JavaScript code.
+*   Travis CI is run after every git push to test the build
 
 #### During development:
 *   print() was used extensively for viewing returned data and testing. 
@@ -662,6 +664,7 @@ This site is a tool that helps to detect errors and potential problems in JavaSc
 
 #### Development/Defensive Design Testing
 Testing was carried out continuously while developing the app. New functionality was tested in the browser until it was working as expected.
+All styling updates and layout changes were tested using Chrome dev tools. The device toolbar was used to test that all updates were responsive and the pages looked as expected in a variety of devices and resolutions.
 
 As per the Defensive Design Strategy described in the Strategy Plan, all form inputs are checked for empty values. Users are messaged if they click a submit button without providing text.
 
@@ -704,6 +707,10 @@ Debug mode was set to False to test 500 and 404 errors.
     -  This was related to the issue 3. The button was pushing the burger off screen
 5) Don't know what status user filtered by
     -  Change the view code to get the request status and passed it back to the page as a variable. This gives user feedback.
+6)  Users expected titles of bugs and features to be clickable
+    - made bug and feature titles clickable in addition to View button
+7)  Users tried to close the messages bar
+    - I added a close (X) button to the messages bar for users to click closed
 
 
 ### Unit Testing
