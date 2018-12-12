@@ -2,8 +2,6 @@
 [![Build Status](https://travis-ci.org/Sonnerz/project05-fullstack-django.svg?branch=master)](https://travis-ci.org/Sonnerz/project05-fullstack-django)
 
 
-[![Coverage Status](https://coveralls.io/repos/github/Sonnerz/project05-fullstack-django/badge.svg)](https://coveralls.io/github/Sonnerz/project05-fullstack-django)
-
 
 # The CAM-PAL Issue Tracker
 
